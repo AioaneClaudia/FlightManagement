@@ -1,0 +1,25 @@
+package com.example.flightmanagement.service;
+
+import com.example.flightmanagement.model.AirlineEmployee;
+import com.example.flightmanagement.repository.AirlineEmployeeRepository;
+import java.util.List;
+
+public class AirlineEmployeeService {
+    private AirlineEmployeeRepository employeeRepository = new AirlineEmployeeRepository();
+
+    public void addEmployee(AirlineEmployee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public List<AirlineEmployee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    public AirlineEmployee getEmployeeById(String id) {
+        return employeeRepository.findById(id);
+    }
+
+    public void removeEmployee(String id) {
+        employeeRepository.delete(id);
+    }
+}
