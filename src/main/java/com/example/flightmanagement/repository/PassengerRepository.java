@@ -7,4 +7,5 @@ public class PassengerRepository extends InMemoryRepository<String, Passenger> {
     public PassengerRepository() {
         super();
     }
+    // poti adauga metode specifice dacă este nevoie
 }
