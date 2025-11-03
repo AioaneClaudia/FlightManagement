@@ -1,15 +1,39 @@
 package com.example.flightmanagement.controller;
 
+import com.example.flightmanagement.model.Passenger;
+import com.example.flightmanagement.service.PassengerService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/passengers")
 public class PassengerController {
 
-    @GetMapping("/passenger/test")
-    @ResponseBody
-    public String testPassengerController() {
-        return "PassengerController lauft!";
+    private final PassengerService passengerService = new PassengerService();
+
+    @GetMapping
+    public String getAllPassengers(Model model) {
+        model.addAttribute("passengers", passengerService.getAllPassengers());
+        return "passenger/index";
+    }
+
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("passenger", new Passenger("", "", ""));
+        return "passenger/form";
+    }
+
+    @PostMapping
+    public String addPassenger(@ModelAttribute Passenger passenger) {
+        passengerService.registerPassenger(passenger);
+        return "redirect:/passengers";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deletePassenger(@PathVariable String id) {
+        passengerService.removePassenger(id);
+        return "redirect:/passengers";
     }
 }
+

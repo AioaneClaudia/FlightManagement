@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Flights</title>
 </head>
 <body>
-
+<h1>All Flights</h1>
+<a href="/flights/new">Add New Flight</a>
+<table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="flight : ${flights}">
+        <td th:text="${flight.id}">ID</td>
+        <td th:text="${flight.origin}">Origin</td>
+        <td th:text="${flight.destination}">Destination</td>
+        <td th:text="${flight.price}">Price</td>
+        <td>
+            <form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
