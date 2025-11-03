@@ -2,8 +2,11 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirlineEmployee;
 import com.example.flightmanagement.repository.AirlineEmployeeRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class AirlineEmployeeService {
     private AirlineEmployeeRepository employeeRepository = new AirlineEmployeeRepository();
 

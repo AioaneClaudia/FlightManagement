@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Assignments</title></head>
 <body>
-
+<h2>Flight Assignments</h2>
+<a href="/assignments/new">Add new</a>
+<table border="1">
+    <thead><tr><th>ID</th><th>FlightId</th><th>StaffId</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr th:each="a : ${assignments}">
+        <td th:text="${a.id}">id</td>
+        <td th:text="${a.flightId}">fid</td>
+        <td th:text="${a.staffId}">sid</td>
+        <td>
+            <form th:action="@{'/assignments/' + ${a.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>New Staff</title></head>
 <body>
-
+<h2>New Staff (AirlineEmployee used as example)</h2>
+<form th:action="@{/staffs}" th:object="${staff}" method="post">
+    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
+    <label>Name: <input type="text" th:field="*{name}"/></label><br/>
+    <label>Role (for AirlineEmployee): <input type="text" th:field="*{role}"/></label><br/>
+    <button type="submit">Create</button>
+</form>
 </body>
 </html>

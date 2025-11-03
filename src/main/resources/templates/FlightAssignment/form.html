@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>New Assignment</title></head>
 <body>
-
+<h2>New Assignment</h2>
+<form th:action="@{/assignments}" th:object="${assignment}" method="post">
+    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
+    <label>FlightId: <input type="text" th:field="*{flightId}"/></label><br/>
+    <label>StaffId: <input type="text" th:field="*{staffId}"/></label><br/>
+    <button type="submit">Create</button>
+</form>
 </body>
 </html>

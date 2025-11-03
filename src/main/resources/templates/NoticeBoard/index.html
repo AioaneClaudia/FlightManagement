@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>NoticeBoards</title></head>
 <body>
-
+<h2>NoticeBoards</h2>
+<a href="/noticeboards/new">Add new</a>
+<table border="1">
+    <thead><tr><th>ID</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+    <tr th:each="b : ${boards}">
+        <td th:text="${b.id}">id</td>
+        <td th:text="${b.date}">date</td>
+        <td>
+            <form th:action="@{'/noticeboards/' + ${b.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
