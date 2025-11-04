@@ -19,7 +19,7 @@ public class AirlineEmployeeController {
     // GET /employees - afișează toți angajații
     @GetMapping
     public String getAllEmployees(Model model) {
-        model.addAttribute("airlineemployees", employeeService.getAllEmployees());
+        model.addAttribute("employees", employeeService.getAllEmployees());
         return "airlineemployee/index";
     }
 

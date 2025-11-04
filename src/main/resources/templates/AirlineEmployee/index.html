@@ -20,12 +20,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employee : ${airlineemployees}">
+    <tr th:each="employee : ${employees}">
         <td th:text="${employee.id}">ID</td>
         <td th:text="${employee.name}">Name</td>
         <td th:text="${employee.role}">Role</td>
         <td>
-            <form th:action="@{'/employees/' + ${employee.id} + '/delete'}" method="post">
+            <form th:action="@{'/airlineemployees/' + ${employee.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
