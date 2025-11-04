@@ -2,6 +2,7 @@ package com.example.flightmanagement.repository;
 
 import java.util.List;
 
+//id sa fie string
 public interface IRepository<ID, T> {
     void save(T entity);
     List<T> findAll();

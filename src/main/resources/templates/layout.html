@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${title}">Flight Management</title>
+</head>
+<body>
+<header>
+    <h1 th:text="${title}">Flight Management</h1>
+    <nav>
+        <a href="/airlineemployees">Airline Employees</a> |
+        <a href="/airplanes">Airplanes</a> |
+        <a href="/passengers">Passengers</a> |
+        <a href="/flights">Flights</a> |
+        <a href="/tickets">Tickets</a> |
+        <a href="/luggages">Luggages</a> |
+        <a href="/noticeboards">NoticeBoards</a> |
+        <a href="/assignments">Assignments</a> |
+        <a href="/airportemployees">AirportEmployees</a> |
+        <a href="/staffs">Staff</a>
+    </nav>
+    <hr/>
+</header>
+
+<div th:replace="${content}"></div>
+
+<footer>
+    <hr/>
+    <p>Flight Management — Demo</p>
+</footer>
+</body>
+</html>

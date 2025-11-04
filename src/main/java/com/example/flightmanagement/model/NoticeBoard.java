@@ -3,6 +3,7 @@ package com.example.flightmanagement.model;
 import java.util.ArrayList;
 import java.util.List;
 
+//modificare local date
 public class NoticeBoard {
     private String id;
     private String date;

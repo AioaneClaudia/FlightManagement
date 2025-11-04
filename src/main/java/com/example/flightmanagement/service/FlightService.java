@@ -26,11 +26,4 @@ public class FlightService {
         flightRepository.delete(id);
     }
 
-    // Beispiel-Logik: finde Flüge nach Datum
-    public List<Flight> getFlightsByDate(LocalDate date) {
-        return flightRepository.findAll().stream()
-                .filter(f -> f.getDepartureTime() != null &&
-                        f.getDepartureTime().toLocalDate().equals(date))
-                .collect(Collectors.toList());
-    }
 }

@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Airline Employees</title>
 </head>
 <body>
-<h2>Airline Employees</h2>
-<a href="/airlineemployees/new">Add new</a>
-<table border="1">
+<h1>All Airline Employees</h1>
+
+<a href="/airlineemployees/new">Add New Employee</a>
+
+
+<table border="1" cellpadding="5">
     <thead>
-    <tr><th>ID</th><th>Name</th><th>Role</th><th>Actions</th></tr>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-    <tr th:each="e : ${employees}">
-        <td th:text="${e.id}">id</td>
-        <td th:text="${e.name}">name</td>
-        <td th:text="${e.role}">role</td>
+    <tr th:each="employee : ${airlineemployees}">
+        <td th:text="${employee.id}">ID</td>
+        <td th:text="${employee.name}">Name</td>
+        <td th:text="${employee.role}">Role</td>
         <td>
-            <form th:action="@{'/airlineemployees/' + ${e.id} + '/delete'}" method="post">
+            <form th:action="@{'/employees/' + ${employee.id} + '/delete'}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

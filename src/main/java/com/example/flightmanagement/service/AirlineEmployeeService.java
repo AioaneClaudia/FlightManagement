@@ -2,13 +2,18 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirlineEmployee;
 import com.example.flightmanagement.repository.AirlineEmployeeRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;  // ← import lipsă
 
 import java.util.List;
 
 @Service
 public class AirlineEmployeeService {
-    private AirlineEmployeeRepository employeeRepository = new AirlineEmployeeRepository();
+
+    private final AirlineEmployeeRepository employeeRepository;
+
+    public AirlineEmployeeService(AirlineEmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     public void addEmployee(AirlineEmployee employee) {
         employeeRepository.save(employee);

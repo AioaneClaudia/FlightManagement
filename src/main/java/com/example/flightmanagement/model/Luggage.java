@@ -1,5 +1,6 @@
 package com.example.flightmanagement.model;
 
+//modificare enum
 public class Luggage {
     private String id;
     private String ticketId;
