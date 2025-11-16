@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AirplaneRepository extends InFileRepository<String, Airplane> {
     public AirplaneRepository() {
-        super("src/main/resources/data/airlineEmployees.json", Airplane.class);
+        super("src/main/resources/data/airplaneEmployees.json", Airplane.class);
     }
 }
