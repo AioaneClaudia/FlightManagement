@@ -1,11 +1,11 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.FlightAssignment;
+import org.springframework.stereotype.Repository;
 
-public class FlightAssignmentRepository extends InMemoryRepository<String, FlightAssignment> {
-
+@Repository
+public class FlightAssignmentRepository extends InFileRepository<String, FlightAssignment> {
     public FlightAssignmentRepository() {
-        super();
+        super("src/main/resources/data/flightAssignment.json", FlightAssignment.class);
     }
-
 }
