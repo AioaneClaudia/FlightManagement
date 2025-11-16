@@ -30,6 +30,25 @@ public class NoticeBoardController {
         return "redirect:/noticeboards";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("board", boardService.getNoticeBoardById(id));
+        return "noticeboard/form";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute NoticeBoard board) {
+        board.setId(id);
+        boardService.addNoticeBoard(board); // save = update
+        return "redirect:/noticeboards";
+    }
+
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("board", boardService.getNoticeBoardById(id));
+        return "noticeboard/details";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         boardService.removeNoticeBoard(id);

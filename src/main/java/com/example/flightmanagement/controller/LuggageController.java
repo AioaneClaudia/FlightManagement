@@ -30,6 +30,25 @@ public class LuggageController {
         return "redirect:/luggages";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("luggage", luggageService.getLuggageById(id));
+        return "luggage/form";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute Luggage luggage) {
+        luggage.setId(id);
+        luggageService.addLuggage(luggage); // save = update
+        return "redirect:/luggages";
+    }
+
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("luggage", luggageService.getLuggageById(id));
+        return "luggage/details";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         luggageService.removeLuggage(id);

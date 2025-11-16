@@ -3,10 +3,6 @@
   "ticketId" : "T003",
   "status" : "Delivered"
 }, {
-  "id" : "4",
-  "ticketId" : "35",
-  "status" : "loviw"
-}, {
   "id" : "L002",
   "ticketId" : "T002",
   "status" : "Loaded"

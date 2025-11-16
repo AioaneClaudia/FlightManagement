@@ -1,103 +1,82 @@
-[
-  {
-    "id": "FL1001",
-    "name": "Flight 1001",
-    "noticeBoardId": "NB001",
-    "airplaneId": "AP001",
-    "departureTime": "2025-12-01T08:00:00",
-    "arrivalTime": "2025-12-01T10:00:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1002",
-    "name": "Flight 1002",
-    "noticeBoardId": "NB002",
-    "airplaneId": "AP002",
-    "departureTime": "2025-12-01T09:30:00",
-    "arrivalTime": "2025-12-01T12:00:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1003",
-    "name": "Flight 1003",
-    "noticeBoardId": "NB003",
-    "airplaneId": "AP003",
-    "departureTime": "2025-12-01T11:00:00",
-    "arrivalTime": "2025-12-01T13:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1004",
-    "name": "Flight 1004",
-    "noticeBoardId": "NB004",
-    "airplaneId": "AP004",
-    "departureTime": "2025-12-01T14:00:00",
-    "arrivalTime": "2025-12-01T16:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1005",
-    "name": "Flight 1005",
-    "noticeBoardId": "NB005",
-    "airplaneId": "AP005",
-    "departureTime": "2025-12-01T15:45:00",
-    "arrivalTime": "2025-12-01T18:15:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1006",
-    "name": "Flight 1006",
-    "noticeBoardId": "NB006",
-    "airplaneId": "AP006",
-    "departureTime": "2025-12-02T07:30:00",
-    "arrivalTime": "2025-12-02T10:00:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1007",
-    "name": "Flight 1007",
-    "noticeBoardId": "NB007",
-    "airplaneId": "AP007",
-    "departureTime": "2025-12-02T09:00:00",
-    "arrivalTime": "2025-12-02T11:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1008",
-    "name": "Flight 1008",
-    "noticeBoardId": "NB008",
-    "airplaneId": "AP008",
-    "departureTime": "2025-12-02T12:00:00",
-    "arrivalTime": "2025-12-02T14:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1009",
-    "name": "Flight 1009",
-    "noticeBoardId": "NB009",
-    "airplaneId": "AP009",
-    "departureTime": "2025-12-02T15:00:00",
-    "arrivalTime": "2025-12-02T17:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  },
-  {
-    "id": "FL1010",
-    "name": "Flight 1010",
-    "noticeBoardId": "NB010",
-    "airplaneId": "AP010",
-    "departureTime": "2025-12-02T18:00:00",
-    "arrivalTime": "2025-12-02T20:30:00",
-    "tickets": [],
-    "flightAssignments": []
-  }
-]
-
+[ {
+  "id" : "FL1003",
+  "name" : "Flight 1003",
+  "noticeBoardId" : "NB003",
+  "airplaneId" : "AP003",
+  "departureTime" : "2025-12-01T11:00:00",
+  "arrivalTime" : "2025-12-01T13:30:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1006",
+  "name" : "Flight 1006",
+  "noticeBoardId" : "NB006",
+  "airplaneId" : "AP006",
+  "departureTime" : "2025-12-02T07:30:00",
+  "arrivalTime" : "2025-12-02T10:00:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1005",
+  "name" : "Flight 1005",
+  "noticeBoardId" : "NB005",
+  "airplaneId" : "AP005",
+  "departureTime" : "2025-12-01T15:45:00",
+  "arrivalTime" : "2025-12-01T18:15:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1008",
+  "name" : "Flight 1008",
+  "noticeBoardId" : "NB008",
+  "airplaneId" : "AP008",
+  "departureTime" : "2025-12-02T12:00:00",
+  "arrivalTime" : "2025-12-02T14:30:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1007",
+  "name" : "Flight 1007",
+  "noticeBoardId" : "NB007",
+  "airplaneId" : "AP007",
+  "departureTime" : "2025-12-02T09:00:00",
+  "arrivalTime" : "2025-12-02T11:30:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1009",
+  "name" : "Flight 1009",
+  "noticeBoardId" : "NB009",
+  "airplaneId" : "AP009",
+  "departureTime" : "2025-12-02T15:00:00",
+  "arrivalTime" : "2025-12-02T17:30:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1010",
+  "name" : "Flight 1010",
+  "noticeBoardId" : "NB010",
+  "airplaneId" : "AP010",
+  "departureTime" : "2025-12-02T18:00:00",
+  "arrivalTime" : "2025-12-02T20:30:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1002",
+  "name" : "Flight 1002",
+  "noticeBoardId" : "NB002",
+  "airplaneId" : "AP002",
+  "departureTime" : "2025-12-01T09:30:00",
+  "arrivalTime" : "2025-12-01T12:00:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+}, {
+  "id" : "FL1001",
+  "name" : "Flight 1001",
+  "noticeBoardId" : "NB001",
+  "airplaneId" : "AP001",
+  "departureTime" : "2025-12-01T08:00:00",
+  "arrivalTime" : "2025-12-01T10:00:00",
+  "tickets" : [ ],
+  "flightAssignments" : [ ]
+} ]

@@ -30,10 +30,28 @@ public class PassengerController {
         return "redirect:/passengers";
     }
 
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("passenger", passengerService.getPassengerById(id));
+        return "passenger/form";
+    }
+
+    @PostMapping("/{id}")
+    public String updatePassenger(@PathVariable String id, @ModelAttribute Passenger passenger) {
+        passenger.setId(id);
+        passengerService.registerPassenger(passenger);
+        return "redirect:/passengers";
+    }
+
+    @GetMapping("/{id}/details")
+    public String showPassengerDetails(@PathVariable String id, Model model) {
+        model.addAttribute("passenger", passengerService.getPassengerById(id));
+        return "passenger/details";
+    }
+
     @PostMapping("/{id}/delete")
     public String deletePassenger(@PathVariable String id) {
         passengerService.removePassenger(id);
         return "redirect:/passengers";
     }
 }
-

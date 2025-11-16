@@ -1,26 +1,22 @@
-[
-  {
-    "id": "P001",
-    "name": "Alice Popescu",
-    "currency": "EUR",
-    "email": "alice.popescu@example.com",
-    "dateOfBirth": "1990-05-12",
-    "tickets": []
-  },
-  {
-    "id": "P002",
-    "name": "Bogdan Ionescu",
-    "currency": "USD",
-    "email": "bogdan.ionescu@example.com",
-    "dateOfBirth": "1985-08-23",
-    "tickets": []
-  },
-  {
-    "id": "P003",
-    "name": "Claudia Marin",
-    "currency": "RON",
-    "email": "claudia.marin@example.com",
-    "dateOfBirth": "1995-11-16",
-    "tickets": []
-  }
-]
+[ {
+  "id" : "P001",
+  "name" : "Alice Popescu",
+  "currency" : "EUR",
+  "email" : "alice.popescu@example.com",
+  "dateOfBirth" : "2025-11-06",
+  "tickets" : [ ]
+}, {
+  "id" : "P003",
+  "name" : "Claudia Marin",
+  "currency" : "RON",
+  "email" : "claudia.marin@example.com",
+  "dateOfBirth" : "1995-11-16",
+  "tickets" : [ ]
+}, {
+  "id" : "P002",
+  "name" : "Bogdan Ionescu",
+  "currency" : "USD",
+  "email" : "bogdan.ionescu@example.com",
+  "dateOfBirth" : "1985-08-23",
+  "tickets" : [ ]
+} ]

@@ -30,13 +30,15 @@
         <td th:text="${flight.departureTime}">Departure</td>
         <td th:text="${flight.arrivalTime}">Arrival</td>
         <td>
-            <form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post">
+            <a th:href="@{'/flights/' + ${flight.id}}">Details</a>
+            <a th:href="@{'/flights/' + ${flight.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
+
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

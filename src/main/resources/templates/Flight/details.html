@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Details</title>
+</head>
+<body>
+<h1>Flight Details</h1>
+
+<p><strong>ID:</strong> <span th:text="${flight.id}"></span></p>
+<p><strong>Name:</strong> <span th:text="${flight.name}"></span></p>
+<p><strong>Notice Board ID:</strong> <span th:text="${flight.noticeBoardId}"></span></p>
+<p><strong>Airplane ID:</strong> <span th:text="${flight.airplaneId}"></span></p>
+<p><strong>Departure Time:</strong> <span th:text="${flight.departureTime}"></span></p>
+<p><strong>Arrival Time:</strong> <span th:text="${flight.arrivalTime}"></span></p>
+
+<a href="/flights">Back to list</a>
+<form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post" style="display:inline">
+    <button type="submit">Delete</button>
+</form>
+
+</body>
+</html>

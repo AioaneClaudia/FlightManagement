@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New Luggage</title></head>
+<head><meta charset="UTF-8"/><title>Luggage Form</title></head>
 <body>
-<h2>New Luggage</h2>
-<form th:action="@{/luggages}" th:object="${luggage}" method="post">
-    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
-    <label>TicketId: <input type="text" th:field="*{ticketId}"/></label><br/>
-    <label>Status: <input type="text" th:field="*{status}"/></label><br/>
-    <button type="submit">Create</button>
+
+<h2 th:text="${luggage.id} != '' ? 'Edit Luggage' : 'New Luggage'"></h2>
+
+<form th:action="@{${luggage.id} != '' ? '/luggages/' + ${luggage.id} : '/luggages'}"
+      th:object="${luggage}" method="post">
+
+    <label>ID:
+        <input type="text" th:field="*{id}" th:readonly="${luggage.id} != ''"/>
+    </label><br/>
+
+    <label>TicketId:
+        <input type="text" th:field="*{ticketId}"/>
+    </label><br/>
+
+    <label>Status:
+        <input type="text" th:field="*{status}"/>
+    </label><br/>
+
+    <button type="submit" th:text="${luggage.id} != '' ? 'Update' : 'Create'"></button>
+
 </form>
+
+<a href="/luggages">Back to list</a>
+
 </body>
 </html>

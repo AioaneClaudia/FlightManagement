@@ -35,5 +35,26 @@ public class FlightController {
         flightService.removeFlight(id);
         return "redirect:/flights";
     }
-}
 
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        Flight flight = flightService.getFlightById(id);
+        model.addAttribute("flight", flight);
+        return "flight/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Flight flight = flightService.getFlightById(id);
+        model.addAttribute("flight", flight);
+        return "flight/form"; // putem folosi același form.html
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateFlight(@PathVariable String id, @ModelAttribute Flight flight) {
+        flight.setId(id); // ne asigurăm că ID-ul rămâne același
+        flightService.addFlight(flight); // suprascriem entitatea existentă
+        return "redirect:/flights";
+    }
+
+}

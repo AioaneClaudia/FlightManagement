@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Passenger Details</title>
+</head>
+<body>
+
+<h2>Passenger Details</h2>
+
+<p><strong>ID:</strong> <span th:text="${passenger.id}"></span></p>
+<p><strong>Name:</strong> <span th:text="${passenger.name}"></span></p>
+<p><strong>Currency:</strong> <span th:text="${passenger.currency}"></span></p>
+<p><strong>Email:</strong> <span th:text="${passenger.email}"></span></p>
+<p><strong>Date of Birth:</strong> <span th:text="${passenger.dateOfBirth}"></span></p>
+
+<a th:href="@{'/passengers/' + ${passenger.id} + '/edit'}">Edit</a>
+<a href="/passengers">Back to list</a>
+
+</body>
+</html>

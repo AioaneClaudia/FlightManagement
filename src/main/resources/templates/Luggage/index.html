@@ -12,10 +12,14 @@
         <td th:text="${l.ticketId}">tid</td>
         <td th:text="${l.status}">status</td>
         <td>
-            <form th:action="@{'/luggages/' + ${l.id} + '/delete'}" method="post">
+            <a th:href="@{'/luggages/' + ${l.id} + '/details'}">Details</a>
+            <a th:href="@{'/luggages/' + ${l.id} + '/edit'}">Edit</a>
+
+            <form th:action="@{'/luggages/' + ${l.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
+
     </tr>
     </tbody>
 </table>

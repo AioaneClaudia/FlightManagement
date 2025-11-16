@@ -4,22 +4,38 @@
 <body>
 <h2>Tickets</h2>
 <a href="/tickets/new">Add new</a>
+
 <table border="1">
-    <thead><tr><th>ID</th><th>PassengerId</th><th>FlightId</th><th>Price</th><th>Seat</th><th>Actions</th></tr></thead>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>PassengerId</th>
+        <th>FlightId</th>
+        <th>Price</th>
+        <th>Seat</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
     <tbody>
     <tr th:each="t : ${tickets}">
-        <td th:text="${t.id}">id</td>
-        <td th:text="${t.passengerId}">pid</td>
-        <td th:text="${t.flightId}">fid</td>
-        <td th:text="${t.price}">price</td>
-        <td th:text="${t.seatNumber}">seat</td>
+        <td th:text="${t.id}"></td>
+        <td th:text="${t.passengerId}"></td>
+        <td th:text="${t.flightId}"></td>
+        <td th:text="${t.price}"></td>
+        <td th:text="${t.seatNumber}"></td>
+
         <td>
-            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}" method="post">
+            <a th:href="@{'/tickets/' + ${t.id} + '/details'}">Details</a>
+            <a th:href="@{'/tickets/' + ${t.id} + '/edit'}">Edit</a>
+
+            <form th:action="@{'/tickets/' + ${t.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

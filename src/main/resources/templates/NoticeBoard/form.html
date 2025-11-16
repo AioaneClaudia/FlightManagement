@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New NoticeBoard</title></head>
+<head><meta charset="UTF-8"/><title>NoticeBoard Form</title></head>
 <body>
-<h2>New NoticeBoard</h2>
-<form th:action="@{/noticeboards}" th:object="${board}" method="post">
-    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
-    <label>Date (text): <input type="text" th:field="*{date}"/></label><br/>
-    <button type="submit">Create</button>
+
+<h2 th:text="${board.id} != '' ? 'Edit NoticeBoard' : 'New NoticeBoard'"></h2>
+
+<form th:action="@{${board.id} != '' ? '/noticeboards/' + ${board.id} : '/noticeboards'}"
+      th:object="${board}" method="post">
+
+    <label>ID:
+        <input type="text" th:field="*{id}" th:readonly="${board.id} != ''"/>
+    </label><br/>
+
+    <label>Date (text):
+        <input type="text" th:field="*{date}"/>
+    </label><br/>
+
+    <button type="submit" th:text="${board.id} != '' ? 'Update' : 'Create'"></button>
 </form>
+
+<a href="/noticeboards">Back to list</a>
+
 </body>
 </html>

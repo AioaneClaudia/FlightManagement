@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Luggage Details</title></head>
+<body>
+
+<h2>Luggage Details</h2>
+
+<p><strong>ID:</strong> <span th:text="${luggage.id}"></span></p>
+<p><strong>TicketId:</strong> <span th:text="${luggage.ticketId}"></span></p>
+<p><strong>Status:</strong> <span th:text="${luggage.status}"></span></p>
+
+<a th:href="@{'/luggages/' + ${luggage.id} + '/edit'}">Edit</a>
+<a href="/luggages">Back to list</a>
+
+<form th:action="@{'/luggages/' + ${luggage.id} + '/delete'}" method="post" style="display:inline">
+    <button type="submit">Delete</button>
+</form>
+
+</body>
+</html>

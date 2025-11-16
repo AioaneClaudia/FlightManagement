@@ -1,26 +1,22 @@
-[
-  {
-    "id": "T1",
-    "passengerId": "P1",
-    "flightId": "F1",
-    "price": 199.99,
-    "seatNumber": "12A",
-    "luggages": []
-  },
-  {
-    "id": "T2",
-    "passengerId": "P2",
-    "flightId": "F3",
-    "price": 250.00,
-    "seatNumber": "7C",
-    "luggages": []
-  },
-  {
-    "id": "T3",
-    "passengerId": "P1",
-    "flightId": "F2",
-    "price": 180.50,
-    "seatNumber": "15D",
-    "luggages": []
-  }
-]
+[ {
+  "id" : "T1",
+  "passengerId" : "P1",
+  "flightId" : "F1",
+  "price" : 199.99,
+  "seatNumber" : "12A",
+  "luggages" : [ ]
+}, {
+  "id" : "T2",
+  "passengerId" : "P2",
+  "flightId" : "F3",
+  "price" : 250.0,
+  "seatNumber" : "7C",
+  "luggages" : [ ]
+}, {
+  "id" : "T3",
+  "passengerId" : "P1",
+  "flightId" : "F2",
+  "price" : 180.5,
+  "seatNumber" : "15D",
+  "luggages" : [ ]
+} ]

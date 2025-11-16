@@ -11,7 +11,10 @@
         <td th:text="${b.id}">id</td>
         <td th:text="${b.date}">date</td>
         <td>
-            <form th:action="@{'/noticeboards/' + ${b.id} + '/delete'}" method="post">
+            <a th:href="@{'/noticeboards/' + ${b.id} + '/details'}">Details</a>
+            <a th:href="@{'/noticeboards/' + ${b.id} + '/edit'}">Edit</a>
+
+            <form th:action="@{'/noticeboards/' + ${b.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>

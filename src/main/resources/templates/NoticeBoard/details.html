@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>NoticeBoard Details</title></head>
+<body>
+
+<h2>NoticeBoard Details</h2>
+
+<p><strong>ID:</strong> <span th:text="${board.id}"></span></p>
+<p><strong>Date:</strong> <span th:text="${board.date}"></span></p>
+
+<h3>Flights of the Day</h3>
+<ul>
+    <li th:each="f : ${board.flightsOfTheDay}" th:text="${f.id} + ' - ' + ${f.destination}"></li>
+</ul>
+
+<a th:href="@{'/noticeboards/' + ${board.id} + '/edit'}">Edit</a>
+<a href="/noticeboards">Back to list</a>
+
+<form th:action="@{'/noticeboards/' + ${board.id} + '/delete'}" method="post" style="display:inline">
+    <button type="submit">Delete</button>
+</form>
+
+</body>
+</html>

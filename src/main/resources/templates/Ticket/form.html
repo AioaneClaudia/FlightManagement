@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New Ticket</title></head>
+<head><meta charset="UTF-8"/><title>Ticket Form</title></head>
 <body>
-<h2>New Ticket</h2>
-<form th:action="@{/tickets}" th:object="${ticket}" method="post">
-    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
-    <label>PassengerId: <input type="text" th:field="*{passengerId}"/></label><br/>
-    <label>FlightId: <input type="text" th:field="*{flightId}"/></label><br/>
-    <label>Price: <input type="number" step="0.01" th:field="*{price}"/></label><br/>
-    <label>SeatNumber: <input type="text" th:field="*{seatNumber}"/></label><br/>
-    <button type="submit">Create</button>
+<h2 th:text="${ticket.id} != '' ? 'Edit Ticket' : 'New Ticket'"></h2>
+
+<form th:action="@{${ticket.id} != '' ? '/tickets/' + ${ticket.id} : '/tickets'}"
+      th:object="${ticket}" method="post">
+
+    <label>ID:
+        <input type="text" th:field="*{id}" th:readonly="${ticket.id} != ''"/>
+    </label><br/>
+
+    <label>PassengerId:
+        <input type="text" th:field="*{passengerId}"/>
+    </label><br/>
+
+    <label>FlightId:
+        <input type="text" th:field="*{flightId}"/>
+    </label><br/>
+
+    <label>Price:
+        <input type="number" step="0.01" th:field="*{price}"/>
+    </label><br/>
+
+    <label>SeatNumber:
+        <input type="text" th:field="*{seatNumber}"/>
+    </label><br/>
+
+    <button type="submit" th:text="${ticket.id} != '' ? 'Update' : 'Create'"></button>
 </form>
+
 </body>
 </html>
