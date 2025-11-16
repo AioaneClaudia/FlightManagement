@@ -30,6 +30,25 @@ public class FlightAssignmentController {
         return "redirect:/assignments";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("assignment", assignmentService.getAssignmentById(id));
+        return "assignment/form";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute FlightAssignment assignment) {
+        assignment.setId(id);
+        assignmentService.addAssignment(assignment); // suprascrie
+        return "redirect:/assignments";
+    }
+
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("assignment", assignmentService.getAssignmentById(id));
+        return "assignment/details";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         assignmentService.removeAssignment(id);

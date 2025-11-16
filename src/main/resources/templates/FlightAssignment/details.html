@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Assignment Details</title></head>
+<body>
+<h2>Flight Assignment Details</h2>
+
+<p><b>ID:</b> <span th:text="${assignment.id}"></span></p>
+<p><b>Flight ID:</b> <span th:text="${assignment.flightId}"></span></p>
+<p><b>Staff ID:</b> <span th:text="${assignment.staffId}"></span></p>
+
+<a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a> |
+<a href="/assignments">Back to list</a>
+</body>
+</html>

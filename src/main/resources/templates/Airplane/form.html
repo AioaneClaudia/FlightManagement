@@ -2,28 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Airplane</title>
+    <title>Airplane Form</title>
 </head>
 <body>
-<h1>Add New Airplane</h1>
+<h2 th:text="${airplane.id != '' ? 'Edit Airplane' : 'New Airplane'}"></h2>
 
-<form th:action="@{/airplanes}" th:object="${airplane}" method="post">
+<form th:action="@{${airplane.id} != '' ? '/airplanes/' + ${airplane.id} : '/airplanes'}"
+      th:object="${airplane}" method="post">
+
     <label>ID:</label>
-    <input type="text" th:field="*{id}" required><br><br>
+    <input type="text" th:field="*{id}" th:readonly="${airplane.id} != ''"/><br/><br/>
 
     <label>Number:</label>
-    <input type="number" th:field="*{number}" required><br><br>
+    <input type="number" th:field="*{number}" required/><br/><br/>
 
     <label>Model:</label>
-    <input type="text" th:field="*{model}" required><br><br>
+    <input type="text" th:field="*{model}" required/><br/><br/>
 
     <label>Capacity:</label>
-    <input type="number" th:field="*{capacity}" required><br><br>
+    <input type="number" th:field="*{capacity}" required/><br/><br/>
 
-    <button type="submit">Add</button>
+    <button type="submit" th:text="${airplane.id != '' ? 'Update' : 'Create'}"></button>
 </form>
 
 <a href="/airplanes">Back to list</a>
-
 </body>
 </html>

@@ -5,12 +5,10 @@
     <title>Airline Employees</title>
 </head>
 <body>
-<h1>All Airline Employees</h1>
-
+<h2>All Airline Employees</h2>
 <a href="/airlineemployees/new">Add New Employee</a>
 
-
-<table border="1" cellpadding="5">
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -20,18 +18,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employee : ${employees}">
-        <td th:text="${employee.id}">ID</td>
-        <td th:text="${employee.name}">Name</td>
-        <td th:text="${employee.role}">Role</td>
+    <tr th:each="e : ${employees}">
+        <td th:text="${e.id}">ID</td>
+        <td th:text="${e.name}">Name</td>
+        <td th:text="${e.role}">Role</td>
         <td>
-            <form th:action="@{'/airlineemployees/' + ${employee.id} + '/delete'}" method="post">
+            <a th:href="@{'/airlineemployees/' + ${e.id} + '/details'}">Details</a>
+            <a th:href="@{'/airlineemployees/' + ${e.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/airlineemployees/' + ${e.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

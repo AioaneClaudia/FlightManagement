@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Airplane Details</title>
+</head>
+<body>
+<h2>Airplane Details</h2>
+
+<p><b>ID:</b> <span th:text="${airplane.id}"></span></p>
+<p><b>Number:</b> <span th:text="${airplane.number}"></span></p>
+<p><b>Model:</b> <span th:text="${airplane.model}"></span></p>
+<p><b>Capacity:</b> <span th:text="${airplane.capacity}"></span></p>
+
+<a th:href="@{'/airplanes/' + ${airplane.id} + '/edit'}">Edit</a> |
+<a href="/airplanes">Back to list</a>
+</body>
+</html>

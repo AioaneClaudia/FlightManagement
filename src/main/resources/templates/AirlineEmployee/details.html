@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Employee Details</title>
+</head>
+<body>
+<h2>Employee Details</h2>
+
+<p><b>ID:</b> <span th:text="${employee.id}"></span></p>
+<p><b>Name:</b> <span th:text="${employee.name}"></span></p>
+<p><b>Role:</b> <span th:text="${employee.role}"></span></p>
+
+<a th:href="@{'/airlineemployees/' + ${employee.id} + '/edit'}">Edit</a> |
+<a href="/airlineemployees">Back to list</a>
+</body>
+</html>

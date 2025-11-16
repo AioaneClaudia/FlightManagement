@@ -10,35 +10,55 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/airplanes")
 public class AirplaneController {
 
-    private final AirplaneService airplaneService = new AirplaneService();
+    private final AirplaneService service = new AirplaneService();
 
-    // GET all - afișează lista de avioane
+    // List all airplanes
     @GetMapping
-    public String getAllAirplanes(Model model) {
-        model.addAttribute("airplanes", airplaneService.getAllAirplanes());
+    public String list(Model model) {
+        model.addAttribute("airplanes", service.getAllAirplanes());
         return "airplane/index";
     }
 
-    // GET /airplanes/new - afișează formularul de creare
+    // Show form for new airplane
     @GetMapping("/new")
-    public String showCreateForm(Model model) {
+    public String form(Model model) {
         model.addAttribute("airplane", new Airplane("", 0, "", 0));
         return "airplane/form";
     }
 
-    // POST /airplanes - procesează formularul și adaugă avionul
+    // Create new airplane
     @PostMapping
-    public String addAirplane(@ModelAttribute Airplane airplane) {
-        airplaneService.addAirplane(airplane);
+    public String create(@ModelAttribute Airplane airplane) {
+        service.addAirplane(airplane);
         return "redirect:/airplanes";
     }
 
-    // POST /airplanes/{id}/delete - șterge avionul cu id-ul dat
+    // Show form for editing airplane
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("airplane", service.getAirplaneById(id));
+        return "airplane/form";
+    }
+
+    // Update airplane
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute Airplane airplane) {
+        airplane.setId(id);
+        service.addAirplane(airplane); // save will overwrite existing airplane
+        return "redirect:/airplanes";
+    }
+
+    // Show details of airplane
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("airplane", service.getAirplaneById(id));
+        return "airplane/details";
+    }
+
+    // Delete airplane
     @PostMapping("/{id}/delete")
-    public String deleteAirplane(@PathVariable String id) {
-        airplaneService.removeAirplane(id);
+    public String delete(@PathVariable String id) {
+        service.removeAirplane(id);
         return "redirect:/airplanes";
     }
 }
-
-

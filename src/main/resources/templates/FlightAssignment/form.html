@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New Assignment</title></head>
+<head><meta charset="UTF-8"/><title>Flight Assignment</title></head>
 <body>
-<h2>New Assignment</h2>
-<form th:action="@{/assignments}" th:object="${assignment}" method="post">
-    <label>ID: <input type="text" th:field="*{id}"/></label><br/>
+<h2 th:text="${assignment.id} != '' ? 'Edit Assignment' : 'New Assignment'"></h2>
+
+<form th:action="@{${assignment.id} != '' ? '/assignments/' + ${assignment.id} : '/assignments'}"
+      th:object="${assignment}" method="post">
+
+    <label>ID: <input type="text" th:field="*{id}" th:readonly="${assignment.id} != ''"/></label><br/>
     <label>FlightId: <input type="text" th:field="*{flightId}"/></label><br/>
     <label>StaffId: <input type="text" th:field="*{staffId}"/></label><br/>
-    <button type="submit">Create</button>
+    <button type="submit" th:text="${assignment.id} != '' ? 'Update' : 'Create'"></button>
 </form>
+
+<a href="/assignments">Back to list</a>
 </body>
 </html>

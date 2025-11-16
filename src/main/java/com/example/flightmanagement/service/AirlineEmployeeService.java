@@ -1,6 +1,7 @@
 package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirlineEmployee;
+import com.example.flightmanagement.model.AirportEmployee;
 import com.example.flightmanagement.repository.AirlineEmployeeRepository;
 import org.springframework.stereotype.Service;  // ← import lipsă
 

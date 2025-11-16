@@ -10,39 +10,59 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/airlineemployees")
 public class AirlineEmployeeController {
 
-    private final AirlineEmployeeService employeeService;
+    private final AirlineEmployeeService service;
 
-    public AirlineEmployeeController(AirlineEmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public AirlineEmployeeController(AirlineEmployeeService service) {
+        this.service = service;
     }
 
-    // GET /employees - afișează toți angajații
+    // List all employees
     @GetMapping
-    public String getAllEmployees(Model model) {
-        model.addAttribute("employees", employeeService.getAllEmployees());
+    public String list(Model model) {
+        model.addAttribute("employees", service.getAllEmployees());
         return "airlineemployee/index";
     }
 
-
-    // GET /employees/new - formular pentru adăugarea unui nou angajat
+    // Show form for new employee
     @GetMapping("/new")
-    public String showForm(Model model) {
-        model.addAttribute("airlineemployee", new AirlineEmployee("", "", ""));
+    public String form(Model model) {
+        model.addAttribute("employee", new AirlineEmployee("", "", ""));
         return "airlineemployee/form";
     }
 
-    // POST /employees - creează un nou angajat
+    // Create a new employee
     @PostMapping
-    public String createEmployee(@ModelAttribute("airlineemployee") AirlineEmployee employee) {
-        employeeService.addEmployee(employee);
+    public String create(@ModelAttribute AirlineEmployee employee) {
+        service.addEmployee(employee);
         return "redirect:/airlineemployees";
     }
 
+    // Show form for editing
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("employee", service.getEmployeeById(id));
+        return "airlineemployee/form";
+    }
 
-    // POST /employees/{id}/delete - șterge un angajat
+    // Update employee
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute AirlineEmployee employee) {
+        employee.setId(id);
+        service.addEmployee(employee); // save will overwrite
+        return "redirect:/airlineemployees";
+    }
+
+    // Show details
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("employee", service.getEmployeeById(id));
+        return "airlineemployee/details";
+    }
+
+    // Delete employee
     @PostMapping("/{id}/delete")
-    public String deleteEmployee(@PathVariable String id) {
-        employeeService.removeEmployee(id);
+    public String delete(@PathVariable String id) {
+        service.removeEmployee(id);
         return "redirect:/airlineemployees";
     }
 }

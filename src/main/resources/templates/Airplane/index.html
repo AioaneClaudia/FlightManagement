@@ -5,11 +5,10 @@
     <title>Airplanes</title>
 </head>
 <body>
-<h1>All Airplanes</h1>
-
+<h2>All Airplanes</h2>
 <a href="/airplanes/new">Add New Airplane</a>
 
-<table border="1" cellpadding="5">
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -20,19 +19,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="airplane : ${airplanes}">
-        <td th:text="${airplane.id}">ID</td>
-        <td th:text="${airplane.number}">Number</td>
-        <td th:text="${airplane.model}">Model</td>
-        <td th:text="${airplane.capacity}">Capacity</td>
+    <tr th:each="a : ${airplanes}">
+        <td th:text="${a.id}">ID</td>
+        <td th:text="${a.number}">Number</td>
+        <td th:text="${a.model}">Model</td>
+        <td th:text="${a.capacity}">Capacity</td>
         <td>
-            <form th:action="@{'/airplanes/' + ${airplane.id} + '/delete'}" method="post">
+            <a th:href="@{'/airplanes/' + ${a.id} + '/details'}">Details</a>
+            <a th:href="@{'/airplanes/' + ${a.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/airplanes/' + ${a.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>
