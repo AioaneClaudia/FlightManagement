@@ -1,12 +1,11 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Airplane;
+import org.springframework.stereotype.Repository;
 
-public class AirplaneRepository extends InMemoryRepository<String, Airplane> {
-
+@Repository
+public class AirplaneRepository extends InFileRepository<String, Airplane> {
     public AirplaneRepository() {
-        super();
+        super("src/main/resources/data/airlineEmployees.json", Airplane.class);
     }
-
-    // metode suplimentare specifice Airplane dacă exista
 }

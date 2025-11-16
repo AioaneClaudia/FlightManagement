@@ -3,9 +3,10 @@ package com.example.flightmanagement.repository;
 import com.example.flightmanagement.model.AirlineEmployee;
 import org.springframework.stereotype.Repository;
 
-@Repository  // Spring va gestiona singleton-ul
-public class AirlineEmployeeRepository extends InMemoryRepository<String, AirlineEmployee> {
+@Repository
+public class AirlineEmployeeRepository extends InFileRepository<String, AirlineEmployee> {
     public AirlineEmployeeRepository() {
-        super();
+        super("src/main/resources/data/airlineEmployees.json", AirlineEmployee.class);
     }
 }
+
