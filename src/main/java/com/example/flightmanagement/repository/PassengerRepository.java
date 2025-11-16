@@ -1,11 +1,11 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Passenger;
+import org.springframework.stereotype.Repository;
 
-public class PassengerRepository extends InMemoryRepository<String, Passenger> {
-
+@Repository
+public class PassengerRepository extends InFileRepository<String, Passenger> {
     public PassengerRepository() {
-        super();
+        super("src/main/resources/data/Passenger.json", Passenger.class);
     }
-    // poti adauga metode specifice dacă este nevoie
 }

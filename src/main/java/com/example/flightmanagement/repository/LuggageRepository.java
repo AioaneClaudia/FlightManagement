@@ -1,11 +1,11 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Luggage;
+import org.springframework.stereotype.Repository;
 
-public class LuggageRepository extends InMemoryRepository<String, Luggage> {
-
+@Repository
+public class LuggageRepository extends InFileRepository<String, Luggage> {
     public LuggageRepository() {
-        super();
+        super("src/main/resources/data/Luggage.json", Luggage.class);
     }
-
 }
