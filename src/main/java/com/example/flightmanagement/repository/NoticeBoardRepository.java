@@ -1,11 +1,11 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.NoticeBoard;
+import org.springframework.stereotype.Repository;
 
-public class NoticeBoardRepository extends InMemoryRepository<String, NoticeBoard> {
-
+@Repository
+public class NoticeBoardRepository extends InFileRepository<String, NoticeBoard> {
     public NoticeBoardRepository() {
-        super();
+        super("src/main/resources/data/NoticeBoard.json", NoticeBoard.class);
     }
-
 }
