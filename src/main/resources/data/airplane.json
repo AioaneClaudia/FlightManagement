@@ -1,0 +1,12 @@
+[
+  {"id": "ap1", "model": "Boeing 737", "capacity": 180},
+  {"id": "ap2", "model": "Airbus A320", "capacity": 172},
+  {"id": "ap3", "model": "Boeing 777", "capacity": 396},
+  {"id": "ap4", "model": "Airbus A330", "capacity": 277},
+  {"id": "ap5", "model": "Embraer E190", "capacity": 100},
+  {"id": "ap6", "model": "Boeing 787", "capacity": 248},
+  {"id": "ap7", "model": "Airbus A321", "capacity": 220},
+  {"id": "ap8", "model": "Boeing 767", "capacity": 269},
+  {"id": "ap9", "model": "CRJ900", "capacity": 76},
+  {"id": "ap10", "model": "Airbus A350", "capacity": 350}
+]

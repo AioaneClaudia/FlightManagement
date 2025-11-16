@@ -1,0 +1,12 @@
+[
+  {"id": "f1", "from": "Berlin", "to": "Paris", "departure": "2025-04-12T09:10", "airplaneId": "ap1"},
+  {"id": "f2", "from": "Paris", "to": "Tokyo", "departure": "2025-04-13T17:40", "airplaneId": "ap3"},
+  {"id": "f3", "from": "Madrid", "to": "Rome", "departure": "2025-04-14T11:25", "airplaneId": "ap2"},
+  {"id": "f4", "from": "New York", "to": "London", "departure": "2025-04-15T20:05", "airplaneId": "ap6"},
+  {"id": "f5", "from": "London", "to": "Berlin", "departure": "2025-04-16T14:30", "airplaneId": "ap1"},
+  {"id": "f6", "from": "Oslo", "to": "Copenhagen", "departure": "2025-04-17T08:20", "airplaneId": "ap9"},
+  {"id": "f7", "from": "Vienna", "to": "Athens", "departure": "2025-04-18T16:45", "airplaneId": "ap4"},
+  {"id": "f8", "from": "Warsaw", "to": "Budapest", "departure": "2025-04-19T12:55", "airplaneId": "ap5"},
+  {"id": "f9", "from": "Zurich", "to": "Lisbon", "departure": "2025-04-20T10:00", "airplaneId": "ap7"},
+  {"id": "f10", "from": "Dublin", "to": "Reykjavik", "departure": "2025-04-21T19:30", "airplaneId": "ap8"}
+]

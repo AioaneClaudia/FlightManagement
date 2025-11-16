@@ -1,0 +1,12 @@
+[
+  {"id": "nb1", "message": "Flight F1 delayed by 30 minutes."},
+  {"id": "nb2", "message": "Gate change: F3 now at Gate B12."},
+  {"id": "nb3", "message": "Weather alert: Strong winds expected."},
+  {"id": "nb4", "message": "Security announcement: Keep your luggage with you."},
+  {"id": "nb5", "message": "Flight F4 boarding now."},
+  {"id": "nb6", "message": "Terminal A will close at 22:00."},
+  {"id": "nb7", "message": "Lost item: Black wallet at Gate D3."},
+  {"id": "nb8", "message": "Customs delay expected for flights from Asia."},
+  {"id": "nb9", "message": "Free Wi-Fi available throughout the airport."},
+  {"id": "nb10", "message": "Flight F7 arriving early."}
+]
