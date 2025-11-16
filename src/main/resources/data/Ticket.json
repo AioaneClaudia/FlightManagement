@@ -1,12 +1,26 @@
 [
-  {"id": "t1", "seat": "12A", "price": 250.0, "passengerId": "p1", "flightId": "f1"},
-  {"id": "t2", "seat": "14C", "price": 210.0, "passengerId": "p2", "flightId": "f1"},
-  {"id": "t3", "seat": "17B", "price": 430.0, "passengerId": "p3", "flightId": "f2"},
-  {"id": "t4", "seat": "02D", "price": 880.0, "passengerId": "p4", "flightId": "f2"},
-  {"id": "t5", "seat": "07E", "price": 190.0, "passengerId": "p5", "flightId": "f3"},
-  {"id": "t6", "seat": "19A", "price": 610.0, "passengerId": "p6", "flightId": "f4"},
-  {"id": "t7", "seat": "11F", "price": 330.0, "passengerId": "p7", "flightId": "f3"},
-  {"id": "t8", "seat": "03C", "price": 920.0, "passengerId": "p8", "flightId": "f4"},
-  {"id": "t9", "seat": "08B", "price": 280.0, "passengerId": "p9", "flightId": "f5"},
-  {"id": "t10", "seat": "20D", "price": 200.0, "passengerId": "p10", "flightId": "f5"}
+  {
+    "id": "T1",
+    "passengerId": "P1",
+    "flightId": "F1",
+    "price": 199.99,
+    "seatNumber": "12A",
+    "luggages": []
+  },
+  {
+    "id": "T2",
+    "passengerId": "P2",
+    "flightId": "F3",
+    "price": 250.00,
+    "seatNumber": "7C",
+    "luggages": []
+  },
+  {
+    "id": "T3",
+    "passengerId": "P1",
+    "flightId": "F2",
+    "price": 180.50,
+    "seatNumber": "15D",
+    "luggages": []
+  }
 ]

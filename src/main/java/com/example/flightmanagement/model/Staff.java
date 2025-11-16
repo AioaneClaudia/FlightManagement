@@ -9,6 +9,11 @@ public abstract class Staff {
         this.name = name;
     }
 
+    public Staff() {
+        this.id = "";
+        this.name = "";
+    }
+
     public String getId() {
         return id;
     }

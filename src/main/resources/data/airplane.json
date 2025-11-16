@@ -1,12 +1,24 @@
-[
-  {"id": "ap1", "model": "Boeing 737", "capacity": 180},
-  {"id": "ap2", "model": "Airbus A320", "capacity": 172},
-  {"id": "ap3", "model": "Boeing 777", "capacity": 396},
-  {"id": "ap4", "model": "Airbus A330", "capacity": 277},
-  {"id": "ap5", "model": "Embraer E190", "capacity": 100},
-  {"id": "ap6", "model": "Boeing 787", "capacity": 248},
-  {"id": "ap7", "model": "Airbus A321", "capacity": 220},
-  {"id": "ap8", "model": "Boeing 767", "capacity": 269},
-  {"id": "ap9", "model": "CRJ900", "capacity": 76},
-  {"id": "ap10", "model": "Airbus A350", "capacity": 350}
-]
+{
+  "id": "A320-01",
+  "number": 1,
+  "model": "Airbus A320",
+  "capacity": 180,
+  "flights": [
+    {
+      "id": "FL123",
+      "origin": "Berlin",
+      "destination": "Paris",
+      "departureTime": "2025-05-15T08:30",
+      "arrivalTime": "2025-05-15T10:25",
+      "status": "ON_TIME"
+    },
+    {
+      "id": "FL456",
+      "origin": "Paris",
+      "destination": "Madrid",
+      "departureTime": "2025-05-16T11:00",
+      "arrivalTime": "2025-05-16T13:45",
+      "status": "DELAYED"
+    }
+  ]
+}

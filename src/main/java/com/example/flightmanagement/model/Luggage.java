@@ -6,6 +6,12 @@ public class Luggage {
     private String ticketId;
     private String status; // CheckedIn, Loaded, Delivered
 
+    public Luggage() {
+        this.id = "";
+        this.ticketId = "";
+        this.status = "";
+    }
+
     public Luggage(String id, String ticketId, String status) {
         this.id = id;
         this.ticketId = ticketId;

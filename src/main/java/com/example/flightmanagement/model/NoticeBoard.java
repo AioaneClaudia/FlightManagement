@@ -9,6 +9,11 @@ public class NoticeBoard {
     private String date;
     private List<Flight> flightsOfTheDay = new ArrayList<>();
 
+    public NoticeBoard() {
+        this.id = "";
+        this.date = "";
+    }
+
     public NoticeBoard(String id, String date) {
         this.id = id;
         this.date = date;

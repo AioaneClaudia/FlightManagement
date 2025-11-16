@@ -1,12 +1,36 @@
-[
-  {"id": "p1", "name": "Alice Johnson", "passport": "X1234567"},
-  {"id": "p2", "name": "Tom Harris", "passport": "B8765432"},
-  {"id": "p3", "name": "Maria Gomez", "passport": "C4678123"},
-  {"id": "p4", "name": "Ahmed Ali", "passport": "D9988776"},
-  {"id": "p5", "name": "Linda Grey", "passport": "E1133557"},
-  {"id": "p6", "name": "Peter Young", "passport": "F7755332"},
-  {"id": "p7", "name": "Ivy Kim", "passport": "G2211448"},
-  {"id": "p8", "name": "Marcus Reed", "passport": "H3322119"},
-  {"id": "p9", "name": "Nora White", "passport": "J5566774"},
-  {"id": "p10", "name": "Victor Tran", "passport": "K9911223"}
-]
+{
+  "id": "P001",
+  "name": "John Doe",
+  "currency": "EUR",
+  "email": "john.doe@example.com",
+  "dateOfBirth": "1985-04-12",
+  "tickets": [
+    {
+      "id": "T1001",
+      "passengerId": "P001",
+      "flightId": "FL123",
+      "price": 249.99,
+      "seatNumber": "12A",
+      "luggages": [
+        {
+          "id": "L001",
+          "weight": 15.5,
+          "type": "CHECKED"
+        },
+        {
+          "id": "L002",
+          "weight": 7.2,
+          "type": "CABIN"
+        }
+      ]
+    },
+    {
+      "id": "T1002",
+      "passengerId": "P001",
+      "flightId": "FL456",
+      "price": 179.50,
+      "seatNumber": "3C",
+      "luggages": []
+    }
+  ]
+}

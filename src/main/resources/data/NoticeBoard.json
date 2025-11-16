@@ -1,12 +1,33 @@
-[
-  {"id": "nb1", "message": "Flight F1 delayed by 30 minutes."},
-  {"id": "nb2", "message": "Gate change: F3 now at Gate B12."},
-  {"id": "nb3", "message": "Weather alert: Strong winds expected."},
-  {"id": "nb4", "message": "Security announcement: Keep your luggage with you."},
-  {"id": "nb5", "message": "Flight F4 boarding now."},
-  {"id": "nb6", "message": "Terminal A will close at 22:00."},
-  {"id": "nb7", "message": "Lost item: Black wallet at Gate D3."},
-  {"id": "nb8", "message": "Customs delay expected for flights from Asia."},
-  {"id": "nb9", "message": "Free Wi-Fi available throughout the airport."},
-  {"id": "nb10", "message": "Flight F7 arriving early."}
-]
+{
+  "id": "NB01",
+  "date": "2025-05-15",
+  "flightsOfTheDay": [
+    {
+      "id": "FL123",
+      "origin": "Berlin",
+      "destination": "Paris",
+      "departureTime": "2025-05-15T08:30",
+      "arrivalTime": "2025-05-15T10:25",
+      "planeId": "A320-01",
+      "status": "ON_TIME"
+    },
+    {
+      "id": "FL456",
+      "origin": "Paris",
+      "destination": "Rome",
+      "departureTime": "2025-05-15T12:00",
+      "arrivalTime": "2025-05-15T14:10",
+      "planeId": "B737-22",
+      "status": "DELAYED"
+    },
+    {
+      "id": "FL789",
+      "origin": "Rome",
+      "destination": "Berlin",
+      "departureTime": "2025-05-15T18:45",
+      "arrivalTime": "2025-05-15T21:05",
+      "planeId": "A320-05",
+      "status": "CANCELLED"
+    }
+  ]
+}

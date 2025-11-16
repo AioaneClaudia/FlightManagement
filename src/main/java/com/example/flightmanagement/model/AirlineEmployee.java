@@ -2,10 +2,18 @@ package com.example.flightmanagement.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class AirlineEmployee extends Staff {
     private String role; // ex "Pilot", "Crew"
     private List<FlightAssignment> assignments = new ArrayList<>();
+
+    public AirlineEmployee() {
+        super("", "");
+        this.role = "";
+    }
 
     public AirlineEmployee(String id, String name, String role) {
         super(id, name);

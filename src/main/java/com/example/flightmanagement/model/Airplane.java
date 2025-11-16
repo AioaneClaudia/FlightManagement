@@ -10,6 +10,13 @@ public class Airplane {
     private int capacity; // new field
     private List<Flight> flights = new ArrayList<>();
 
+    public Airplane() {
+        this.id = "";
+        this.number = 0;
+        this.model = "";
+        this.capacity = 0;
+    }
+
     public Airplane(String id, int number, String model, int capacity) {
         this.id = id;
         this.number = number;

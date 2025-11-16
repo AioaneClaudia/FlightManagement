@@ -12,10 +12,20 @@ public class Passenger {
     private LocalDate dateOfBirth; // new field
     private List<Ticket> tickets = new ArrayList<>();
 
+    public Passenger() {
+        this.id = "";
+        this.name = "";
+        this.currency = "";
+        this.email = "";
+        this.dateOfBirth = LocalDate.parse("");
+    }
     public Passenger(String id, String name, String currency) {
         this.id = id;
         this.name = name;
         this.currency = currency;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+
     }
 
     public String getId() {
