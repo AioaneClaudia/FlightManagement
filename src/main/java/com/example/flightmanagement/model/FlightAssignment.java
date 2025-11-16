@@ -5,6 +5,13 @@ public class FlightAssignment {
     private String flightId;
     private String staffId;
 
+    public FlightAssignment() {
+        this.id = "";
+        this.flightId = "";
+        this.staffId = "";
+    }
+
+
     public FlightAssignment(String id, String flightId, String staffId) {
         this.id = id;
         this.flightId = flightId;

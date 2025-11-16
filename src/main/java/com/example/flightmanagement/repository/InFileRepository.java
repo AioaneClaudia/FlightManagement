@@ -6,17 +6,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class InFileRepository<ID, T> implements IRepository<ID, T> {
 
     protected Map<ID, T> entities = new HashMap<>();
     private final File file;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
     private final Class<T> type; // um Objekte beim Lesen zu erstellen
 
     public InFileRepository(String filePath, Class<T> type) {
         this.file = new File(filePath);
         this.type = type;
+        this.objectMapper = new ObjectMapper();
+
+        // Aici adaugi suport pentru LocalDateTime
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         loadFromFile();
     }
 

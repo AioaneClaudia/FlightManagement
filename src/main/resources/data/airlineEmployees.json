@@ -1,12 +1,63 @@
+
 [
-  {"id": "ae1", "name": "John Carter", "role": "Pilot"},
-  {"id": "ae2", "name": "Sara Mitchell", "role": "CoPilot"},
-  {"id": "ae3", "name": "David Rogers", "role": "FlightAttendant"},
-  {"id": "ae4", "name": "Emily Fox", "role": "FlightAttendant"},
-  {"id": "ae5", "name": "Robert Stone", "role": "Engineer"},
-  {"id": "ae6", "name": "Laura Green", "role": "Pilot"},
-  {"id": "ae7", "name": "Kevin Brown", "role": "Engineer"},
-  {"id": "ae8", "name": "Amanda Blake", "role": "CoPilot"},
-  {"id": "ae9", "name": "Oliver Black", "role": "Technician"},
-  {"id": "ae10", "name": "Nina Grey", "role": "CabinManager"}
+  {
+    "id": "AE001",
+    "name": "John Doe",
+    "role": "Pilot",
+    "assignments": []
+  },
+  {
+    "id": "AE002",
+    "name": "Jane Smith",
+    "role": "Cabin Crew",
+    "assignments": []
+  },
+  {
+    "id": "AE003",
+    "name": "Robert Johnson",
+    "role": "Pilot",
+    "assignments": []
+  },
+  {
+    "id": "AE004",
+    "name": "Emily Davis",
+    "role": "Cabin Crew",
+    "assignments": []
+  },
+  {
+    "id": "AE005",
+    "name": "Michael Brown",
+    "role": "Pilot",
+    "assignments": []
+  },
+  {
+    "id": "AE006",
+    "name": "Linda Wilson",
+    "role": "Cabin Crew",
+    "assignments": []
+  },
+  {
+    "id": "AE007",
+    "name": "William Moore",
+    "role": "Pilot",
+    "assignments": []
+  },
+  {
+    "id": "AE008",
+    "name": "Patricia Taylor",
+    "role": "Cabin Crew",
+    "assignments": []
+  },
+  {
+    "id": "AE009",
+    "name": "David Anderson",
+    "role": "Pilot",
+    "assignments": []
+  },
+  {
+    "id": "AE010",
+    "name": "Barbara Thomas",
+    "role": "Cabin Crew",
+    "assignments": []
+  }
 ]

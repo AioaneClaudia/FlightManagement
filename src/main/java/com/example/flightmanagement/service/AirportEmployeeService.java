@@ -11,6 +11,10 @@ public class AirportEmployeeService {
         employeeRepository.save(employee);
     }
 
+    public void updateEmployee(AirportEmployee employee) {
+        employeeRepository.save(employee); // suprascrie angajatul existent
+    }
+
     public List<AirportEmployee> getAllEmployees() {
         return employeeRepository.findAll();
     }

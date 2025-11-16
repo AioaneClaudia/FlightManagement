@@ -17,7 +17,7 @@ public class Passenger {
         this.name = "";
         this.currency = "";
         this.email = "";
-        this.dateOfBirth = LocalDate.parse("");
+        this.dateOfBirth = null;
     }
     public Passenger(String id, String name, String currency) {
         this.id = id;

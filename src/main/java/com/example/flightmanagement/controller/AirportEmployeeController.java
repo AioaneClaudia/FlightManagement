@@ -30,6 +30,25 @@ public class AirportEmployeeController {
         return "redirect:/airportemployees";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable String id, Model model) {
+        model.addAttribute("employee", service.getEmployeeById(id));
+        return "airportemployee/form";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@PathVariable String id, @ModelAttribute AirportEmployee employee) {
+        employee.setId(id);
+        service.updateEmployee(employee);
+        return "redirect:/airportemployees";
+    }
+
+    @GetMapping("/{id}/details")
+    public String details(@PathVariable String id, Model model) {
+        model.addAttribute("employee", service.getEmployeeById(id));
+        return "airportemployee/details";
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         service.removeEmployee(id);

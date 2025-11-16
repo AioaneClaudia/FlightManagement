@@ -1,33 +1,17 @@
-{
-  "id": "NB01",
-  "date": "2025-05-15",
-  "flightsOfTheDay": [
-    {
-      "id": "FL123",
-      "origin": "Berlin",
-      "destination": "Paris",
-      "departureTime": "2025-05-15T08:30",
-      "arrivalTime": "2025-05-15T10:25",
-      "planeId": "A320-01",
-      "status": "ON_TIME"
-    },
-    {
-      "id": "FL456",
-      "origin": "Paris",
-      "destination": "Rome",
-      "departureTime": "2025-05-15T12:00",
-      "arrivalTime": "2025-05-15T14:10",
-      "planeId": "B737-22",
-      "status": "DELAYED"
-    },
-    {
-      "id": "FL789",
-      "origin": "Rome",
-      "destination": "Berlin",
-      "departureTime": "2025-05-15T18:45",
-      "arrivalTime": "2025-05-15T21:05",
-      "planeId": "A320-05",
-      "status": "CANCELLED"
-    }
-  ]
-}
+[ {
+  "id" : "NB001",
+  "date" : "2025-11-16",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB003",
+  "date" : "2025-11-18",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB002",
+  "date" : "2025-11-17",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "74687",
+  "date" : "12.09.2025",
+  "flightsOfTheDay" : [ ]
+} ]

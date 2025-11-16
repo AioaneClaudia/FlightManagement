@@ -1,24 +1,49 @@
-{
-  "id": "A320-01",
-  "number": 1,
-  "model": "Airbus A320",
-  "capacity": 180,
-  "flights": [
-    {
-      "id": "FL123",
-      "origin": "Berlin",
-      "destination": "Paris",
-      "departureTime": "2025-05-15T08:30",
-      "arrivalTime": "2025-05-15T10:25",
-      "status": "ON_TIME"
-    },
-    {
-      "id": "FL456",
-      "origin": "Paris",
-      "destination": "Madrid",
-      "departureTime": "2025-05-16T11:00",
-      "arrivalTime": "2025-05-16T13:45",
-      "status": "DELAYED"
-    }
-  ]
-}
+[ {
+  "id" : "whr",
+  "number" : 5,
+  "model" : "mfmm",
+  "capacity" : 4,
+  "flights" : [ ]
+}, {
+  "id" : "AP010",
+  "number" : 110,
+  "model" : "Comac C919",
+  "capacity" : 150,
+  "flights" : [ ]
+}, {
+  "id" : "AP002",
+  "number" : 102,
+  "model" : "Airbus A320",
+  "capacity" : 160,
+  "flights" : [ ]
+}, {
+  "id" : "AP001",
+  "number" : 101,
+  "model" : "Boeing 737",
+  "capacity" : 180,
+  "flights" : [ ]
+}, {
+  "id" : "AP004",
+  "number" : 104,
+  "model" : "Airbus A380",
+  "capacity" : 500,
+  "flights" : [ ]
+}, {
+  "id" : "AP003",
+  "number" : 103,
+  "model" : "Boeing 747",
+  "capacity" : 400,
+  "flights" : [ ]
+}, {
+  "id" : "AP006",
+  "number" : 106,
+  "model" : "Bombardier CRJ900",
+  "capacity" : 90,
+  "flights" : [ ]
+}, {
+  "id" : "AP005",
+  "number" : 105,
+  "model" : "Embraer E190",
+  "capacity" : 100,
+  "flights" : [ ]
+} ]

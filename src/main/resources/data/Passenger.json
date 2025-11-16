@@ -1,36 +1,26 @@
-{
-  "id": "P001",
-  "name": "John Doe",
-  "currency": "EUR",
-  "email": "john.doe@example.com",
-  "dateOfBirth": "1985-04-12",
-  "tickets": [
-    {
-      "id": "T1001",
-      "passengerId": "P001",
-      "flightId": "FL123",
-      "price": 249.99,
-      "seatNumber": "12A",
-      "luggages": [
-        {
-          "id": "L001",
-          "weight": 15.5,
-          "type": "CHECKED"
-        },
-        {
-          "id": "L002",
-          "weight": 7.2,
-          "type": "CABIN"
-        }
-      ]
-    },
-    {
-      "id": "T1002",
-      "passengerId": "P001",
-      "flightId": "FL456",
-      "price": 179.50,
-      "seatNumber": "3C",
-      "luggages": []
-    }
-  ]
-}
+[
+  {
+    "id": "P001",
+    "name": "Alice Popescu",
+    "currency": "EUR",
+    "email": "alice.popescu@example.com",
+    "dateOfBirth": "1990-05-12",
+    "tickets": []
+  },
+  {
+    "id": "P002",
+    "name": "Bogdan Ionescu",
+    "currency": "USD",
+    "email": "bogdan.ionescu@example.com",
+    "dateOfBirth": "1985-08-23",
+    "tickets": []
+  },
+  {
+    "id": "P003",
+    "name": "Claudia Marin",
+    "currency": "RON",
+    "email": "claudia.marin@example.com",
+    "dateOfBirth": "1995-11-16",
+    "tickets": []
+  }
+]
