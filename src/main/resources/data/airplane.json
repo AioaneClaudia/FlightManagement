@@ -5,6 +5,18 @@
   "capacity" : 4,
   "flights" : [ ]
 }, {
+  "id" : "AP008",
+  "number" : 108,
+  "model" : "idk2",
+  "capacity" : 200,
+  "flights" : [ ]
+}, {
+  "id" : "AP007",
+  "number" : 107,
+  "model" : "idk",
+  "capacity" : 150,
+  "flights" : [ ]
+}, {
   "id" : "AP010",
   "number" : 110,
   "model" : "Comac C919",

@@ -1,4 +1,32 @@
 [ {
+  "id" : "P005",
+  "name" : "Aioane Claudia",
+  "currency" : "EUR",
+  "email" : "claudiaaioane@example.com",
+  "dateOfBirth" : "2005-02-08",
+  "tickets" : [ ]
+}, {
+  "id" : "P004",
+  "name" : "Aldea Andreea",
+  "currency" : "EUR",
+  "email" : "andreealdea13@gmail.com",
+  "dateOfBirth" : "2006-09-13",
+  "tickets" : [ ]
+}, {
+  "id" : "P007",
+  "name" : "Maria Matei",
+  "currency" : "RON",
+  "email" : "mariamatei@example.com",
+  "dateOfBirth" : "2025-06-05",
+  "tickets" : [ ]
+}, {
+  "id" : "P006",
+  "name" : "Ana Georgescu",
+  "currency" : "RON",
+  "email" : "anageorgescu@example.com",
+  "dateOfBirth" : "2025-11-06",
+  "tickets" : [ ]
+}, {
   "id" : "P001",
   "name" : "Alice Popescu",
   "currency" : "EUR",
@@ -18,5 +46,26 @@
   "currency" : "USD",
   "email" : "bogdan.ionescu@example.com",
   "dateOfBirth" : "1985-08-23",
+  "tickets" : [ ]
+}, {
+  "id" : "P010",
+  "name" : "Ion Ionescu",
+  "currency" : "RON",
+  "email" : "ionionescu@example.com",
+  "dateOfBirth" : "2025-11-05",
+  "tickets" : [ ]
+}, {
+  "id" : "P009",
+  "name" : "Mihai Popescu",
+  "currency" : "EUR",
+  "email" : "mihaipopescu@example.com",
+  "dateOfBirth" : "2025-02-05",
+  "tickets" : [ ]
+}, {
+  "id" : "P008",
+  "name" : "Ioana Grigore",
+  "currency" : "EUR",
+  "email" : "ioanagrigore@example.com",
+  "dateOfBirth" : "2025-11-04",
   "tickets" : [ ]
 } ]

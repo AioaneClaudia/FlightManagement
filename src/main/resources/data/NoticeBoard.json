@@ -1,4 +1,8 @@
 [ {
+  "id" : "NB010",
+  "date" : "2024-09-18",
+  "flightsOfTheDay" : [ ]
+}, {
   "id" : "NB001",
   "date" : "2025-11-16",
   "flightsOfTheDay" : [ ]
@@ -9,5 +13,29 @@
 }, {
   "id" : "NB002",
   "date" : "2025-11-17",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB005",
+  "date" : "2024-09-14",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB004",
+  "date" : "2024-09-13",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB007",
+  "date" : "2024-09-16",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB006",
+  "date" : "2024-09-15",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB009",
+  "date" : "2024-09-18",
+  "flightsOfTheDay" : [ ]
+}, {
+  "id" : "NB008",
+  "date" : "2024-09-17",
   "flightsOfTheDay" : [ ]
 } ]

@@ -1,4 +1,53 @@
 [ {
+  "id" : "T4",
+  "passengerId" : "P4",
+  "flightId" : "F4",
+  "price" : 100.0,
+  "seatNumber" : "12B",
+  "luggages" : [ ]
+}, {
+  "id" : "T5",
+  "passengerId" : "P5",
+  "flightId" : "F5",
+  "price" : 80.0,
+  "seatNumber" : "3B",
+  "luggages" : [ ]
+}, {
+  "id" : "T6",
+  "passengerId" : "P6",
+  "flightId" : "F6",
+  "price" : 60.0,
+  "seatNumber" : "7E",
+  "luggages" : [ ]
+}, {
+  "id" : "T10",
+  "passengerId" : "P10",
+  "flightId" : "F10",
+  "price" : 100.0,
+  "seatNumber" : "10D",
+  "luggages" : [ ]
+}, {
+  "id" : "T7",
+  "passengerId" : "P7",
+  "flightId" : "F7",
+  "price" : 70.0,
+  "seatNumber" : "6D",
+  "luggages" : [ ]
+}, {
+  "id" : "T8",
+  "passengerId" : "P8",
+  "flightId" : "F8",
+  "price" : 120.0,
+  "seatNumber" : "5C",
+  "luggages" : [ ]
+}, {
+  "id" : "T9",
+  "passengerId" : "P9",
+  "flightId" : "F9",
+  "price" : 90.0,
+  "seatNumber" : "9B",
+  "luggages" : [ ]
+}, {
   "id" : "T1",
   "passengerId" : "P1",
   "flightId" : "F1",

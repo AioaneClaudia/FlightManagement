@@ -1,63 +1,51 @@
-
-[
-  {
-    "id": "AE001",
-    "name": "John Doe",
-    "role": "Pilot",
-    "assignments": []
-  },
-  {
-    "id": "AE002",
-    "name": "Jane Smith",
-    "role": "Cabin Crew",
-    "assignments": []
-  },
-  {
-    "id": "AE003",
-    "name": "Robert Johnson",
-    "role": "Pilot",
-    "assignments": []
-  },
-  {
-    "id": "AE004",
-    "name": "Emily Davis",
-    "role": "Cabin Crew",
-    "assignments": []
-  },
-  {
-    "id": "AE005",
-    "name": "Michael Brown",
-    "role": "Pilot",
-    "assignments": []
-  },
-  {
-    "id": "AE006",
-    "name": "Linda Wilson",
-    "role": "Cabin Crew",
-    "assignments": []
-  },
-  {
-    "id": "AE007",
-    "name": "William Moore",
-    "role": "Pilot",
-    "assignments": []
-  },
-  {
-    "id": "AE008",
-    "name": "Patricia Taylor",
-    "role": "Cabin Crew",
-    "assignments": []
-  },
-  {
-    "id": "AE009",
-    "name": "David Anderson",
-    "role": "Pilot",
-    "assignments": []
-  },
-  {
-    "id": "AE010",
-    "name": "Barbara Thomas",
-    "role": "Cabin Crew",
-    "assignments": []
-  }
-]
+[ {
+  "id" : "AE008",
+  "name" : "Patricia Taylor",
+  "role" : "Cabin Crew",
+  "assignments" : [ ]
+}, {
+  "id" : "AE009",
+  "name" : "David Anderson",
+  "role" : "Pilot",
+  "assignments" : [ ]
+}, {
+  "id" : "AE004",
+  "name" : "Emily Davis",
+  "role" : "Cabin Crew",
+  "assignments" : [ ]
+}, {
+  "id" : "AE005",
+  "name" : "Michael Brown",
+  "role" : "Pilot",
+  "assignments" : [ ]
+}, {
+  "id" : "AE006",
+  "name" : "Linda Wilson",
+  "role" : "Cabin Crew",
+  "assignments" : [ ]
+}, {
+  "id" : "AE007",
+  "name" : "William Moore",
+  "role" : "Pilot",
+  "assignments" : [ ]
+}, {
+  "id" : "AE001",
+  "name" : "John Doe",
+  "role" : "Pilot",
+  "assignments" : [ ]
+}, {
+  "id" : "AE002",
+  "name" : "Jane Smith",
+  "role" : "Cabin Crew",
+  "assignments" : [ ]
+}, {
+  "id" : "AE003",
+  "name" : "Robert Johnson",
+  "role" : "Pilot",
+  "assignments" : [ ]
+}, {
+  "id" : "AE010",
+  "name" : "Barbara Thomas",
+  "role" : "Cabin Crew",
+  "assignments" : [ ]
+} ]
