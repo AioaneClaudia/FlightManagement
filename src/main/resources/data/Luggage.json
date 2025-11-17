@@ -1,41 +1,45 @@
 [ {
   "id" : "L010",
   "ticketId" : "T010",
-  "status" : "Delivered"
+  "status" : "LOADED"
 }, {
   "id" : "L003",
   "ticketId" : "T003",
-  "status" : "Delivered"
+  "status" : "DELIVERED"
 }, {
   "id" : "L002",
   "ticketId" : "T002",
-  "status" : "Loaded"
+  "status" : "LOADED"
 }, {
   "id" : "L001",
   "ticketId" : "T001",
-  "status" : "CheckedIn"
+  "status" : "CHECKED_IN"
+}, {
+  "id" : "L011",
+  "ticketId" : "T011",
+  "status" : "CHECKED_IN"
 }, {
   "id" : "L007",
   "ticketId" : "T007",
-  "status" : "Delivered"
+  "status" : "DELIVERED"
 }, {
   "id" : "L006",
   "ticketId" : "T006",
-  "status" : "Delivered"
+  "status" : "DELIVERED"
 }, {
   "id" : "L005",
   "ticketId" : "T005",
-  "status" : "Loaded"
+  "status" : "LOADED"
 }, {
   "id" : "L004",
   "ticketId" : "T004",
-  "status" : "CheckedIn"
+  "status" : "CHECKED_IN"
 }, {
   "id" : "L009",
   "ticketId" : "T009",
-  "status" : "Delivered"
+  "status" : "DELIVERED"
 }, {
   "id" : "L008",
   "ticketId" : "T008",
-  "status" : "Delivered"
+  "status" : "DELIVERED"
 } ]

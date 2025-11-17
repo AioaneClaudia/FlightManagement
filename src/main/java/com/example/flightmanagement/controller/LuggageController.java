@@ -1,6 +1,7 @@
 package com.example.flightmanagement.controller;
 
 import com.example.flightmanagement.model.Luggage;
+import com.example.flightmanagement.model.LuggageStatus;
 import com.example.flightmanagement.service.LuggageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class LuggageController {
 
     @GetMapping("/new")
     public String form(Model model) {
-        model.addAttribute("luggage", new Luggage("", "", ""));
+        model.addAttribute("luggage", new Luggage("", "", LuggageStatus.CHECKED_IN));
         return "luggage/form";
     }
 

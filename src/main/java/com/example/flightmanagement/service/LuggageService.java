@@ -1,6 +1,7 @@
 package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.Luggage;
+import com.example.flightmanagement.model.LuggageStatus;
 import com.example.flightmanagement.repository.LuggageRepository;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class LuggageService {
         luggageRepository.delete(id);
     }
 
-    public void updateLuggageStatus(String id, String newStatus) {
+    public void updateLuggageStatus(String id, LuggageStatus newStatus) {
         Luggage luggage = luggageRepository.findById(id);
         if (luggage != null) {
             luggage.setStatus(newStatus);

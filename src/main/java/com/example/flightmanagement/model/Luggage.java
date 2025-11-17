@@ -1,18 +1,17 @@
 package com.example.flightmanagement.model;
 
-//modificare enum
 public class Luggage {
     private String id;
     private String ticketId;
-    private String status; // CheckedIn, Loaded, Delivered
+    private LuggageStatus status;
 
     public Luggage() {
         this.id = "";
         this.ticketId = "";
-        this.status = "";
+        this.status = LuggageStatus.CHECKED_IN; // default
     }
 
-    public Luggage(String id, String ticketId, String status) {
+    public Luggage(String id, String ticketId, LuggageStatus status) {
         this.id = id;
         this.ticketId = ticketId;
         this.status = status;
@@ -31,17 +30,14 @@ public class Luggage {
     }
 
     public void setTicketId(String ticketId) {
-
         this.ticketId = ticketId;
     }
 
-    public String getStatus() {
-
+    public LuggageStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-
+    public void setStatus(LuggageStatus status) {
         this.status = status;
     }
 
@@ -50,7 +46,7 @@ public class Luggage {
         return "Luggage{" +
                 "id='" + id + '\'' +
                 ", ticketId='" + ticketId + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
