@@ -21,7 +21,7 @@ public class InFileRepository<ID, T> implements IRepository<ID, T> {
         this.type = type;
         this.objectMapper = new ObjectMapper();
 
-        // Aici adaugi suport pentru LocalDateTime
+
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 

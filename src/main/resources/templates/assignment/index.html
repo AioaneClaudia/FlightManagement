@@ -5,6 +5,7 @@
 <h2>Flight Assignments</h2>
 
 <a href="/assignments/new">Add New Assignment</a>
+<br/><br/>
 
 <table border="1">
     <thead>
@@ -17,13 +18,14 @@
     </thead>
     <tbody>
     <tr th:each="assignment : ${assignments}">
-        <td th:text="${assignment.id}">ID</td>
-        <td th:text="${assignment.flightId}">Flight ID</td>
-        <td th:text="${assignment.staffId}">Staff ID</td>
+        <td th:text="${assignment.id}"></td>
+        <td th:text="${assignment.flightId}"></td>
+        <td th:text="${assignment.staffId}"></td>
         <td>
             <a th:href="@{'/assignments/' + ${assignment.id} + '/details'}">Details</a> |
             <a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a> |
-            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}"
+                  method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>

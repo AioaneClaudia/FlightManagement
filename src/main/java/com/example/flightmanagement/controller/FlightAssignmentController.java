@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/assignments")
 public class FlightAssignmentController {
 
-    private final FlightAssignmentService assignmentService = new FlightAssignmentService();
+    private final FlightAssignmentService assignmentService;
+
+    public FlightAssignmentController(FlightAssignmentService assignmentService) {
+        this.assignmentService = assignmentService;
+    }
 
     @GetMapping
     public String list(Model model) {
@@ -20,7 +24,7 @@ public class FlightAssignmentController {
 
     @GetMapping("/new")
     public String form(Model model) {
-        model.addAttribute("assignment", new FlightAssignment("", "", ""));
+        model.addAttribute("assignment", new FlightAssignment());
         return "assignment/form";
     }
 
@@ -38,8 +42,13 @@ public class FlightAssignmentController {
 
     @PostMapping("/{id}")
     public String update(@PathVariable String id, @ModelAttribute FlightAssignment assignment) {
-        assignment.setId(id);
-        assignmentService.addAssignment(assignment); // suprascrie
+        assignmentService.updateAssignment(id, assignment);
+        return "redirect:/assignments";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        assignmentService.removeAssignment(id);
         return "redirect:/assignments";
     }
 
@@ -47,11 +56,5 @@ public class FlightAssignmentController {
     public String details(@PathVariable String id, Model model) {
         model.addAttribute("assignment", assignmentService.getAssignmentById(id));
         return "assignment/details";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable String id) {
-        assignmentService.removeAssignment(id);
-        return "redirect:/assignments";
     }
 }
