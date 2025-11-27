@@ -2,13 +2,18 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.Flight;
 import com.example.flightmanagement.repository.FlightRepository;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Service
 public class FlightService {
-    private FlightRepository flightRepository = new FlightRepository();
+
+    private final FlightRepository flightRepository;
+
+    public FlightService(FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+    }
 
     public void addFlight(Flight flight) {
         flightRepository.save(flight);
@@ -19,11 +24,11 @@ public class FlightService {
     }
 
     public Flight getFlightById(String id) {
-        return flightRepository.findById(id);
+        return flightRepository.findById(id).orElse(null);
     }
 
     public void removeFlight(String id) {
-        flightRepository.delete(id);
+        flightRepository.deleteById(id);
     }
-
 }
+

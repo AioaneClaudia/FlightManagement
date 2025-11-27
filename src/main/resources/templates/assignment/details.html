@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Assignment Details</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Flight Assignment Details</title>
+</head>
 <body>
 <h2>Flight Assignment Details</h2>
 
-<p><b>ID:</b> <span th:text="${assignment.id}"></span></p>
-<p><b>Flight ID:</b> <span th:text="${assignment.flightId}"></span></p>
-<p><b>Staff ID:</b> <span th:text="${assignment.staffId}"></span></p>
+<div>
+    <p><strong>ID:</strong> <span th:text="${assignment.id}"></span></p>
+    <p><strong>Staff ID:</strong> <span th:text="${assignment.staffId}"></span></p>
+    <p><strong>Flight:</strong>
+        <span th:text="${assignment.flight != null} ? ${assignment.flight.name} + ' (' + ${assignment.flight.id} + ')' : 'N/A'"></span>
+    </p>
+</div>
 
+<br/>
 <a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a> |
+<form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}" method="post" style="display:inline">
+    <button type="submit">Delete</button>
+</form> |
 <a href="/assignments">Back to list</a>
+
 </body>
 </html>

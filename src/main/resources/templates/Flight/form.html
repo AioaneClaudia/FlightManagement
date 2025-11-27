@@ -1,32 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Flight</title>
+    <meta charset="UTF-8"/>
+    <title th:text="${flight.id} != '' ? 'Edit Flight' : 'New Flight'">Flight Form</title>
 </head>
 <body>
-<h1>Add New Flight</h1>
+<h2 th:text="${flight.id} != '' ? 'Edit Flight' : 'New Flight'"></h2>
 
-<form th:action="@{/flights}" th:object="${flight}" method="post">
+<form th:action="${flight.id} != null and ${flight.id} != '' ?
+                 @{ '/flights/' + ${flight.id} + '/edit' } :
+                 @{ '/flights' }"
+      th:object="${flight}" method="post">
+
+    <!-- ID -->
     <label>ID:</label>
-    <input type="text" th:field="*{id}" required><br><br>
+    <input type="text" th:field="*{id}" required />
+    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
+    <br/><br/>
 
+    <!-- Name -->
     <label>Name:</label>
-    <input type="text" th:field="*{name}" required><br><br>
+    <input type="text" th:field="*{name}" required />
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br/><br/>
 
+    <!-- NoticeBoardId -->
     <label>Notice Board ID:</label>
-    <input type="text" th:field="*{noticeBoardId}" required><br><br>
+    <input type="text" th:field="*{noticeBoardId}" required />
+    <div th:if="${#fields.hasErrors('noticeBoardId')}" th:errors="*{noticeBoardId}"></div>
+    <br/><br/>
 
+    <!-- AirplaneId -->
     <label>Airplane ID:</label>
-    <input type="text" th:field="*{airplaneId}" required><br><br>
+    <input type="text" th:field="*{airplaneId}" required />
+    <div th:if="${#fields.hasErrors('airplaneId')}" th:errors="*{airplaneId}"></div>
+    <br/><br/>
 
+    <!-- Departure Time -->
     <label>Departure Time:</label>
-    <input type="datetime-local" th:field="*{departureTime}" required><br><br>
+    <input type="datetime-local" th:field="*{departureTime}" required />
+    <div th:if="${#fields.hasErrors('departureTime')}" th:errors="*{departureTime}"></div>
+    <br/><br/>
 
+    <!-- Arrival Time -->
     <label>Arrival Time:</label>
-    <input type="datetime-local" th:field="*{arrivalTime}" required><br><br>
+    <input type="datetime-local" th:field="*{arrivalTime}" required />
+    <div th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></div>
+    <br/><br/>
 
-    <button type="submit">Add</button>
+    <button type="submit">Save</button>
 </form>
 
 <a href="/flights">Back to list</a>

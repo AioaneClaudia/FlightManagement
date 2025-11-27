@@ -7,6 +7,7 @@
 <body>
 <h1>Flight Details</h1>
 
+<!-- Flight basic info -->
 <p><strong>ID:</strong> <span th:text="${flight.id}"></span></p>
 <p><strong>Name:</strong> <span th:text="${flight.name}"></span></p>
 <p><strong>Notice Board ID:</strong> <span th:text="${flight.noticeBoardId}"></span></p>
@@ -14,7 +15,34 @@
 <p><strong>Departure Time:</strong> <span th:text="${flight.departureTime}"></span></p>
 <p><strong>Arrival Time:</strong> <span th:text="${flight.arrivalTime}"></span></p>
 
+<!-- Flight assignments -->
+<h2>Assignments</h2>
+<table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Staff ID</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="assignment : ${flight.flightAssignments}">
+        <td th:text="${assignment.id}"></td>
+        <td th:text="${assignment.staffId}"></td>
+        <td>
+            <a th:href="@{'/assignments/' + ${assignment.id} + '/details'}">Details</a> |
+            <a th:href="@{'/assignments/' + ${assignment.id} + '/edit'}">Edit</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(flight.flightAssignments)}">
+        <td colspan="3">No assignments yet.</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Actions -->
 <a href="/flights">Back to list</a>
+<a th:href="@{'/flights/' + ${flight.id} + '/edit'}">Edit Flight</a>
 <form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post" style="display:inline">
     <button type="submit">Delete</button>
 </form>

@@ -9,7 +9,11 @@ import java.util.List;
 @Service
 public class FlightAssignmentService {
 
-    private final FlightAssignmentRepository assignmentRepository = new FlightAssignmentRepository();
+    private final FlightAssignmentRepository assignmentRepository;
+
+    public FlightAssignmentService(FlightAssignmentRepository assignmentRepository) {
+        this.assignmentRepository = assignmentRepository;
+    }
 
     public void addAssignment(FlightAssignment assignment) {
         assignmentRepository.save(assignment);
@@ -20,16 +24,15 @@ public class FlightAssignmentService {
     }
 
     public FlightAssignment getAssignmentById(String id) {
-        return assignmentRepository.findById(id);
+        return assignmentRepository.findById(id).orElse(null);
     }
 
     public void updateAssignment(String id, FlightAssignment assignment) {
-        // setăm ID-ul (în caz că formularul nu îl trimite)
         assignment.setId(id);
-        assignmentRepository.save(assignment); // save() suprascrie
+        assignmentRepository.save(assignment);
     }
 
     public void removeAssignment(String id) {
-        assignmentRepository.delete(id);
+        assignmentRepository.deleteById(id);
     }
 }

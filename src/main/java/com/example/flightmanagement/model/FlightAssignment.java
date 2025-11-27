@@ -1,20 +1,29 @@
 package com.example.flightmanagement.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "flight_assignments")
 public class FlightAssignment {
+
+    @Id
+    @Column(length = 64)
+    @NotBlank(message = "ID is required")
     private String id;
-    private String flightId;
+
+    @NotBlank(message = "Staff ID is required")
     private String staffId;
 
-    public FlightAssignment() {
-        this.id = "";
-        this.flightId = "";
-        this.staffId = "";
-    }
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
 
+    public FlightAssignment() {}
 
-    public FlightAssignment(String id, String flightId, String staffId) {
+    public FlightAssignment(String id, Flight flight, String staffId) {
         this.id = id;
-        this.flightId = flightId;
+        this.flight = flight;
         this.staffId = staffId;
     }
 
@@ -26,31 +35,19 @@ public class FlightAssignment {
         this.id = id;
     }
 
-    public String getFlightId() {
-        return flightId;
-    }
-
-    public void setFlightId(String flightId) {
-
-        this.flightId = flightId;
-    }
-
     public String getStaffId() {
-
         return staffId;
     }
 
     public void setStaffId(String staffId) {
-
         this.staffId = staffId;
     }
 
-    @Override
-    public String toString() {
-        return "FlightAssignment{" +
-                "id='" + id + '\'' +
-                ", flightId='" + flightId + '\'' +
-                ", staffId='" + staffId + '\'' +
-                '}';
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }

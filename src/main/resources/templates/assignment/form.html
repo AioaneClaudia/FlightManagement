@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Flight Assignment</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${assignment.id} != null ? 'Edit Assignment' : 'New Assignment'">Flight Assignment</title>
+</head>
 <body>
-<h2 th:text="${assignment.id} != '' ? 'Edit Assignment' : 'New Assignment'"></h2>
+<h2 th:text="${assignment.id} != null ? 'Edit Assignment' : 'New Assignment'"></h2>
 
-<form th:action="${assignment.id} != null and ${assignment.id} != '' ?
-                 @{ '/assignments/' + ${assignment.id} } :
-                 @{ '/assignments' }"
+<form th:action="${assignment.id} != null ? @{ '/assignments/' + ${assignment.id} + '/edit' } : @{ '/assignments' }"
       th:object="${assignment}" method="post">
 
+    <!-- ID -->
     <label>ID:</label>
-    <input th:field="*{id}" />
+    <input type="text" th:field="*{id}" required />
+    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
     <br/><br/>
 
-    <label>Flight ID:</label>
-    <input th:field="*{flightId}" />
+    <!-- Flight dropdown -->
+    <label>Flight:</label>
+    <select th:field="*{flight.id}" required>
+        <option value="" disabled th:selected="*{flight} == null">Select Flight</option>
+        <option th:each="flight : ${flights}"
+                th:value="${flight.id}"
+                th:text="${flight.name} + ' (' + flight.id + ')'"
+                th:selected="*{flight != null} ? *{flight.id} == ${flight.id} : false">
+        </option>
+    </select>
+    <div th:if="${#fields.hasErrors('flight')}" th:errors="*{flight}"></div>
     <br/><br/>
 
+    <!-- Staff ID -->
     <label>Staff ID:</label>
-    <input th:field="*{staffId}" />
+    <input type="text" th:field="*{staffId}" required />
+    <div th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}"></div>
     <br/><br/>
 
     <button type="submit">Save</button>
 </form>
+
+<a href="/assignments">Back to list</a>
+</body>
+</html>
