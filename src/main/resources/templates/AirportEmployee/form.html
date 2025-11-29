@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>New Airport Employee</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Airport Employee Form</title>
+</head>
 <body>
-<h2>New Airport Employee</h2>
-<form th:action="@{${employee.id} != '' ? '/airportemployees/' + ${employee.id} : '/airportemployees'}"
-      th:object="${employee}" method="post">
-    <label>ID: <input type="text" th:field="*{id}" th:readonly="${employee.id} != ''"/></label><br/>
-    <label>Name: <input type="text" th:field="*{name}"/></label><br/>
-    <label>Designation: <input type="text" th:field="*{designation}"/></label><br/>
-    <label>Department: <input type="text" th:field="*{department}"/></label><br/>
-    <button type="submit" th:text="${employee.id} != '' ? 'Update' : 'Create'"></button>
+
+<h2 th:text="${isEdit} ? 'Edit Airport Employee' : 'New Airport Employee'"></h2>
+
+<form th:action="@{${formAction}}" th:object="${employee}" method="post">
+
+    <label>ID:</label>
+    <input type="text" th:field="*{id}" th:readonly="${isEdit}"/><br/><br/>
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}"/><br/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+
+    <label>Designation:</label>
+    <input type="text" th:field="*{designation}"/><br/>
+    <div th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></div><br/>
+
+    <label>Department:</label>
+    <input type="text" th:field="*{department}"/><br/>
+    <div th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></div><br/>
+
+    <div th:if="${globalError != null}">
+        <p th:text="${globalError}"></p>
+    </div>
+
+    <button type="submit" th:text="${isEdit} ? 'Update' : 'Create'"></button>
 </form>
+
+<a href="/airportemployees">Back to list</a>
 </body>
 </html>

@@ -2,28 +2,41 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirportEmployee;
 import com.example.flightmanagement.repository.AirportEmployeeRepository;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class AirportEmployeeService {
-    private AirportEmployeeRepository employeeRepository = new AirportEmployeeRepository();
+
+    private final AirportEmployeeRepository repository;
+
+    public AirportEmployeeService(AirportEmployeeRepository repository) {
+        this.repository = repository;
+    }
 
     public void addEmployee(AirportEmployee employee) {
-        employeeRepository.save(employee);
+        if (repository.existsById(employee.getId())) {
+            throw new IllegalArgumentException("Employee with this ID already exists");
+        }
+        repository.save(employee);
     }
 
     public void updateEmployee(AirportEmployee employee) {
-        employeeRepository.save(employee); // suprascrie angajatul existent
+        repository.save(employee); // suprascrie sau update
     }
 
     public List<AirportEmployee> getAllEmployees() {
-        return employeeRepository.findAll();
+        return repository.findAll();
     }
 
     public AirportEmployee getEmployeeById(String id) {
-        return employeeRepository.findById(id);
+        Optional<AirportEmployee> emp = repository.findById(id);
+        return emp.orElse(null);
     }
 
     public void removeEmployee(String id) {
-        employeeRepository.delete(id);
+        repository.deleteById(id);
     }
 }

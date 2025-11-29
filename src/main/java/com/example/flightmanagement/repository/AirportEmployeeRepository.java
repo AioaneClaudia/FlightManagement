@@ -1,11 +1,10 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.AirportEmployee;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AirportEmployeeRepository extends InFileRepository<String, AirportEmployee> {
-    public AirportEmployeeRepository() {
-        super("src/main/resources/data/airportEmployees.json", AirportEmployee.class);
-    }
+public interface AirportEmployeeRepository extends JpaRepository<AirportEmployee, String> {
+    // JpaRepository oferă toate operațiunile CRUD
 }
