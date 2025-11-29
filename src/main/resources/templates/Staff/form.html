@@ -5,8 +5,10 @@
 <h2>New Staff (AirlineEmployee used as example)</h2>
 <form th:action="@{/staffs}" th:object="${staff}" method="post">
     <label>ID: <input type="text" th:field="*{id}"/></label><br/>
-    <label>Name: <input type="text" th:field="*{name}"/></label><br/>
-    <label>Role (for AirlineEmployee): <input type="text" th:field="*{role}"/></label><br/>
+    <label>Name: <input type="text" th:field="*{name}"/></label>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+    <label>Role (for AirlineEmployee): <input type="text" th:field="*{role}"/></label>
+    <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div><br/>
     <button type="submit">Create</button>
 </form>
 </body>

@@ -1,11 +1,10 @@
 package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirlineEmployee;
-import com.example.flightmanagement.model.AirportEmployee;
 import com.example.flightmanagement.repository.AirlineEmployeeRepository;
-import org.springframework.stereotype.Service;  // ← import lipsă
-
+import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AirlineEmployeeService {
@@ -16,8 +15,8 @@ public class AirlineEmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public void addEmployee(AirlineEmployee employee) {
-        employeeRepository.save(employee);
+    public AirlineEmployee addEmployee(AirlineEmployee employee) {
+        return employeeRepository.save(employee);
     }
 
     public List<AirlineEmployee> getAllEmployees() {
@@ -25,10 +24,11 @@ public class AirlineEmployeeService {
     }
 
     public AirlineEmployee getEmployeeById(String id) {
-        return employeeRepository.findById(id);
+        Optional<AirlineEmployee> opt = employeeRepository.findById(id);
+        return opt.orElse(null);
     }
 
     public void removeEmployee(String id) {
-        employeeRepository.delete(id);
+        employeeRepository.deleteById(id);
     }
 }

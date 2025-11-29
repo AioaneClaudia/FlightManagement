@@ -1,17 +1,25 @@
 package com.example.flightmanagement.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-
+@Entity
+@Table(name = "airline_employee")
 public class AirlineEmployee extends Staff {
+
+    @NotBlank(message = "Role darf nicht leer sein")
+    @Size(max = 100, message = "Role darf höchstens 100 Zeichen haben")
     private String role; // ex "Pilot", "Crew"
-    private List<FlightAssignment> assignments = new ArrayList<>();
+
+    // momentan transient, später als eigene Entity + OneToMany abbilden
+    @Transient
+    private List<Object> assignments = new ArrayList<>();
 
     public AirlineEmployee() {
-        super("", "");
+        super();
         this.role = "";
     }
 
@@ -20,28 +28,14 @@ public class AirlineEmployee extends Staff {
         this.role = role;
     }
 
-    public String getRole() {
-        return role;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<FlightAssignment> getAssignments() {
-        return assignments;
-    }
-
-    public void setAssignments(List<FlightAssignment> assignments) {
-        this.assignments = assignments;
-    }
+    public List<Object> getAssignments() { return assignments; }
+    public void setAssignments(List<Object> assignments) { this.assignments = assignments; }
 
     @Override
     public String toString() {
-        return "AirlineEmployee{" +
-                "id='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return "AirlineEmployee{" + "id='" + getId() + '\'' + ", name='" + getName() + '\'' + ", role='" + role + '\'' + '}';
     }
 }

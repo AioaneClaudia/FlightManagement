@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Airline Employee Form</title>
 </head>
 <body>
-<h2 th:text="${employee.id != '' ? 'Edit Airline Employee' : 'New Airline Employee'}"></h2>
 
-<form th:action="@{${employee.id} != '' ? '/airlineemployees/' + ${employee.id} : '/airlineemployees'}"
-      th:object="${employee}" method="post">
+<h2 th:text="${employee.id == null ? 'New Airline Employee' : 'Edit Airline Employee'}"></h2>
+
+<form th:action="@{${formAction}}" th:object="${employee}" method="post">
 
     <label>ID:</label>
-    <input type="text" th:field="*{id}" th:readonly="${employee.id} != ''"/><br/><br/>
+    <input type="text" th:field="*{id}" th:readonly="${isEdit}"/><br/><br/>
 
     <label>Name:</label>
-    <input type="text" th:field="*{name}" required/><br/><br/>
+    <input type="text" th:field="*{name}"/><br/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
 
     <label>Role:</label>
-    <input type="text" th:field="*{role}" required/><br/><br/>
+    <input type="text" th:field="*{role}"/><br/>
+    <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div><br/>
 
-    <button type="submit" th:text="${employee.id != '' ? 'Update' : 'Create'}"></button>
+    <div th:if="${globalError != null}">
+        <p th:text="${globalError}"></p>
+    </div>
+
+    <button type="submit" th:text="${isEdit} ? 'Update' : 'Create'"></button>
 </form>
+
 
 <a href="/airlineemployees">Back to list</a>
 </body>

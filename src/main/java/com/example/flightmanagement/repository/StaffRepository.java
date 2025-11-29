@@ -1,11 +1,10 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Staff;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StaffRepository extends InFileRepository<String, Staff> {
-    public StaffRepository() {
-        super("src/main/resources/data/Staff.json", Staff.class);
-    }
+public interface StaffRepository extends JpaRepository<Staff, String> {
+    // Wenn du Staff-spezifische Queries brauchst, hier ergänzen
 }
