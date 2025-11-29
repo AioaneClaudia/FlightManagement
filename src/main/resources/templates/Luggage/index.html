@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Luggages</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Luggages</title>
+</head>
 <body>
 <h2>Luggages</h2>
-<a href="/luggages/new">Add new</a>
-<table border="1">
-    <thead><tr><th>ID</th><th>TicketId</th><th>Status</th><th>Actions</th></tr></thead>
+
+<a th:href="@{/luggages/new}">New Luggage</a>
+<br/><br/>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Weight</th>
+        <th>Ticket</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
     <tbody>
-    <tr th:each="l : ${luggages}">
-        <td th:text="${l.id}">id</td>
-        <td th:text="${l.ticketId}">tid</td>
-        <td th:text="${l.status}">status</td>
+    <tr th:each="luggage : ${luggages}">
+        <td th:text="${luggage.id}"></td>
+        <td th:text="${luggage.type}"></td>
+        <td th:text="${luggage.weight}"></td>
+        <td th:text="${luggage.ticket != null} ? ${luggage.ticket.passengerName} + ' (' + ${luggage.ticket.id} + ')' : 'N/A'"></td>
         <td>
-            <a th:href="@{'/luggages/' + ${l.id} + '/details'}">Details</a>
-            <a th:href="@{'/luggages/' + ${l.id} + '/edit'}">Edit</a>
-
-            <form th:action="@{'/luggages/' + ${l.id} + '/delete'}" method="post" style="display:inline">
+            <a th:href="@{'/luggages/' + ${luggage.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/luggages/' + ${luggage.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
-            </form>
+            </form> |
+            <a th:href="@{'/luggages/' + ${luggage.id}}">Details</a>
         </td>
-
+    </tr>
+    <tr th:if="${#lists.isEmpty(luggages)}">
+        <td colspan="5">No luggages found.</td>
     </tr>
     </tbody>
 </table>
+
+<a href="/tickets">Back to Tickets</a>
 </body>
 </html>

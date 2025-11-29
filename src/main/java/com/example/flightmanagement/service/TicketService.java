@@ -2,10 +2,18 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.Ticket;
 import com.example.flightmanagement.repository.TicketRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class TicketService {
-    private TicketRepository ticketRepository = new TicketRepository();
+
+    private final TicketRepository ticketRepository;
+
+    public TicketService(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
+    }
 
     public void issueTicket(Ticket ticket) {
         ticketRepository.save(ticket);
@@ -16,24 +24,15 @@ public class TicketService {
     }
 
     public Ticket getTicketById(String id) {
-        return ticketRepository.findById(id);
+        return ticketRepository.findById(id).orElse(null);
+    }
+
+    public void updateTicket(String id, Ticket ticket) {
+        ticket.setId(id);
+        ticketRepository.save(ticket);
     }
 
     public void cancelTicket(String id) {
-        ticketRepository.delete(id);
-    }
-
-    // Beispiel-Logik: Preisänderung
-    public void updateTicketPrice(String id, double newPrice) {
-        Ticket ticket = ticketRepository.findById(id);
-        if (ticket != null) {
-            ticketRepository.save(new Ticket(
-                    ticket.getId(),
-                    ticket.getPassengerId(),
-                    ticket.getFlightId(),
-                    newPrice,
-                    ticket.getSeatNumber()
-            ));
-        }
+        ticketRepository.deleteById(id);
     }
 }

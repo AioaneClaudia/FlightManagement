@@ -1,11 +1,8 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Luggage;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LuggageRepository extends InFileRepository<String, Luggage> {
-    public LuggageRepository() {
-        super("src/main/resources/data/Luggage.json", Luggage.class);
-    }
-}
+public interface LuggageRepository extends JpaRepository<Luggage, String> { }

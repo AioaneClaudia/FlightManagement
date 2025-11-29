@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Ticket Form</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${ticket.id} != null ? 'Edit Ticket' : 'New Ticket'">Ticket Form</title>
+</head>
 <body>
-<h2 th:text="${ticket.id} != '' ? 'Edit Ticket' : 'New Ticket'"></h2>
+<h2 th:text="${ticket.id} != null ? 'Edit Ticket' : 'New Ticket'"></h2>
 
-<form th:action="@{${ticket.id} != '' ? '/tickets/' + ${ticket.id} : '/tickets'}"
+<form th:action="${ticket.id} != null and ${ticket.id} != '' ? @{ '/tickets/' + ${ticket.id} } : @{ '/tickets' }"
       th:object="${ticket}" method="post">
 
-    <label>ID:
-        <input type="text" th:field="*{id}" th:readonly="${ticket.id} != ''"/>
-    </label><br/>
+    <label>Passenger ID:</label>
+    <input type="text" th:field="*{passengerId}" />
+    <div th:if="${#fields.hasErrors('passengerId')}" th:errors="*{passengerId}"></div>
+    <br/>
 
-    <label>PassengerId:
-        <input type="text" th:field="*{passengerId}"/>
-    </label><br/>
+    <label>Passenger Name:</label>
+    <input type="text" th:field="*{passengerName}" />
+    <div th:if="${#fields.hasErrors('passengerName')}" th:errors="*{passengerName}"></div>
+    <br/>
 
-    <label>FlightId:
-        <input type="text" th:field="*{flightId}"/>
-    </label><br/>
+    <label>Flight:</label>
+    <select th:field="*{flightId}">
+        <option value="" disabled th:selected="*{flightId} == null">Select Flight</option>
+        <option th:each="f : ${flights}"
+                th:value="${f.id}"
+                th:text="${f.name} + ' (' + f.id + ')' "
+                th:selected="*{flightId} == ${f.id}">
+        </option>
+    </select>
+    <div th:if="${#fields.hasErrors('flightId')}" th:errors="*{flightId}"></div>
+    <br/>
 
-    <label>Price:
-        <input type="number" step="0.01" th:field="*{price}"/>
-    </label><br/>
+    <label>Price:</label>
+    <input type="number" step="0.01" th:field="*{price}" />
+    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    <br/>
 
-    <label>SeatNumber:
-        <input type="text" th:field="*{seatNumber}"/>
-    </label><br/>
+    <label>Seat Number:</label>
+    <input type="text" th:field="*{seatNumber}" />
+    <div th:if="${#fields.hasErrors('seatNumber')}" th:errors="*{seatNumber}"></div>
+    <br/>
 
-    <button type="submit" th:text="${ticket.id} != '' ? 'Update' : 'Create'"></button>
+    <button type="submit">Save</button>
 </form>
 
+<a href="/tickets">Back to list</a>
 </body>
 </html>

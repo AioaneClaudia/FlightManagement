@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Ticket Details</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ticket Details</title>
+</head>
 <body>
-
 <h2>Ticket Details</h2>
 
-<p><strong>ID:</strong> <span th:text="${ticket.id}"></span></p>
-<p><strong>Passenger ID:</strong> <span th:text="${ticket.passengerId}"></span></p>
-<p><strong>Flight ID:</strong> <span th:text="${ticket.flightId}"></span></p>
-<p><strong>Price:</strong> <span th:text="${ticket.price}"></span></p>
-<p><strong>Seat Number:</strong> <span th:text="${ticket.seatNumber}"></span></p>
+<div>
+    <p><strong>ID:</strong> <span th:text="${ticket.id}"></span></p>
+    <p><strong>Passenger ID:</strong> <span th:text="${ticket.passengerId}"></span></p>
+    <p><strong>Passenger Name:</strong> <span th:text="${ticket.passengerName}"></span></p>
+    <p><strong>Flight:</strong>
+        <span th:text="${ticket.flight != null} ? ${ticket.flight.name} + ' (' + ${ticket.flight.id} + ')' : 'N/A'"></span>
+    </p>
+    <p><strong>Seat Number:</strong> <span th:text="${ticket.seatNumber}"></span></p>
+    <p><strong>Price:</strong> <span th:text="${ticket.price}"></span></p>
+</div>
 
-<a href="/tickets">Back</a>
-<a th:href="@{'/tickets/' + ${ticket.id} + '/edit'}">Edit</a>
+<h3>Luggages</h3>
+<table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Weight</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="l : ${ticket.luggages}">
+        <td th:text="${l.id}"></td>
+        <td th:text="${l.type}"></td>
+        <td th:text="${l.weight}"></td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(ticket.luggages)}">
+        <td colspan="3">No luggages</td>
+    </tr>
+    </tbody>
+</table>
 
-<form th:action="@{'/tickets/' + ${ticket.id} + '/delete'}" method="post" style="display:inline">
-    <button type="submit">Delete</button>
-</form>
-
+<br/>
+<a th:href="@{'/tickets/' + ${ticket.id} + '/edit'}">Edit Ticket</a> |
+<a href="/tickets">Back to Tickets</a>
 </body>
 </html>

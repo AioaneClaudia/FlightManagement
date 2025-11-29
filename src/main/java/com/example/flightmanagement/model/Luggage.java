@@ -1,52 +1,40 @@
 package com.example.flightmanagement.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Luggage {
+
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    private String ticketId;
-    private LuggageStatus status;
 
-    public Luggage() {
-        this.id = "";
-        this.ticketId = "";
-        this.status = LuggageStatus.CHECKED_IN; // default
-    }
+    @NotBlank(message = "Luggage type is required.")
+    private String type; // ex: "Cabin", "Hold", etc.
 
-    public Luggage(String id, String ticketId, LuggageStatus status) {
-        this.id = id;
-        this.ticketId = ticketId;
-        this.status = status;
-    }
+    @NotNull(message = "Weight is required.")
+    @Min(value = 1, message = "Weight must be at least 1 kg.")
+    private Integer weight;
 
-    public String getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    // GETTERS & SETTERS
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getTicketId() {
-        return ticketId;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public void setTicketId(String ticketId) {
-        this.ticketId = ticketId;
-    }
+    public Integer getWeight() { return weight; }
+    public void setWeight(Integer weight) { this.weight = weight; }
 
-    public LuggageStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(LuggageStatus status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Luggage{" +
-                "id='" + id + '\'' +
-                ", ticketId='" + ticketId + '\'' +
-                ", status=" + status +
-                '}';
-    }
+    public Ticket getTicket() { return ticket; }
+    public void setTicket(Ticket ticket) { this.ticket = ticket; }
 }

@@ -38,6 +38,7 @@ public class Flight {
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FlightAssignment> flightAssignments = new ArrayList<>();
 
+
     // poți adăuga FlightAssignment la fel (omitted aici pentru claritate)
 
     public Flight() {
@@ -119,4 +120,28 @@ public class Flight {
         assignment.setFlight(null);
         this.flightAssignments.remove(assignment);
     }
+
+    // în Flight.java (pune-l lângă flightAssignments)
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    // helper methods
+    public void addTicket(Ticket ticket) {
+        ticket.setFlight(this);
+        this.tickets.add(ticket);
+    }
+
+    public void removeTicket(Ticket ticket) {
+        ticket.setFlight(null);
+        this.tickets.remove(ticket);
+    }
+
 }
