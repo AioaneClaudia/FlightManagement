@@ -4,6 +4,7 @@ import com.example.flightmanagement.model.Flight;
 import com.example.flightmanagement.model.Ticket;
 import com.example.flightmanagement.service.FlightService;
 import com.example.flightmanagement.service.TicketService;
+import com.example.flightmanagement.service.PassengerService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,13 @@ public class TicketController {
 
     private final TicketService ticketService;
     private final FlightService flightService;
+    private final PassengerService passengerService;
 
-    public TicketController(TicketService ticketService, FlightService flightService) {
+
+    public TicketController(TicketService ticketService, FlightService flightService, PassengerService passengerService) {
         this.ticketService = ticketService;
         this.flightService = flightService;
+        this.passengerService = passengerService;
     }
 
     @GetMapping
@@ -32,6 +36,8 @@ public class TicketController {
     public String showCreateForm(Model model) {
         model.addAttribute("ticket", new Ticket());
         model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("passengers", passengerService.getAllPassengers());
+
         return "ticket/form";
     }
 
@@ -53,6 +59,7 @@ public class TicketController {
 
         if (result.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlights());
+            model.addAttribute("passengers", passengerService.getAllPassengers());
             return "ticket/form";
         }
 
@@ -69,6 +76,8 @@ public class TicketController {
         ticket.setFlightId(ticket.getFlight().getId());
         model.addAttribute("ticket", ticket);
         model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("passengers", passengerService.getAllPassengers());
+
         return "ticket/form";
     }
 
@@ -91,6 +100,7 @@ public class TicketController {
 
         if (result.hasErrors()) {
             model.addAttribute("flights", flightService.getAllFlights());
+            model.addAttribute("passengers", passengerService.getAllPassengers());
             return "ticket/form";
         }
 

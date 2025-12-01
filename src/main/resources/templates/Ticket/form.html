@@ -5,38 +5,49 @@
     <title th:text="${ticket.id} != null ? 'Edit Ticket' : 'New Ticket'">Ticket Form</title>
 </head>
 <body>
+
 <h2 th:text="${ticket.id} != null ? 'Edit Ticket' : 'New Ticket'"></h2>
 
-<form th:action="${ticket.id} != null and ${ticket.id} != '' ? @{ '/tickets/' + ${ticket.id} } : @{ '/tickets' }"
+<form th:action="${ticket.id} != null ? @{ '/tickets/' + ${ticket.id} } : @{ '/tickets' }"
       th:object="${ticket}" method="post">
 
-    <label>Passenger ID:</label>
-    <input type="text" th:field="*{passengerId}" />
+    <!-- Passenger -->
+    <label>Passenger:</label>
+    <select th:field="*{passengerId}">
+        <option value="" disabled th:selected="*{passengerId} == null">Select Passenger</option>
+        <option th:each="p : ${passengers}"
+                th:value="${p.id}"
+                th:text="${p.name} + ' (' + p.id + ')'">
+        </option>
+    </select>
     <div th:if="${#fields.hasErrors('passengerId')}" th:errors="*{passengerId}"></div>
     <br/>
 
+    <!-- Passenger Name -->
     <label>Passenger Name:</label>
     <input type="text" th:field="*{passengerName}" />
     <div th:if="${#fields.hasErrors('passengerName')}" th:errors="*{passengerName}"></div>
     <br/>
 
+    <!-- Flight -->
     <label>Flight:</label>
     <select th:field="*{flightId}">
         <option value="" disabled th:selected="*{flightId} == null">Select Flight</option>
         <option th:each="f : ${flights}"
                 th:value="${f.id}"
-                th:text="${f.name} + ' (' + f.id + ')' "
-                th:selected="*{flightId} == ${f.id}">
+                th:text="${f.name} + ' (' + f.id + ')'">
         </option>
     </select>
     <div th:if="${#fields.hasErrors('flightId')}" th:errors="*{flightId}"></div>
     <br/>
 
+    <!-- Price -->
     <label>Price:</label>
     <input type="number" step="0.01" th:field="*{price}" />
     <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
     <br/>
 
+    <!-- Seat Number -->
     <label>Seat Number:</label>
     <input type="text" th:field="*{seatNumber}" />
     <div th:if="${#fields.hasErrors('seatNumber')}" th:errors="*{seatNumber}"></div>
@@ -46,5 +57,6 @@
 </form>
 
 <a href="/tickets">Back to list</a>
+
 </body>
 </html>

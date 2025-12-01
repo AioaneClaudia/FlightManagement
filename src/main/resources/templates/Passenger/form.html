@@ -2,31 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Passenger Form</title>
+    <title th:text="${passenger.id} != null ? 'Edit Passenger' : 'New Passenger'">Passenger Form</title>
+    <style>
+        .error { color: red; font-size: 0.9em; }
+        label { display: inline-block; width: 120px; }
+        input, select { width: 200px; margin-bottom: 5px; }
+        .form-row { margin-bottom: 10px; }
+    </style>
 </head>
 <body>
 
-<h2 th:text="${passenger.id} != '' ? 'Edit Passenger' : 'New Passenger'"></h2>
+<h2 th:text="${passenger.id} != null ? 'Edit Passenger' : 'New Passenger'"></h2>
 
-<form th:action="@{${passenger.id} != '' ? '/passengers/' + ${passenger.id} : '/passengers'}"
+<form th:action="@{${passenger.id} != null ? '/passengers/' + ${passenger.id} : '/passengers'}"
       th:object="${passenger}" method="post">
 
-    <label>ID:</label>
-    <input type="text" th:field="*{id}" th:readonly="${passenger.id} != ''"/><br><br>
+    <div class="form-row">
+        <label>ID:</label>
+        <input type="text" th:field="*{id}" th:readonly="${passenger.id} != null"/>
+    </div>
 
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" required/><br><br>
+    <div class="form-row">
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" placeholder="Enter name"/>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
+    </div>
 
-    <label>Currency:</label>
-    <input type="text" th:field="*{currency}" required/><br><br>
+    <div class="form-row">
+        <label>Currency:</label>
+        <input type="text" th:field="*{currency}" placeholder="Enter currency"/>
+        <div th:if="${#fields.hasErrors('currency')}" th:errors="*{currency}" class="error"></div>
+    </div>
 
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" required/><br><br>
+    <div class="form-row">
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" placeholder="Enter email"/>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+    </div>
 
-    <label>Date Of Birth:</label>
-    <input type="date" th:field="*{dateOfBirth}" required/><br><br>
+    <div class="form-row">
+        <label>Date of Birth:</label>
+        <input type="date" th:field="*{dateOfBirth}" />
+        <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error"></div>
+    </div>
 
-    <button type="submit" th:text="${passenger.id} != '' ? 'Update' : 'Create'"></button>
+    <div class="form-row">
+        <button type="submit" th:text="${passenger.id} != null ? 'Update' : 'Create'"></button>
+    </div>
 
 </form>
 

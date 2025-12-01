@@ -35,6 +35,11 @@ public class Ticket {
     @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "passenger_fk", nullable = true)
+    private Passenger passenger;
+
+
     // Câmp transient pentru formular
     @Transient
     private String flightId;
@@ -55,6 +60,15 @@ public class Ticket {
 
     public String getPassengerId() { return passengerId; }
     public void setPassengerId(String passengerId) { this.passengerId = passengerId; }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
 
     public String getSeatNumber() { return seatNumber; }
     public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
