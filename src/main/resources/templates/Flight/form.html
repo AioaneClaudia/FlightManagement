@@ -26,8 +26,8 @@
 
     <!-- NoticeBoardId -->
     <label>Notice Board ID:</label>
-    <input type="text" th:field="*{noticeBoardId}" required />
-    <div th:if="${#fields.hasErrors('noticeBoardId')}" th:errors="*{noticeBoardId}"></div>
+    <input type="text" th:field="*{noticeBoard.id}" required />
+    <div th:if="${#fields.hasErrors('noticeBoard')}" th:errors="*{noticeBoard}"></div>
     <br/><br/>
 
     <!-- AirplaneId -->

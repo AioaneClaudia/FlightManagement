@@ -2,6 +2,8 @@ package com.example.flightmanagement.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,104 +15,76 @@ public class Flight {
     @Id
     @Column(length = 64)
     @NotBlank(message = "ID is required")
-    private String id; // păstrăm String id-ul tău
+    private String id;
 
     @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100, message = "Name must be 2..100 characters")
     private String name;
 
-    @NotBlank(message = "NoticeBoardId is required")
-    private String noticeBoardId;
+    // ManyToOne - referință către NoticeBoard
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notice_board_id", nullable = false)
+    @NotNull(message = "NoticeBoard is required")
+    private NoticeBoard noticeBoard;
 
     @NotBlank(message = "AirplaneId is required")
     private String airplaneId;
 
     @NotNull(message = "Departure time is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime departureTime;
 
     @NotNull(message = "Arrival time is required")
     @Future(message = "Arrival time must be in the future")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime arrivalTime;
 
-    //    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Ticket> tickets = new ArrayList<>();
-//
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FlightAssignment> flightAssignments = new ArrayList<>();
 
-
-    // poți adăuga FlightAssignment la fel (omitted aici pentru claritate)
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Flight() {
     }
 
-    public Flight(String id, String name, String noticeBoardId, String airplaneId) {
+    public Flight(String id, String name, NoticeBoard noticeBoard, String airplaneId,
+                  LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.id = id;
         this.name = name;
-        this.noticeBoardId = noticeBoardId;
+        this.noticeBoard = noticeBoard;
         this.airplaneId = airplaneId;
-    }
-
-    // getters & setters...
-
-    // Getteri și setteri
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNoticeBoardId() {
-        return noticeBoardId;
-    }
-
-    public void setNoticeBoardId(String noticeBoardId) {
-        this.noticeBoardId = noticeBoardId;
-    }
-
-    public String getAirplaneId() {
-        return airplaneId;
-    }
-
-    public void setAirplaneId(String airplaneId) {
-        this.airplaneId = airplaneId;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
-    }
-
-    public LocalDateTime getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public List<FlightAssignment> getFlightAssignments() {
-        return flightAssignments;
-    }
+    // getters & setters
 
-    public void setFlightAssignments(List<FlightAssignment> flightAssignments) {
-        this.flightAssignments = flightAssignments;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    // POȚI ADAUGA METODE HELPER
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public NoticeBoard getNoticeBoard() { return noticeBoard; }
+    public void setNoticeBoard(NoticeBoard noticeBoard) { this.noticeBoard = noticeBoard; }
+
+    public String getAirplaneId() { return airplaneId; }
+    public void setAirplaneId(String airplaneId) { this.airplaneId = airplaneId; }
+
+    public LocalDateTime getDepartureTime() { return departureTime; }
+    public void setDepartureTime(LocalDateTime departureTime) { this.departureTime = departureTime; }
+
+    public LocalDateTime getArrivalTime() { return arrivalTime; }
+    public void setArrivalTime(LocalDateTime arrivalTime) { this.arrivalTime = arrivalTime; }
+
+    public List<FlightAssignment> getFlightAssignments() { return flightAssignments; }
+    public void setFlightAssignments(List<FlightAssignment> flightAssignments) { this.flightAssignments = flightAssignments; }
+
+    public List<Ticket> getTickets() { return tickets; }
+    public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
+
+    // helpers to keep both sides in sync
     public void addAssignment(FlightAssignment assignment) {
         assignment.setFlight(this);
         this.flightAssignments.add(assignment);
@@ -121,19 +95,6 @@ public class Flight {
         this.flightAssignments.remove(assignment);
     }
 
-    // în Flight.java (pune-l lângă flightAssignments)
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets = new ArrayList<>();
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    // helper methods
     public void addTicket(Ticket ticket) {
         ticket.setFlight(this);
         this.tickets.add(ticket);
@@ -143,5 +104,4 @@ public class Flight {
         ticket.setFlight(null);
         this.tickets.remove(ticket);
     }
-
 }

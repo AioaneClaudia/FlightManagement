@@ -2,10 +2,17 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.NoticeBoard;
 import com.example.flightmanagement.repository.NoticeBoardRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class NoticeBoardService {
-    private NoticeBoardRepository boardRepository = new NoticeBoardRepository();
+    private final NoticeBoardRepository boardRepository;
+
+    public NoticeBoardService(NoticeBoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
 
     public void addNoticeBoard(NoticeBoard board) {
         boardRepository.save(board);
@@ -16,10 +23,10 @@ public class NoticeBoardService {
     }
 
     public NoticeBoard getNoticeBoardById(String id) {
-        return boardRepository.findById(id);
+        return boardRepository.findById(id).orElse(null);
     }
 
     public void removeNoticeBoard(String id) {
-        boardRepository.delete(id);
+        boardRepository.deleteById(id);
     }
 }

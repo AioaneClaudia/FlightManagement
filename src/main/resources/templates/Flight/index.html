@@ -16,6 +16,8 @@
         <th>Name</th>
         <th>Notice Board ID</th>
         <th>Airplane ID</th>
+        <th>Tickets Count</th>
+        <th>Assignments Count</th>
         <th>Departure Time</th>
         <th>Arrival Time</th>
         <th>Actions</th>
@@ -25,20 +27,25 @@
     <tr th:each="flight : ${flights}">
         <td th:text="${flight.id}">ID</td>
         <td th:text="${flight.name}">Name</td>
-        <td th:text="${flight.noticeBoardId}">Notice Board ID</td>
+        <td th:text="${flight.noticeBoard.id}">Notice Board ID</td>
         <td th:text="${flight.airplaneId}">Airplane ID</td>
-        <td th:text="${flight.departureTime}">Departure</td>
-        <td th:text="${flight.arrivalTime}">Arrival</td>
+        <td th:text="${#lists.size(flight.tickets)}">Tickets Count</td>
+        <td th:text="${#lists.size(flight.flightAssignments)}">Assignments Count</td>
+        <td th:text="${flight.departureTime}">Departure Time</td>
+        <td th:text="${flight.arrivalTime}">Arrival Time</td>
         <td>
-            <a th:href="@{'/flights/' + ${flight.id}}">Details</a>
+            <a th:href="@{'/flights/' + ${flight.id}}">Details</a> |
             <a th:href="@{'/flights/' + ${flight.id} + '/edit'}">Edit</a>
             <form th:action="@{'/flights/' + ${flight.id} + '/delete'}" method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
-
+    </tr>
+    <tr th:if="${#lists.isEmpty(flights)}">
+        <td colspan="9">No flights available.</td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>
