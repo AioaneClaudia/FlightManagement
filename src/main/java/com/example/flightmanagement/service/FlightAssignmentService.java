@@ -16,8 +16,12 @@ public class FlightAssignmentService {
     }
 
     public void addAssignment(FlightAssignment assignment) {
+        if (assignment.getFlight() == null) {
+            throw new IllegalArgumentException("Flight is required");
+        }
         assignmentRepository.save(assignment);
     }
+
 
     public List<FlightAssignment> getAllAssignments() {
         return assignmentRepository.findAll();

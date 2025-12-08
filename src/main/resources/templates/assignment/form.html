@@ -16,17 +16,11 @@
     <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
     <br/><br/>
 
-    <!-- Flight dropdown -->
-    <label>Flight:</label>
-    <select th:field="*{flight.id}" required>
-        <option value="" disabled th:selected="*{flight} == null">Select Flight</option>
-        <option th:each="flight : ${flights}"
-                th:value="${flight.id}"
-                th:text="${flight.name} + ' (' + flight.id + ')'"
-                th:selected="*{flight != null} ? *{flight.id} == ${flight.id} : false">
-        </option>
-    </select>
+    <label>Flight ID:</label>
+    <input type="text" th:field="*{flight.id}" />
     <div th:if="${#fields.hasErrors('flight')}" th:errors="*{flight}"></div>
+    <br/><br/>
+
     <br/><br/>
 
     <!-- Staff ID -->

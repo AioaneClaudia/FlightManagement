@@ -11,15 +11,9 @@
 <form th:action="${ticket.id} != null ? @{ '/tickets/' + ${ticket.id} } : @{ '/tickets' }"
       th:object="${ticket}" method="post">
 
-    <!-- Passenger -->
-    <label>Passenger:</label>
-    <select th:field="*{passengerId}">
-        <option value="" disabled th:selected="*{passengerId} == null">Select Passenger</option>
-        <option th:each="p : ${passengers}"
-                th:value="${p.id}"
-                th:text="${p.name} + ' (' + p.id + ')'">
-        </option>
-    </select>
+    <!-- Passenger ID -->
+    <label>Passenger ID:</label>
+    <input type="text" th:field="*{passengerId}" />
     <div th:if="${#fields.hasErrors('passengerId')}" th:errors="*{passengerId}"></div>
     <br/>
 
@@ -29,15 +23,9 @@
     <div th:if="${#fields.hasErrors('passengerName')}" th:errors="*{passengerName}"></div>
     <br/>
 
-    <!-- Flight -->
-    <label>Flight:</label>
-    <select th:field="*{flightId}">
-        <option value="" disabled th:selected="*{flightId} == null">Select Flight</option>
-        <option th:each="f : ${flights}"
-                th:value="${f.id}"
-                th:text="${f.name} + ' (' + f.id + ')'">
-        </option>
-    </select>
+    <!-- Flight ID -->
+    <label>Flight ID:</label>
+    <input type="text" th:field="*{flightId}" />
     <div th:if="${#fields.hasErrors('flightId')}" th:errors="*{flightId}"></div>
     <br/>
 

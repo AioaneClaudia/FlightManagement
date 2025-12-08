@@ -43,20 +43,19 @@ public class LuggageController {
                              BindingResult result,
                              Model model) {
 
-        // Validare ticket selectat
-        if (luggage.getTicket() == null || luggage.getTicket().getId() == null || luggage.getTicket().getId().isBlank()) {
-            result.rejectValue("ticket", "error.luggage", "Ticket is required");
+        // VALIDARE TICKET
+        if (luggage.getTicketId() == null || luggage.getTicketId().isBlank()) {
+            result.rejectValue("ticketId", "error.luggage", "Ticket is required");
         } else {
-            Ticket ticket = ticketService.getTicketById(luggage.getTicket().getId());
+            Ticket ticket = ticketService.getTicketById(luggage.getTicketId());
             if (ticket == null) {
-                result.rejectValue("ticket", "error.luggage", "Selected ticket does not exist");
+                result.rejectValue("ticketId", "error.luggage", "Selected ticket does not exist");
             } else {
                 luggage.setTicket(ticket);
             }
         }
 
         if (result.hasErrors()) {
-            model.addAttribute("tickets", ticketService.getAllTickets());
             return "luggage/form";
         }
 
@@ -82,20 +81,19 @@ public class LuggageController {
                                 BindingResult result,
                                 Model model) {
 
-        // Validare ticket selectat
-        if (luggage.getTicket() == null || luggage.getTicket().getId() == null || luggage.getTicket().getId().isBlank()) {
-            result.rejectValue("ticket", "error.luggage", "Ticket is required");
+        // VALIDARE TICKET
+        if (luggage.getTicketId() == null || luggage.getTicketId().isBlank()) {
+            result.rejectValue("ticketId", "error.luggage", "Ticket is required");
         } else {
-            Ticket ticket = ticketService.getTicketById(luggage.getTicket().getId());
+            Ticket ticket = ticketService.getTicketById(luggage.getTicketId());
             if (ticket == null) {
-                result.rejectValue("ticket", "error.luggage", "Selected ticket does not exist");
+                result.rejectValue("ticketId", "error.luggage", "Selected ticket does not exist");
             } else {
                 luggage.setTicket(ticket);
             }
         }
 
         if (result.hasErrors()) {
-            model.addAttribute("tickets", ticketService.getAllTickets());
             return "luggage/form";
         }
 

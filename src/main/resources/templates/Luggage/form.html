@@ -22,17 +22,13 @@
     <div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
     <br/><br/>
 
-    <!-- Ticket dropdown -->
-    <label>Ticket:</label>
-    <select th:field="*{ticket.id}" required>
-        <option value="" disabled th:selected="*{ticket} == null">Select Ticket</option>
-        <option th:each="t : ${tickets}"
-                th:value="${t.id}"
-                th:text="${t.passengerName} + ' (' + t.id + ')'">
-        </option>
-    </select>
-    <div th:if="${#fields.hasErrors('ticket')}" th:errors="*{ticket}"></div>
+
+    <!-- Ticket ID -->
+    <label>Ticket ID:</label>
+    <input type="text" th:field="*{ticketId}" required />
+    <div th:if="${#fields.hasErrors('ticketId')}" th:errors="*{ticketId}"></div>
     <br/><br/>
+
 
     <button type="submit">Save</button>
 </form>

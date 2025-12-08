@@ -39,16 +39,40 @@ public class FlightAssignmentController {
 
     // Adaugă assignment nou
     @PostMapping
-    public String addAssignment(@Valid @ModelAttribute FlightAssignment assignment,
+    public String addAssignment(@Valid @ModelAttribute("assignment") FlightAssignment assignment,
                                 BindingResult result,
                                 Model model) {
+
+        model.addAttribute("flights", flightService.getAllFlights());
+
+        String flightId = assignment.getFlight() != null ? assignment.getFlight().getId() : null;
+
+        if (flightId == null || flightId.isBlank()) {
+            result.rejectValue("flight", "NotNull", "Flight is required");
+        } else {
+            Flight flight = flightService.getFlightById(flightId);
+            if (flight == null) {
+                result.rejectValue("flight", "NotFound", "Selected Flight does not exist");
+            } else {
+                assignment.setFlight(flight);
+            }
+        }
+
         if (result.hasErrors()) {
-            model.addAttribute("flights", flightService.getAllFlights());
             return "assignment/form";
         }
-        assignmentService.addAssignment(assignment);
+
+        try {
+            assignmentService.addAssignment(assignment);
+        } catch (IllegalArgumentException ex) {
+            result.reject("businessError", ex.getMessage());
+            return "assignment/form";
+        }
+
         return "redirect:/assignments";
     }
+
+
 
     // Form pentru editare assignment
     @GetMapping("/{id}/edit")
@@ -65,17 +89,47 @@ public class FlightAssignmentController {
     // Actualizare assignment
     @PostMapping("/{id}/edit")
     public String updateAssignment(@PathVariable String id,
-                                   @Valid @ModelAttribute FlightAssignment assignment,
+                                   @Valid @ModelAttribute("assignment") FlightAssignment assignment,
                                    BindingResult result,
                                    Model model) {
+
+        model.addAttribute("flights", flightService.getAllFlights());
+
+        FlightAssignment existing = assignmentService.getAssignmentById(id);
+        if (existing == null) {
+            return "redirect:/assignments";
+        }
+
+        assignment.setId(id);
+
+        String flightId = assignment.getFlight() != null ? assignment.getFlight().getId() : null;
+
+        if (flightId == null || flightId.isBlank()) {
+            result.rejectValue("flight", "NotNull", "Flight is required");
+        } else {
+            Flight flight = flightService.getFlightById(flightId);
+            if (flight == null) {
+                result.rejectValue("flight", "NotFound", "Selected Flight does not exist");
+            } else {
+                assignment.setFlight(flight);
+            }
+        }
+
         if (result.hasErrors()) {
-            model.addAttribute("flights", flightService.getAllFlights());
             return "assignment/form";
         }
-        assignment.setId(id);
-        assignmentService.addAssignment(assignment); // save face insert/update
+
+        try {
+            assignmentService.addAssignment(assignment);
+        } catch (IllegalArgumentException ex) {
+            result.reject("businessError", ex.getMessage());
+            return "assignment/form";
+        }
+
         return "redirect:/assignments";
     }
+
+
 
     // Ștergere assignment
     @PostMapping("/{id}/delete")

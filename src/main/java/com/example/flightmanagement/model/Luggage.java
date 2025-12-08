@@ -25,6 +25,14 @@ public class Luggage {
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
+
+    @Transient
+    private String ticketId;
+
+    public String getTicketId() { return ticketId; }
+    public void setTicketId(String ticketId) { this.ticketId = ticketId; }
+
+
     // GETTERS & SETTERS
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
