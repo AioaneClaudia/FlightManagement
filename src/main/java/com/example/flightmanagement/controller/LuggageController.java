@@ -43,23 +43,17 @@ public class LuggageController {
                              BindingResult result,
                              Model model) {
 
-        // VALIDARE TICKET
-        if (luggage.getTicketId() == null || luggage.getTicketId().isBlank()) {
-            result.rejectValue("ticketId", "error.luggage", "Ticket is required");
-        } else {
-            Ticket ticket = ticketService.getTicketById(luggage.getTicketId());
-            if (ticket == null) {
-                result.rejectValue("ticketId", "error.luggage", "Selected ticket does not exist");
-            } else {
-                luggage.setTicket(ticket);
-            }
+        try {
+            luggageService.add(luggage);
+        } catch (IllegalArgumentException e) {
+            result.rejectValue("ticketId", "error.luggage", e.getMessage());
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("tickets", ticketService.getAllTickets());
             return "luggage/form";
         }
 
-        luggageService.add(luggage);
         return "redirect:/luggages";
     }
 
@@ -81,23 +75,17 @@ public class LuggageController {
                                 BindingResult result,
                                 Model model) {
 
-        // VALIDARE TICKET
-        if (luggage.getTicketId() == null || luggage.getTicketId().isBlank()) {
-            result.rejectValue("ticketId", "error.luggage", "Ticket is required");
-        } else {
-            Ticket ticket = ticketService.getTicketById(luggage.getTicketId());
-            if (ticket == null) {
-                result.rejectValue("ticketId", "error.luggage", "Selected ticket does not exist");
-            } else {
-                luggage.setTicket(ticket);
-            }
+        try {
+            luggageService.update(id, luggage);
+        } catch (IllegalArgumentException e) {
+            result.rejectValue("ticketId", "error.luggage", e.getMessage());
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("tickets", ticketService.getAllTickets());
             return "luggage/form";
         }
 
-        luggageService.update(id, luggage);
         return "redirect:/luggages";
     }
 

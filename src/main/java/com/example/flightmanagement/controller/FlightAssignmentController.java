@@ -45,34 +45,18 @@ public class FlightAssignmentController {
 
         model.addAttribute("flights", flightService.getAllFlights());
 
-        String flightId = assignment.getFlight() != null ? assignment.getFlight().getId() : null;
-
-        if (flightId == null || flightId.isBlank()) {
-            result.rejectValue("flight", "NotNull", "Flight is required");
-        } else {
-            Flight flight = flightService.getFlightById(flightId);
-            if (flight == null) {
-                result.rejectValue("flight", "NotFound", "Selected Flight does not exist");
-            } else {
-                assignment.setFlight(flight);
-            }
+        try {
+            assignmentService.addAssignment(assignment);
+        } catch (IllegalArgumentException ex) {
+            result.rejectValue("flight", "error.assignment", ex.getMessage());
         }
 
         if (result.hasErrors()) {
             return "assignment/form";
         }
 
-        try {
-            assignmentService.addAssignment(assignment);
-        } catch (IllegalArgumentException ex) {
-            result.reject("businessError", ex.getMessage());
-            return "assignment/form";
-        }
-
         return "redirect:/assignments";
     }
-
-
 
     // Form pentru editare assignment
     @GetMapping("/{id}/edit")
@@ -102,33 +86,18 @@ public class FlightAssignmentController {
 
         assignment.setId(id);
 
-        String flightId = assignment.getFlight() != null ? assignment.getFlight().getId() : null;
-
-        if (flightId == null || flightId.isBlank()) {
-            result.rejectValue("flight", "NotNull", "Flight is required");
-        } else {
-            Flight flight = flightService.getFlightById(flightId);
-            if (flight == null) {
-                result.rejectValue("flight", "NotFound", "Selected Flight does not exist");
-            } else {
-                assignment.setFlight(flight);
-            }
+        try {
+            assignmentService.updateAssignment(id, assignment);
+        } catch (IllegalArgumentException ex) {
+            result.rejectValue("flight", "error.assignment", ex.getMessage());
         }
 
         if (result.hasErrors()) {
             return "assignment/form";
         }
 
-        try {
-            assignmentService.addAssignment(assignment);
-        } catch (IllegalArgumentException ex) {
-            result.reject("businessError", ex.getMessage());
-            return "assignment/form";
-        }
-
         return "redirect:/assignments";
     }
-
 
 
     // Ștergere assignment

@@ -40,7 +40,6 @@ public class Ticket {
     private Passenger passenger;
 
 
-    // Câmp transient pentru formular
     @Transient
     private String flightId;
 

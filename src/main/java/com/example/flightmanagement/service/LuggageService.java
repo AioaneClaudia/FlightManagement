@@ -2,7 +2,6 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.Luggage;
 import com.example.flightmanagement.model.Ticket;
-import com.example.flightmanagement.model.LuggageStatus;
 import com.example.flightmanagement.repository.LuggageRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,24 @@ public class LuggageService {
         return repo.findById(id).orElse(null);
     }
 
-    // Ticket-ul deja este setat în controller
+    /**
+     * Validare și setare ticket pe bagaj.
+     * Aruncă RuntimeException dacă ticket-ul nu există sau nu e setat.
+     */
+    public void validateAndSetTicket(Luggage luggage) {
+        if (luggage.getTicketId() == null || luggage.getTicketId().isBlank()) {
+            throw new IllegalArgumentException("Ticket is required");
+        }
+        Ticket ticket = ticketService.getTicketById(luggage.getTicketId());
+        if (ticket == null) {
+            throw new IllegalArgumentException("Selected ticket does not exist");
+        }
+        luggage.setTicket(ticket);
+    }
+
     public void add(Luggage luggage) {
+        // Validare ticket înainte de salvare
+        validateAndSetTicket(luggage);
         repo.save(luggage);
     }
 
@@ -38,9 +53,9 @@ public class LuggageService {
             luggage.setType(updated.getType());
             luggage.setWeight(updated.getWeight());
 
-            // Dacă ticket-ul a fost schimbat
-            if (updated.getTicket() != null) {
-                luggage.setTicket(updated.getTicket());
+            // Validare și setare ticket dacă s-a schimbat
+            if (updated.getTicketId() != null) {
+                validateAndSetTicket(updated);
             }
 
             repo.save(luggage);
