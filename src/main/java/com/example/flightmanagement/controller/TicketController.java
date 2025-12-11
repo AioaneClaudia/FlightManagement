@@ -46,37 +46,22 @@ public class TicketController {
                          BindingResult result,
                          Model model) {
 
-        // VALIDARE FLIGHT
-        if (ticket.getFlightId() == null || ticket.getFlightId().isBlank()) {
-            result.rejectValue("flightId", "error.ticket", "Flight is required");
-        } else {
-            Flight flight = flightService.getFlightById(ticket.getFlightId());
-            if (flight == null) {
-                result.rejectValue("flightId", "error.ticket", "Selected flight does not exist");
-            } else {
-                ticket.setFlight(flight);
-            }
-        }
+        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("passengers", passengerService.getAllPassengers());
 
-        // VALIDARE PASSENGER
-        if (ticket.getPassengerId() == null || ticket.getPassengerId().isBlank()) {
-            result.rejectValue("passengerId", "error.ticket", "Passenger is required");
-        } else {
-            var passenger = passengerService.getPassengerById(ticket.getPassengerId());
-            if (passenger == null) {
-                result.rejectValue("passengerId", "error.ticket", "Selected passenger does not exist");
-            } else {
-                ticket.setPassenger(passenger);
-            }
+        try {
+            ticketService.issueTicket(ticket);
+        } catch (IllegalArgumentException ex) {
+            result.reject("error.ticket", ex.getMessage());
         }
 
         if (result.hasErrors()) {
-            return "ticket/form"; // nu mai e nevoie de flights/passengers aici
+            return "ticket/form";
         }
 
-        ticketService.issueTicket(ticket);
         return "redirect:/tickets";
     }
+
 
 
     @GetMapping("/{id}/edit")
@@ -99,38 +84,21 @@ public class TicketController {
                          BindingResult result,
                          Model model) {
 
-        // VALIDARE FLIGHT
-        if (ticket.getFlightId() == null || ticket.getFlightId().isBlank()) {
-            result.rejectValue("flightId", "error.ticket", "Flight is required");
-        } else {
-            Flight flight = flightService.getFlightById(ticket.getFlightId());
-            if (flight == null) {
-                result.rejectValue("flightId", "error.ticket", "Selected flight does not exist");
-            } else {
-                ticket.setFlight(flight);
-            }
-        }
+        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("passengers", passengerService.getAllPassengers());
 
-        // VALIDARE PASSENGER
-        if (ticket.getPassengerId() == null || ticket.getPassengerId().isBlank()) {
-            result.rejectValue("passengerId", "error.ticket", "Passenger is required");
-        } else {
-            var passenger = passengerService.getPassengerById(ticket.getPassengerId());
-            if (passenger == null) {
-                result.rejectValue("passengerId", "error.ticket", "Selected passenger does not exist");
-            } else {
-                ticket.setPassenger(passenger);
-            }
+        try {
+            ticketService.updateTicket(id, ticket);
+        } catch (IllegalArgumentException ex) {
+            result.reject("error.ticket", ex.getMessage());
         }
 
         if (result.hasErrors()) {
             return "ticket/form";
         }
 
-        ticketService.updateTicket(id, ticket);
         return "redirect:/tickets";
     }
-
 
     @GetMapping("/{id}/details")
     public String details(@PathVariable String id, Model model) {
