@@ -5,15 +5,47 @@
     <title>Airline Employees</title>
 </head>
 <body>
+
 <h2>All Airline Employees</h2>
 <a href="/airlineemployees/new">Add New Employee</a>
+
+<form method="get" action="/airlineemployees">
+
+    <label>Name:</label>
+    <input type="text" name="name" th:value="${name}"/>
+
+    <label>Role:</label>
+    <input type="text" name="role" th:value="${role}"/>
+
+    <button type="submit">Filter</button>
+
+</form>
+<br>
 
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Role</th>
+        <th>
+            <a th:href="@{'/airlineemployees'(name=${name}, role=${role},
+                sortField='id', sortDir=${reverseSortDir})}">
+                ID
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{'/airlineemployees'(name=${name}, role=${role},
+                sortField='name', sortDir=${reverseSortDir})}">
+                Name
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{'/airlineemployees'(name=${name}, role=${role},
+                sortField='role', sortDir=${reverseSortDir})}">
+                Role
+            </a>
+        </th>
+
         <th>Actions</th>
     </tr>
     </thead>
@@ -32,5 +64,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

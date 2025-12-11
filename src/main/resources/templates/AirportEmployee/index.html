@@ -1,11 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>Airport Employees</title></head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Airport Employees</title>
+</head>
 <body>
+
 <h2>Airport Employees</h2>
 <a href="/airportemployees/new">Add new</a>
+
+<form method="get" action="/airportemployees">
+
+    <label>Name:</label>
+    <input type="text" name="name" th:value="${name}"/>
+
+    <label>Department:</label>
+    <input type="text" name="department" th:value="${department}"/>
+
+    <button type="submit">Filter</button>
+
+</form>
+
+<br/>
+
 <table border="1">
-    <thead><tr><th>ID</th><th>Name</th><th>Designation</th><th>Department</th><th>Actions</th></tr></thead>
+    <thead>
+    <tr>
+        <th>
+            <a th:href="@{'/airportemployees'(name=${name}, department=${department},
+                sortField='id', sortDir=${reverseSortDir})}">
+                ID
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{'/airportemployees'(name=${name}, department=${department},
+                sortField='name', sortDir=${reverseSortDir})}">
+                Name
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{'/airportemployees'(name=${name}, department=${department},
+                sortField='designation', sortDir=${reverseSortDir})}">
+                Designation
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{'/airportemployees'(name=${name}, department=${department},
+                sortField='department', sortDir=${reverseSortDir})}">
+                Department
+            </a>
+        </th>
+
+        <th>Actions</th>
+    </tr>
+    </thead>
+
     <tbody>
     <tr th:each="e : ${employees}">
         <td th:text="${e.id}">id</td>
@@ -15,12 +67,15 @@
         <td>
             <a th:href="@{'/airportemployees/' + ${e.id} + '/details'}">Details</a>
             <a th:href="@{'/airportemployees/' + ${e.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/airportemployees/' + ${e.id} + '/delete'}" method="post" style="display:inline">
+
+            <form th:action="@{'/airportemployees/' + ${e.id} + '/delete'}"
+                  method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

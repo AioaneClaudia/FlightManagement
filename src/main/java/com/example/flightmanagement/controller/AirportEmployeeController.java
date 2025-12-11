@@ -19,10 +19,25 @@ public class AirportEmployeeController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("employees", service.getAllEmployees());
+    public String list(Model model,
+                       @RequestParam(required = false) String name,
+                       @RequestParam(required = false) String department,
+                       @RequestParam(defaultValue = "id") String sortField,
+                       @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("employees",
+                service.getFilteredAndSortedEmployees(name, department, sortField, sortDir));
+
+        // păstrăm valorile filtrate
+        model.addAttribute("name", name);
+        model.addAttribute("department", department);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "airportemployee/index";
     }
+
 
     @GetMapping("/new")
     public String newForm(Model model) {

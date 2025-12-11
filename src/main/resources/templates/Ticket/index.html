@@ -7,16 +7,45 @@
 <body>
 <h2>Tickets</h2>
 
+<!-- Formular Filtrare -->
+<form th:action="@{/tickets}" method="get">
+    <label>Passenger Name:</label>
+    <input type="text" name="passengerName" th:value="${passengerName}" />
+
+    <label>Min Price:</label>
+    <input type="number" step="0.01" name="minPrice" th:value="${minPrice}" />
+
+    <label>Max Price:</label>
+    <input type="number" step="0.01" name="maxPrice" th:value="${maxPrice}" />
+
+    <button type="submit">Filter</button>
+    <a th:href="@{/tickets}">Reset</a>
+</form>
+
+<br/>
+
 <a th:href="@{/tickets/new}">Add new</a>
 <br/><br/>
 
 <table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Passenger</th>
+        <th>
+            <a th:href="@{/tickets(passengerName=${passengerName}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortField='id', sortDir=${sortField=='id' && sortDir=='asc' ? 'desc' : 'asc'})}">
+                ID <span th:text="${sortField=='id' ? (sortDir=='asc' ? '▲' : '▼') : ''}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/tickets(passengerName=${passengerName}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortField='passengerName', sortDir=${sortField=='passengerName' && sortDir=='asc' ? 'desc' : 'asc'})}">
+                Passenger <span th:text="${sortField=='passengerName' ? (sortDir=='asc' ? '▲' : '▼') : ''}"></span>
+            </a>
+        </th>
         <th>Flight</th>
-        <th>Price</th>
+        <th>
+            <a th:href="@{/tickets(passengerName=${passengerName}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortField='price', sortDir=${sortField=='price' && sortDir=='asc' ? 'desc' : 'asc'})}">
+                Price <span th:text="${sortField=='price' ? (sortDir=='asc' ? '▲' : '▼') : ''}"></span>
+            </a>
+        </th>
         <th>Seat</th>
         <th>Actions</th>
     </tr>
@@ -24,7 +53,7 @@
     <tbody>
     <tr th:each="t : ${tickets}">
         <td th:text="${t.id}"></td>
-        <td th:text="${t.passengerId}"></td>
+        <td th:text="${t.passengerName}"></td>
         <td th:text="${t.flight != null} ? ${t.flight.name} + ' (' + ${t.flight.id} + ')' : 'N/A'"></td>
         <td th:text="${t.price}"></td>
         <td th:text="${t.seatNumber}"></td>

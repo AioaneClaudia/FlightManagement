@@ -5,19 +5,58 @@
     <title>Passengers</title>
 </head>
 <body>
+
 <h1>All Passengers</h1>
 <a href="/passengers/new">Add New Passenger</a>
+
+<form method="get" action="/passengers">
+
+    <label>Currency:</label>
+    <input type="text" name="currency" th:value="${currency}"/>
+
+    <label>Date From:</label>
+    <input type="date" name="dateFrom" th:value="${dateFrom}"/>
+
+    <label>Date To:</label>
+    <input type="date" name="dateTo" th:value="${dateTo}"/>
+
+    <button type="submit">Filter</button>
+</form>
+
+<br/>
+
 <table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Currency</th>
-        <th>Email</th>
-        <th>DateOfBirth</th>
+        <th>
+            <a th:href="@{/passengers(sortField='id', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+                ID
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/passengers(sortField='name', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+                Name
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/passengers(sortField='currency', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+                Currency
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/passengers(sortField='email', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+                Email
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/passengers(sortField='dateOfBirth', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+                Date Of Birth
+            </a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="passenger : ${passengers}">
         <td th:text="${passenger.id}">ID</td>
@@ -33,9 +72,9 @@
                 <button type="submit">Delete</button>
             </form>
         </td>
-
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

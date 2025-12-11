@@ -1,24 +1,24 @@
 package com.example.flightmanagement.service;
 
-import com.example.flightmanagement.model.Flight;
-import com.example.flightmanagement.model.Passenger;
 import com.example.flightmanagement.model.Ticket;
 import com.example.flightmanagement.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
 
     private final TicketRepository ticketRepository;
-    private final FlightService flightService;
-    private final PassengerService passengerService;
 
-    public TicketService(TicketRepository ticketRepository, FlightService flightService, PassengerService passengerService) {
+    public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
-        this.flightService = flightService;
-        this.passengerService = passengerService;
+    }
+
+    public void issueTicket(Ticket ticket) {
+        ticketRepository.save(ticket);
     }
 
     public List<Ticket> getAllTickets() {
@@ -29,44 +29,37 @@ public class TicketService {
         return ticketRepository.findById(id).orElse(null);
     }
 
+    public void updateTicket(String id, Ticket ticket) {
+        ticket.setId(id);
+        ticketRepository.save(ticket);
+    }
+
     public void cancelTicket(String id) {
         ticketRepository.deleteById(id);
     }
 
-    /**
-     * Validare și setare Flight și Passenger pe Ticket
-     * Aruncă IllegalArgumentException dacă oricare nu există sau nu e setat
-     */
-    public void validateAndSetRelations(Ticket ticket) {
-        // Flight
-        if (ticket.getFlightId() == null || ticket.getFlightId().isBlank()) {
-            throw new IllegalArgumentException("Flight is required");
-        }
-        Flight flight = flightService.getFlightById(ticket.getFlightId());
-        if (flight == null) {
-            throw new IllegalArgumentException("Selected flight does not exist");
-        }
-        ticket.setFlight(flight);
+    public List<Ticket> filterAndSortTickets(String passengerName, Double minPrice, Double maxPrice,
+                                             String sortField, String sortDir) {
+        // Obținem toate biletele și filtrăm
+        List<Ticket> tickets = ticketRepository.findAll().stream()
+                .filter(t -> (passengerName == null || passengerName.isBlank() || t.getPassengerName().toLowerCase().contains(passengerName.toLowerCase())))
+                .filter(t -> (minPrice == null || t.getPrice() >= minPrice))
+                .filter(t -> (maxPrice == null || t.getPrice() <= maxPrice))
+                .collect(Collectors.toList());
 
-        // Passenger
-        if (ticket.getPassengerId() == null || ticket.getPassengerId().isBlank()) {
-            throw new IllegalArgumentException("Passenger is required");
+        // Sortare după câmp și direcție
+        if (sortField != null && !sortField.isBlank()) {
+            Comparator<Ticket> comparator = switch (sortField) {
+                case "passengerName" -> Comparator.comparing(Ticket::getPassengerName, String.CASE_INSENSITIVE_ORDER);
+                case "price" -> Comparator.comparing(Ticket::getPrice);
+                default -> Comparator.comparing(Ticket::getId);
+            };
+            if ("desc".equalsIgnoreCase(sortDir)) {
+                comparator = comparator.reversed();
+            }
+            tickets.sort(comparator);
         }
-        Passenger passenger = passengerService.getPassengerById(ticket.getPassengerId());
-        if (passenger == null) {
-            throw new IllegalArgumentException("Selected passenger does not exist");
-        }
-        ticket.setPassenger(passenger);
-    }
 
-    public void issueTicket(Ticket ticket) {
-        validateAndSetRelations(ticket);
-        ticketRepository.save(ticket);
-    }
-
-    public void updateTicket(String id, Ticket ticket) {
-        ticket.setId(id);
-        validateAndSetRelations(ticket);
-        ticketRepository.save(ticket);
+        return tickets;
     }
 }

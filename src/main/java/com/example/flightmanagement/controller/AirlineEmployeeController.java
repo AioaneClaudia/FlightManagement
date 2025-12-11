@@ -20,10 +20,26 @@ public class AirlineEmployeeController {
 
     // LISTA ANGAJATI
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("employees", service.getAllEmployees());
+    public String list(Model model,
+                       @RequestParam(required = false) String name,
+                       @RequestParam(required = false) String role,
+                       @RequestParam(required = false, defaultValue = "id") String sortField,
+                       @RequestParam(required = false, defaultValue = "asc") String sortDir) {
+
+        // Trimitem lista filtrată + sortată
+        model.addAttribute("employees",
+                service.getFilteredAndSortedEmployees(name, role, sortField, sortDir));
+
+        // păstrăm valorile în formular
+        model.addAttribute("name", name);
+        model.addAttribute("role", role);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "airlineemployee/index";
     }
+
 
     @GetMapping("/new")
     public String newForm(Model model) {

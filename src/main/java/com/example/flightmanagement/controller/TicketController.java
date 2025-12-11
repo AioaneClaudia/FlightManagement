@@ -27,10 +27,32 @@ public class TicketController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("tickets", ticketService.getAllTickets());
+    public String list(
+            @RequestParam(required = false) String passengerName,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String sortField,
+            @RequestParam(required = false) String sortDir,
+            Model model) {
+
+        // Dacă nu se trimite sortDir, setăm ascendent
+        if (sortDir == null || sortDir.isBlank()) {
+            sortDir = "asc";
+        }
+
+        model.addAttribute("tickets", ticketService.filterAndSortTickets(passengerName, minPrice, maxPrice, sortField, sortDir));
+
+        // Păstrăm valorile filtrelor și sortării în formular și link-uri
+        model.addAttribute("passengerName", passengerName);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+
         return "ticket/index";
     }
+
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {

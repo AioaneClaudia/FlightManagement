@@ -2,6 +2,7 @@ package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.AirportEmployee;
 import com.example.flightmanagement.repository.AirportEmployeeRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,4 +40,31 @@ public class AirportEmployeeService {
     public void removeEmployee(String id) {
         repository.deleteById(id);
     }
+
+    public List<AirportEmployee> getFilteredAndSortedEmployees(String name,
+                                                               String department,
+                                                               String sortField,
+                                                               String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase("asc")
+                ? Sort.by(sortField).ascending()
+                : Sort.by(sortField).descending();
+
+        List<AirportEmployee> list = repository.findAll(sort);
+
+        if (name != null && !name.isBlank()) {
+            list = list.stream()
+                    .filter(e -> e.getName().toLowerCase().contains(name.toLowerCase()))
+                    .toList();
+        }
+
+        if (department != null && !department.isBlank()) {
+            list = list.stream()
+                    .filter(e -> e.getDepartment().toLowerCase().contains(department.toLowerCase()))
+                    .toList();
+        }
+
+        return list;
+    }
+
 }

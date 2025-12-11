@@ -3,10 +3,14 @@ package com.example.flightmanagement.controller;
 import com.example.flightmanagement.model.Passenger;
 import com.example.flightmanagement.service.PassengerService;
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/passengers")
@@ -19,10 +23,27 @@ public class PassengerController {
     }
 
     @GetMapping
-    public String getAllPassengers(Model model) {
-        model.addAttribute("passengers", passengerService.getAllPassengers());
+    public String getAllPassengers(
+            @RequestParam(required = false) String currency,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
+            @RequestParam(defaultValue = "dateOfBirth") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            Model model) {
+
+        List<Passenger> passengers = passengerService.getFilteredPassengers(currency, dateFrom, dateTo, sortField, sortDir);
+
+        model.addAttribute("passengers", passengers);
+        model.addAttribute("currency", currency);
+        model.addAttribute("dateFrom", dateFrom);
+        model.addAttribute("dateTo", dateTo);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+
         return "passenger/index";
     }
+
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
