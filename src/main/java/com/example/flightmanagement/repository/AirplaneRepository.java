@@ -1,11 +1,10 @@
 package com.example.flightmanagement.repository;
 
 import com.example.flightmanagement.model.Airplane;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AirplaneRepository extends InFileRepository<String, Airplane> {
-    public AirplaneRepository() {
-        super("src/main/resources/data/airplane.json", Airplane.class);
-    }
+public interface AirplaneRepository extends JpaRepository<Airplane, String> {
+    // poți adăuga query methods dacă ai nevoie (ex: findByNumber)
 }

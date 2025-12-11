@@ -31,4 +31,3 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 }
-

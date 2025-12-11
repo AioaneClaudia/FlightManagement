@@ -6,15 +6,19 @@
 </head>
 <body>
 <h2>All Airplanes</h2>
-<a href="/airplanes/new">Add New Airplane</a>
 
-<table border="1">
+<div th:if="${message}" style="color:green;margin-bottom:10px;" th:text="${message}"></div>
+
+<a th:href="@{/airplanes/new}">Add New Airplane</a>
+
+<table border="1" cellpadding="6" style="margin-top:10px;">
     <thead>
     <tr>
         <th>ID</th>
         <th>Number</th>
         <th>Model</th>
         <th>Capacity</th>
+        <th>Flights</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -24,15 +28,20 @@
         <td th:text="${a.number}">Number</td>
         <td th:text="${a.model}">Model</td>
         <td th:text="${a.capacity}">Capacity</td>
+        <td th:text="${#lists.size(a.flights)}">Flights</td>
         <td>
-            <a th:href="@{'/airplanes/' + ${a.id} + '/details'}">Details</a>
+            <a th:href="@{'/airplanes/' + ${a.id} + '/details'}">Details</a> |
             <a th:href="@{'/airplanes/' + ${a.id} + '/edit'}">Edit</a>
             <form th:action="@{'/airplanes/' + ${a.id} + '/delete'}" method="post" style="display:inline">
-                <button type="submit">Delete</button>
+                <button type="submit" onclick="return confirm('Delete airplane?')">Delete</button>
             </form>
         </td>
     </tr>
+    <tr th:if="${#lists.isEmpty(airplanes)}">
+        <td colspan="6">No airplanes available.</td>
+    </tr>
     </tbody>
 </table>
+
 </body>
 </html>

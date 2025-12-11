@@ -2,14 +2,15 @@ package com.example.flightmanagement.config;
 
 import com.example.flightmanagement.model.*;
 import com.example.flightmanagement.repository.*;
-import jakarta.annotation.PostConstruct;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Random;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -19,24 +20,37 @@ public class DataInitializer implements CommandLineRunner {
     private final FlightAssignmentRepository assignmentRepository;
     private final LuggageRepository luggageRepository;
     private final PassengerRepository passengerRepository;
+    private final NoticeBoardRepository noticeBoardRepository;
+    private final AirplaneRepository airplaneRepository;
+    private final AirlineEmployeeRepository airlineEmployeeRepository;
+    private final AirportEmployeeRepository airportEmployeeRepository;
 
     public DataInitializer(FlightRepository flightRepository,
                            TicketRepository ticketRepository,
                            FlightAssignmentRepository assignmentRepository,
                            LuggageRepository luggageRepository,
-                           PassengerRepository passengerRepository) {
+                           PassengerRepository passengerRepository,
+                           NoticeBoardRepository noticeBoardRepository,
+                           AirplaneRepository airplaneRepository,
+                           AirlineEmployeeRepository airlineEmployeeRepository,
+                           AirportEmployeeRepository airportEmployeeRepository) {
         this.flightRepository = flightRepository;
         this.ticketRepository = ticketRepository;
         this.assignmentRepository = assignmentRepository;
         this.luggageRepository = luggageRepository;
         this.passengerRepository = passengerRepository;
+        this.noticeBoardRepository = noticeBoardRepository;
+        this.airplaneRepository = airplaneRepository;
+        this.airlineEmployeeRepository = airlineEmployeeRepository;
+        this.airportEmployeeRepository = airportEmployeeRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        Random random = new Random();
 
         // ======================
-        // 1️⃣ Passengers
+        // 1️ Passengers
         // ======================
         if (passengerRepository.count() == 0) {
             for (int i = 1; i <= 10; i++) {
@@ -50,66 +64,121 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         // ======================
-        // 2️⃣ Flights
+        // 2️ NoticeBoards
+        // ======================
+        if (noticeBoardRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                NoticeBoard nb = new NoticeBoard("NB" + i, LocalDate.now().plusDays(i).toString());
+                noticeBoardRepository.save(nb);
+            }
+        }
+
+        // ======================
+        // 3️ Airplanes
+        // ======================
+        if (airplaneRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                Airplane a = new Airplane();
+                a.setId("A" + i);
+                a.setNumber(100 + i);
+                a.setModel("Model " + i);
+                a.setCapacity(150 + i * 10);
+                airplaneRepository.save(a);
+            }
+        }
+
+        List<Passenger> passengers = passengerRepository.findAll();
+        List<NoticeBoard> noticeBoards = noticeBoardRepository.findAll();
+        List<Airplane> airplanes = airplaneRepository.findAll();
+
+        // ======================
+        // 4️ Flights
         // ======================
         if (flightRepository.count() == 0) {
             for (int i = 1; i <= 10; i++) {
-                Flight f = new Flight("F" + i, "Flight " + i, "NB" + i, "AP" + i);
-                f.setDepartureTime(LocalDateTime.now().plusDays(i));
-                f.setArrivalTime(LocalDateTime.now().plusDays(i).plusHours(2));
+                Flight f = new Flight();
+                f.setId("F" + i);
+                f.setName("Flight " + i);
+                f.setNoticeBoard(noticeBoards.get(random.nextInt(noticeBoards.size())));
+                f.setAirplane(airplanes.get(random.nextInt(airplanes.size())));
+                f.setDepartureTime(LocalDateTime.now().plusDays(random.nextInt(30)).truncatedTo(ChronoUnit.MINUTES));
+                f.setArrivalTime(f.getDepartureTime().plusHours(2 + random.nextInt(5)));
                 flightRepository.save(f);
             }
         }
 
-        // ======================
-        // 3️⃣ Flight Assignments
-        // ======================
-        if (assignmentRepository.count() == 0) {
-            int i = 1;
-            for (Flight f : flightRepository.findAll()) {
-                FlightAssignment fa = new FlightAssignment("A" + i, f, "S" + i);
-                assignmentRepository.save(fa);
-                i++;
-                if (i > 10) break;
-            }
-        }
+        List<Flight> flights = flightRepository.findAll();
 
         // ======================
-        // 4️⃣ Tickets
+        // 5 Tickets & Luggage
         // ======================
         if (ticketRepository.count() == 0) {
-            int i = 1;
-            List<Passenger> passengers = passengerRepository.findAll();
-            for (Flight f : flightRepository.findAll()) {
+            for (int i = 0; i < 10; i++) {
+                Flight f = flights.get(random.nextInt(flights.size()));
+                Passenger p = passengers.get(random.nextInt(passengers.size()));
+
                 Ticket t = new Ticket();
-
-                Passenger p = passengers.get((i - 1) % passengers.size()); // alegem un pasager
-
-                t.setPassengerId(p.getId());
-                t.setPassenger(p);   // ADĂUGAT - stabilește relația JPA reală
-
-
                 t.setPassengerName(p.getName());
-                t.setPrice(100.0 + i);
+                t.setPassengerId(p.getId());
+                t.setSeatNumber("S" + (i + 1));
+                t.setPrice(100.0 + random.nextInt(400));
                 t.setFlight(f);
-                t.setSeatNumber("SE" + i);
+                t.setPassenger(p);
+
                 ticketRepository.save(t);
 
-                // ======================
-                // 5️⃣ Luggages for each ticket
-                // ======================
-                int numLuggages = 1 + new Random().nextInt(3); // 1-3 luggages
-                for (int j = 1; j <= numLuggages; j++) {
+                // Luggage pentru fiecare ticket
+                for (int j = 1; j <= 2; j++) {
                     Luggage l = new Luggage();
-                    l.setType(j % 2 == 0 ? "Cabin" : "Hold");
-                    l.setWeight(5 + new Random().nextInt(15)); // 5-20 kg
+                    l.setType(j == 1 ? "Cabin" : "Hold");
+                    l.setWeight(5 + random.nextInt(20));
                     l.setTicket(t);
                     luggageRepository.save(l);
                 }
-
-                i++;
-                if (i > 10) break;
             }
         }
+
+        // ======================
+        // 6️ FlightAssignments
+        // ======================
+        if (assignmentRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                Flight f = flights.get(random.nextInt(flights.size()));
+                FlightAssignment fa = new FlightAssignment();
+                fa.setId("FA" + i);
+                fa.setFlight(f);
+                fa.setStaffId("Staff" + i);
+                assignmentRepository.save(fa);
+            }
+        }
+
+        // ======================
+        // 7️ AirlineEmployees
+        // ======================
+        if (airlineEmployeeRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                AirlineEmployee ae = new AirlineEmployee();
+                ae.setId("AE" + i);
+                ae.setName("Employee " + i);
+                ae.setRole(i % 2 == 0 ? "Pilot" : "Crew");
+                airlineEmployeeRepository.save(ae);
+            }
+        }
+
+        // ======================
+        // 8️ AirportEmployees
+        // ======================
+        if (airportEmployeeRepository.count() == 0) {
+            for (int i = 1; i <= 10; i++) {
+                AirportEmployee ae = new AirportEmployee();
+                ae.setId("AP" + i);
+                ae.setName("AirportEmployee " + i);
+                ae.setDesignation("Designation " + i);
+                ae.setDepartment("Department " + ((i % 3) + 1));
+                airportEmployeeRepository.save(ae);
+            }
+        }
+
+        System.out.println(" Data initialization complete!");
     }
 }

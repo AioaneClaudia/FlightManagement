@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Airplane Details</title>
-</head>
+<head><meta charset="UTF-8"><title>Airplane Details</title></head>
 <body>
 <h2>Airplane Details</h2>
 
@@ -11,6 +8,12 @@
 <p><b>Number:</b> <span th:text="${airplane.number}"></span></p>
 <p><b>Model:</b> <span th:text="${airplane.model}"></span></p>
 <p><b>Capacity:</b> <span th:text="${airplane.capacity}"></span></p>
+
+<h3>Flights</h3>
+<ul>
+    <li th:each="f : ${airplane.flights}" th:text="${f.id} + ' - ' + ${f.name}"></li>
+    <li th:if="${#lists.isEmpty(airplane.flights)}">No flights for this airplane.</li>
+</ul>
 
 <a th:href="@{'/airplanes/' + ${airplane.id} + '/edit'}">Edit</a> |
 <a href="/airplanes">Back to list</a>

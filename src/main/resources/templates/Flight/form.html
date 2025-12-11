@@ -2,55 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="${flight.id} != '' ? 'Edit Flight' : 'New Flight'">Flight Form</title>
+    <title>Flight Form</title>
 </head>
 <body>
-<h2 th:text="${flight.id} != '' ? 'Edit Flight' : 'New Flight'"></h2>
 
-<form th:action="${flight.id} != null and ${flight.id} != '' ?
-                 @{ '/flights/' + ${flight.id} + '/edit' } :
-                 @{ '/flights' }"
-      th:object="${flight}" method="post">
+<h2 th:text="${flight.id} != null ? 'Edit Flight' : 'New Flight'"></h2>
+
+<form th:object="${flight}"
+      th:action="@{${flight.id} != null ? '/flights/' + ${flight.id} + '/edit' : '/flights'}"
+      method="post">
 
     <!-- ID -->
     <label>ID:</label>
-    <input type="text" th:field="*{id}" required />
-    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
-    <br/><br/>
+    <input type="text" th:field="*{id}" th:readonly="${flight.id != null}"/>
+    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color:red"></div>
+    <br/>
 
     <!-- Name -->
     <label>Name:</label>
-    <input type="text" th:field="*{name}" required />
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-    <br/><br/>
+    <input type="text" th:field="*{name}" required/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></div>
+    <br/>
 
-    <!-- NoticeBoardId -->
-    <label>Notice Board ID:</label>
-    <input type="text" th:field="*{noticeBoard.id}" required />
-    <div th:if="${#fields.hasErrors('noticeBoard')}" th:errors="*{noticeBoard}"></div>
-    <br/><br/>
+    <!-- NoticeBoard ID (manual text input) -->
+    <label>NoticeBoard ID:</label>
+    <input type="text" th:field="*{noticeBoard.id}" placeholder="Enter NoticeBoard ID"/>
+    <div th:if="${#fields.hasErrors('noticeBoard')}" th:errors="*{noticeBoard}" style="color:red"></div>
+    <br/>
 
-    <!-- AirplaneId -->
+    <!-- Airplane ID (manual text input) -->
     <label>Airplane ID:</label>
-    <input type="text" th:field="*{airplaneId}" required />
-    <div th:if="${#fields.hasErrors('airplaneId')}" th:errors="*{airplaneId}"></div>
-    <br/><br/>
+    <input type="text" th:field="*{airplane.id}" placeholder="Enter Airplane ID"/>
+    <div th:if="${#fields.hasErrors('airplane')}" th:errors="*{airplane}" style="color:red"></div>
+    <br/>
 
-    <!-- Departure Time -->
+    <!-- Departure -->
     <label>Departure Time:</label>
-    <input type="datetime-local" th:field="*{departureTime}" required />
-    <div th:if="${#fields.hasErrors('departureTime')}" th:errors="*{departureTime}"></div>
-    <br/><br/>
+    <input type="datetime-local" th:field="*{departureTime}" required/>
+    <div th:if="${#fields.hasErrors('departureTime')}" th:errors="*{departureTime}" style="color:red"></div>
+    <br/>
 
-    <!-- Arrival Time -->
+    <!-- Arrival -->
     <label>Arrival Time:</label>
-    <input type="datetime-local" th:field="*{arrivalTime}" required />
-    <div th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></div>
-    <br/><br/>
+    <input type="datetime-local" th:field="*{arrivalTime}" required/>
+    <div th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}" style="color:red"></div>
+    <br/>
 
-    <button type="submit">Save</button>
+    <button type="submit" th:text="${flight.id} != null ? 'Update' : 'Create'"></button>
+
 </form>
 
+<br/>
 <a href="/flights">Back to list</a>
 
 </body>

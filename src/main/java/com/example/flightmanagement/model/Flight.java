@@ -21,14 +21,16 @@ public class Flight {
     @Size(min = 2, max = 100, message = "Name must be 2..100 characters")
     private String name;
 
-    // ManyToOne - referință către NoticeBoard
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_board_id", nullable = false)
     @NotNull(message = "NoticeBoard is required")
     private NoticeBoard noticeBoard;
 
-    @NotBlank(message = "AirplaneId is required")
-    private String airplaneId;
+    // now a real relation to Airplane
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "airplane_id", nullable = false)
+    @NotNull(message = "Airplane is required")
+    private Airplane airplane;
 
     @NotNull(message = "Departure time is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -48,12 +50,12 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(String id, String name, NoticeBoard noticeBoard, String airplaneId,
+    public Flight(String id, String name, NoticeBoard noticeBoard, Airplane airplane,
                   LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.id = id;
         this.name = name;
         this.noticeBoard = noticeBoard;
-        this.airplaneId = airplaneId;
+        this.airplane = airplane;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
     }
@@ -69,8 +71,8 @@ public class Flight {
     public NoticeBoard getNoticeBoard() { return noticeBoard; }
     public void setNoticeBoard(NoticeBoard noticeBoard) { this.noticeBoard = noticeBoard; }
 
-    public String getAirplaneId() { return airplaneId; }
-    public void setAirplaneId(String airplaneId) { this.airplaneId = airplaneId; }
+    public Airplane getAirplane() { return airplane; }
+    public void setAirplane(Airplane airplane) { this.airplane = airplane; }
 
     public LocalDateTime getDepartureTime() { return departureTime; }
     public void setDepartureTime(LocalDateTime departureTime) { this.departureTime = departureTime; }

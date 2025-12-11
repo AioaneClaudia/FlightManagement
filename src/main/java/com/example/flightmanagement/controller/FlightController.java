@@ -1,7 +1,9 @@
 package com.example.flightmanagement.controller;
 
+import com.example.flightmanagement.model.Airplane;
 import com.example.flightmanagement.model.Flight;
 import com.example.flightmanagement.model.NoticeBoard;
+import com.example.flightmanagement.service.AirplaneService;
 import com.example.flightmanagement.service.FlightService;
 import com.example.flightmanagement.service.NoticeBoardService;
 import jakarta.validation.Valid;
@@ -17,23 +19,28 @@ public class FlightController {
 
     private final FlightService flightService;
     private final NoticeBoardService noticeBoardService;
+    private final AirplaneService airplaneService;
 
-    public FlightController(FlightService flightService, NoticeBoardService noticeBoardService) {
+    public FlightController(FlightService flightService,
+                            NoticeBoardService noticeBoardService,
+                            AirplaneService airplaneService) {
         this.flightService = flightService;
         this.noticeBoardService = noticeBoardService;
+        this.airplaneService = airplaneService;
     }
 
     @GetMapping
     public String getAllFlights(Model model, @ModelAttribute("message") String message) {
         model.addAttribute("flights", flightService.getAllFlights());
-        if (message != null && !message.isBlank()) model.addAttribute("message", message);
+        if (message != null && !message.isBlank()) {
+            model.addAttribute("message", message);
+        }
         return "flight/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("flight", new Flight());
-        model.addAttribute("boards", noticeBoardService.getAllNoticeBoards());
         return "flight/form";
     }
 
@@ -43,22 +50,8 @@ public class FlightController {
                             Model model,
                             RedirectAttributes redirectAttributes) {
 
-        // always add boards to model (used if we return to form)
-        model.addAttribute("boards", noticeBoardService.getAllNoticeBoards());
-
-        // validate nested noticeBoard.id (binding from select th:field="*{noticeBoard.id}")
-        String nbId = flight.getNoticeBoard() != null ? flight.getNoticeBoard().getId() : null;
-        if (nbId == null || nbId.isBlank()) {
-            result.rejectValue("noticeBoard", "NotNull", "NoticeBoard is required");
-        } else {
-            NoticeBoard nb = noticeBoardService.getNoticeBoardById(nbId);
-            if (nb == null) {
-                result.rejectValue("noticeBoard", "NotFound", "Selected NoticeBoard does not exist");
-            } else {
-                // attach managed entity
-                flight.setNoticeBoard(nb);
-            }
-        }
+        validateNoticeBoard(flight, result);
+        validateAirplane(flight, result);
 
         if (result.hasErrors()) {
             return "flight/form";
@@ -72,11 +65,9 @@ public class FlightController {
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable String id, Model model) {
         Flight flight = flightService.getFlightById(id);
-        if (flight == null) {
-            return "redirect:/flights";
-        }
+        if (flight == null) return "redirect:/flights";
+
         model.addAttribute("flight", flight);
-        model.addAttribute("boards", noticeBoardService.getAllNoticeBoards());
         return "flight/form";
     }
 
@@ -87,29 +78,16 @@ public class FlightController {
                                Model model,
                                RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("boards", noticeBoardService.getAllNoticeBoards());
-
         Flight existing = flightService.getFlightById(id);
         if (existing == null) {
             redirectAttributes.addFlashAttribute("message", "Flight not found");
             return "redirect:/flights";
         }
 
-        // ensure path id is used
         flight.setId(id);
 
-        // validate noticeBoard nested id
-        String nbId = flight.getNoticeBoard() != null ? flight.getNoticeBoard().getId() : null;
-        if (nbId == null || nbId.isBlank()) {
-            result.rejectValue("noticeBoard", "NotNull", "NoticeBoard is required");
-        } else {
-            NoticeBoard nb = noticeBoardService.getNoticeBoardById(nbId);
-            if (nb == null) {
-                result.rejectValue("noticeBoard", "NotFound", "Selected NoticeBoard does not exist");
-            } else {
-                flight.setNoticeBoard(nb);
-            }
-        }
+        validateNoticeBoard(flight, result);
+        validateAirplane(flight, result);
 
         if (result.hasErrors()) {
             return "flight/form";
@@ -121,14 +99,14 @@ public class FlightController {
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteFlight(@PathVariable String id, RedirectAttributes redirectAttributes) {
+    public String deleteFlight(@PathVariable String id,
+                               RedirectAttributes redirectAttributes) {
         Flight f = flightService.getFlightById(id);
         if (f == null) {
             redirectAttributes.addFlashAttribute("message", "Flight not found");
             return "redirect:/flights";
         }
 
-        // You may want to check business rules (e.g., existing tickets/assignments)
         flightService.removeFlight(id);
         redirectAttributes.addFlashAttribute("message", "Flight deleted");
         return "redirect:/flights";
@@ -137,10 +115,46 @@ public class FlightController {
     @GetMapping("/{id}")
     public String showDetails(@PathVariable String id, Model model) {
         Flight flight = flightService.getFlightById(id);
-        if (flight == null) {
-            return "redirect:/flights";
-        }
+        if (flight == null) return "redirect:/flights";
+
         model.addAttribute("flight", flight);
         return "flight/details";
+    }
+
+
+    // -------------------------
+    // BUSINESS VALIDATIONS
+    // -------------------------
+
+    private void validateNoticeBoard(Flight flight, BindingResult result) {
+        String nbId = (flight.getNoticeBoard() != null ? flight.getNoticeBoard().getId() : null);
+
+        if (nbId == null || nbId.isBlank()) {
+            result.rejectValue("noticeBoard", "NotNull", "NoticeBoard ID is required");
+            return;
+        }
+
+        NoticeBoard nb = noticeBoardService.getNoticeBoardById(nbId);
+        if (nb == null) {
+            result.rejectValue("noticeBoard", "NotFound", "NoticeBoard does not exist");
+        } else {
+            flight.setNoticeBoard(nb);
+        }
+    }
+
+    private void validateAirplane(Flight flight, BindingResult result) {
+        String apId = (flight.getAirplane() != null ? flight.getAirplane().getId() : null);
+
+        if (apId == null || apId.isBlank()) {
+            result.rejectValue("airplane", "NotNull", "Airplane ID is required");
+            return;
+        }
+
+        Airplane ap = airplaneService.getAirplaneById(apId);
+        if (ap == null) {
+            result.rejectValue("airplane", "NotFound", "Airplane does not exist");
+        } else {
+            flight.setAirplane(ap);
+        }
     }
 }

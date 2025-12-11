@@ -5,26 +5,41 @@
     <title>Airplane Form</title>
 </head>
 <body>
-<h2 th:text="${airplane.id != '' ? 'Edit Airplane' : 'New Airplane'}"></h2>
 
-<form th:action="@{${airplane.id} != '' ? '/airplanes/' + ${airplane.id} : '/airplanes'}"
+<h2 th:text="${airplane.id} != null ? 'Edit Airplane' : 'New Airplane'"></h2>
+
+<form th:action="${airplane.id} != null ? @{/airplanes/{id}(id=${airplane.id})} : @{/airplanes}"
       th:object="${airplane}" method="post">
 
     <label>ID:</label>
-    <input type="text" th:field="*{id}" th:readonly="${airplane.id} != ''"/><br/><br/>
+    <input type="text"
+           th:field="*{id}"
+           th:readonly="${airplane.id} != null"
+           required/>
+    <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color:red"></div>
+    <br/>
 
     <label>Number:</label>
-    <input type="number" th:field="*{number}" required/><br/><br/>
+    <input type="number" th:field="*{number}" required/>
+    <div th:if="${#fields.hasErrors('number')}" th:errors="*{number}" style="color:red"></div>
+    <br/>
 
     <label>Model:</label>
-    <input type="text" th:field="*{model}" required/><br/><br/>
+    <input type="text" th:field="*{model}" required/>
+    <div th:if="${#fields.hasErrors('model')}" th:errors="*{model}" style="color:red"></div>
+    <br/>
 
     <label>Capacity:</label>
-    <input type="number" th:field="*{capacity}" required/><br/><br/>
+    <input type="number" th:field="*{capacity}" required/>
+    <div th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}" style="color:red"></div>
+    <br/>
 
-    <button type="submit" th:text="${airplane.id != '' ? 'Update' : 'Create'}"></button>
+    <button type="submit"
+            th:text="${airplane.id} != null ? 'Update' : 'Create'">
+    </button>
 </form>
 
 <a href="/airplanes">Back to list</a>
+
 </body>
 </html>
