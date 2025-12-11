@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AirplaneRepository extends JpaRepository<Airplane, String> {
-    // poți adăuga query methods dacă ai nevoie (ex: findByNumber)
 }

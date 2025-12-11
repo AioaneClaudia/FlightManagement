@@ -5,7 +5,9 @@ import com.example.flightmanagement.model.FlightAssignment;
 import com.example.flightmanagement.repository.FlightAssignmentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightAssignmentService {
@@ -58,5 +60,45 @@ public class FlightAssignmentService {
         assignment.setId(id);
         validateAndSetFlight(assignment);
         assignmentRepository.save(assignment);
+    }
+
+    // --- Filtrare și sortare ---
+    public List<FlightAssignment> getFilteredAndSorted(
+            String idFilter,
+            String staffIdFilter,
+            String flightFilter,
+            String sortField,
+            String sortDir
+    ) {
+        List<FlightAssignment> assignments = assignmentRepository.findAll().stream()
+                .filter(a -> idFilter == null || a.getId().toLowerCase().contains(idFilter.toLowerCase()))
+                .filter(a -> staffIdFilter == null || a.getStaffId().toLowerCase().contains(staffIdFilter.toLowerCase()))
+                .filter(a -> flightFilter == null ||
+                        (a.getFlight() != null &&
+                                (a.getFlight().getId().toLowerCase().contains(flightFilter.toLowerCase()) ||
+                                        a.getFlight().getName().toLowerCase().contains(flightFilter.toLowerCase()))
+                        )
+                )
+                .collect(Collectors.toList());
+
+        Comparator<FlightAssignment> comparator;
+        switch (sortField) {
+            case "staffId":
+                comparator = Comparator.comparing(FlightAssignment::getStaffId, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "flight":
+                comparator = Comparator.comparing(a -> a.getFlight() != null ? a.getFlight().getId() : "",
+                        String.CASE_INSENSITIVE_ORDER);
+                break;
+            default:
+                comparator = Comparator.comparing(FlightAssignment::getId, String.CASE_INSENSITIVE_ORDER);
+        }
+
+        if ("desc".equalsIgnoreCase(sortDir)) {
+            comparator = comparator.reversed();
+        }
+
+        assignments.sort(comparator);
+        return assignments;
     }
 }

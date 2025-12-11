@@ -1,11 +1,13 @@
 package com.example.flightmanagement.service;
 
 import com.example.flightmanagement.model.Luggage;
+import com.example.flightmanagement.model.LuggageStatus;
 import com.example.flightmanagement.model.Ticket;
 import com.example.flightmanagement.repository.LuggageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LuggageService {
@@ -65,4 +67,34 @@ public class LuggageService {
     public void delete(String id) {
         repo.deleteById(id);
     }
+
+    public List<Luggage> getFilteredAndSorted(String type, String ticketId, LuggageStatus status,
+                                              Integer weightFrom, Integer weightTo,
+                                              String sortField, String sortDir) {
+        return repo.findAll().stream()
+                // Filtrare
+                .filter(l -> type == null || type.isBlank() || l.getType().toLowerCase().contains(type.toLowerCase()))
+                .filter(l -> ticketId == null || ticketId.isBlank() ||
+                        (l.getTicket() != null && l.getTicket().getId().equals(ticketId)))
+                .filter(l -> status == null || l.getStatus() == status)
+                .filter(l -> weightFrom == null || l.getWeight() >= weightFrom)
+                .filter(l -> weightTo == null || l.getWeight() <= weightTo)
+                // Sortare
+                .sorted((l1, l2) -> {
+                    int cmp = 0;
+                    if ("type".equals(sortField)) cmp = l1.getType().compareToIgnoreCase(l2.getType());
+                    else if ("weight".equals(sortField)) cmp = l1.getWeight().compareTo(l2.getWeight());
+                    else if ("ticket".equals(sortField)) {
+                        String t1 = l1.getTicket() != null ? l1.getTicket().getId() : "";
+                        String t2 = l2.getTicket() != null ? l2.getTicket().getId() : "";
+                        cmp = t1.compareTo(t2);
+                    }
+                    else if ("status".equals(sortField)) cmp = l1.getStatus().compareTo(l2.getStatus());
+                    else if ("id".equals(sortField)) cmp = l1.getId().compareTo(l2.getId());
+
+                    return "desc".equals(sortDir) ? -cmp : cmp;
+                })
+                .collect(Collectors.toList());
+    }
+
 }

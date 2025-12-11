@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/assignments")
 public class FlightAssignmentController {
@@ -23,9 +25,44 @@ public class FlightAssignmentController {
     }
 
     // Lista assignment-uri
+//    @GetMapping
+//    public String getAllAssignments(Model model) {
+//        model.addAttribute("assignments", assignmentService.getAllAssignments());
+//        return "assignment/index";
+//    }
+
     @GetMapping
-    public String getAllAssignments(Model model) {
-        model.addAttribute("assignments", assignmentService.getAllAssignments());
+    public String list(
+            Model model,
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String staffId,
+            @RequestParam(required = false) String flight,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            @ModelAttribute("message") String message
+    ) {
+        // Preluăm lista filtrată și sortată din service
+        List<FlightAssignment> assignments = assignmentService.getFilteredAndSorted(
+                id, staffId, flight, sortField, sortDir
+        );
+
+        model.addAttribute("assignments", assignments);
+
+        // Păstrăm valorile filtrelor în model pentru a le afișa în formular
+        model.addAttribute("idFilter", id);
+        model.addAttribute("staffIdFilter", staffId);
+        model.addAttribute("flightFilter", flight);
+
+        // Sortare
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equalsIgnoreCase("asc") ? "desc" : "asc");
+
+        // Flash message
+        if (message != null && !message.isBlank()) {
+            model.addAttribute("message", message);
+        }
+
         return "assignment/index";
     }
 

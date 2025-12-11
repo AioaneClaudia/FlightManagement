@@ -7,15 +7,45 @@
 <body>
 <h2>Flight Assignments</h2>
 
+<!-- Flash message -->
+<div th:if="${message}" th:text="${message}" style="color:green; margin-bottom:10px;"></div>
+
+<!-- Link pentru creare nou assignment -->
 <a href="/assignments/new">New Assignment</a>
 <br/><br/>
 
+<!-- Form filtrare -->
+<form th:action="@{/assignments}" method="get">
+    <label>ID:</label>
+    <input type="text" name="id" th:value="${idFilter}" placeholder="Filter by ID"/>
+    <label>Staff ID:</label>
+    <input type="text" name="staffId" th:value="${staffIdFilter}" placeholder="Filter by Staff ID"/>
+    <label>Flight ID:</label>
+    <input type="text" name="flight" th:value="${flightFilter}" placeholder="Filter by Flight ID"/>
+    <button type="submit">Filter</button>
+    <a href="/assignments">Reset</a>
+</form>
+<br/>
+
+<!-- Tabel assignment-uri -->
 <table border="1" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Flight</th>
-        <th>Staff ID</th>
+        <th>
+            <a th:href="@{/assignments(sortField='id', sortDir=${sortField=='id'?reverseSortDir: 'asc'})}">
+                ID <span th:text="${sortField=='id'?sortDir:''}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/assignments(sortField='flight', sortDir=${sortField=='flight'?reverseSortDir: 'asc'})}">
+                Flight <span th:text="${sortField=='flight'?sortDir:''}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/assignments(sortField='staffId', sortDir=${sortField=='staffId'?reverseSortDir: 'asc'})}">
+                Staff ID <span th:text="${sortField=='staffId'?sortDir:''}"></span>
+            </a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>

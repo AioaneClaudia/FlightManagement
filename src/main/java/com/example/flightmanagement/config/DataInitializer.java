@@ -127,12 +127,19 @@ public class DataInitializer implements CommandLineRunner {
 
                 ticketRepository.save(t);
 
-                // Luggage pentru fiecare ticket
+                Random random1 = new Random();
+                LuggageStatus[] statuses = LuggageStatus.values();
+
                 for (int j = 1; j <= 2; j++) {
                     Luggage l = new Luggage();
                     l.setType(j == 1 ? "Cabin" : "Hold");
-                    l.setWeight(5 + random.nextInt(20));
+                    l.setWeight(5 + random1.nextInt(20));
                     l.setTicket(t);
+
+                    // Setăm status aleator
+                    LuggageStatus randomStatus = statuses[random1.nextInt(statuses.length)];
+                    l.setStatus(randomStatus);
+
                     luggageRepository.save(l);
                 }
             }

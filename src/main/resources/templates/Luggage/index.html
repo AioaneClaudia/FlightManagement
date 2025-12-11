@@ -7,16 +7,57 @@
 <body>
 <h2>Luggages</h2>
 
+<!-- Formular filtrare -->
+<form th:action="@{/luggages}" method="get">
+    <label>Type:</label>
+    <input type="text" name="type" th:value="${typeFilter}" />
+
+    <label>Ticket ID:</label>
+    <input type="text" name="ticketId" th:value="${ticketIdFilter}" />
+
+    <label>Status:</label>
+    <select name="status">
+        <option value="" th:selected="${statusFilter == null}">All</option>
+        <option th:each="s : ${T(com.example.flightmanagement.model.LuggageStatus).values()}"
+                th:value="${s}"
+                th:text="${s}"
+                th:selected="${statusFilter == s}"></option>
+    </select>
+
+    <label>Weight from:</label>
+    <input type="number" name="weightFrom" th:value="${weightFrom}" min="0" />
+
+    <label>to:</label>
+    <input type="number" name="weightTo" th:value="${weightTo}" min="0" />
+
+    <button type="submit">Filter</button>
+    <a th:href="@{/luggages}">Reset</a>
+</form>
+
+<br/>
+
 <a th:href="@{/luggages/new}">New Luggage</a>
 <br/><br/>
 
 <table border="1" cellpadding="5" cellspacing="0">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Weight</th>
-        <th>Ticket</th>
+        <!-- Linkuri sortare cu filtre păstrate -->
+        <th>
+            <a th:href="@{/luggages(type=${typeFilter}, ticketId=${ticketIdFilter}, status=${statusFilter}, weightFrom=${weightFrom}, weightTo=${weightTo}, sortField='id', sortDir=${sortField=='id' ? reverseSortDir : 'asc'})}">ID</a>
+        </th>
+        <th>
+            <a th:href="@{/luggages(type=${typeFilter}, ticketId=${ticketIdFilter}, status=${statusFilter}, weightFrom=${weightFrom}, weightTo=${weightTo}, sortField='type', sortDir=${sortField=='type' ? reverseSortDir : 'asc'})}">Type</a>
+        </th>
+        <th>
+            <a th:href="@{/luggages(type=${typeFilter}, ticketId=${ticketIdFilter}, status=${statusFilter}, weightFrom=${weightFrom}, weightTo=${weightTo}, sortField='weight', sortDir=${sortField=='weight' ? reverseSortDir : 'asc'})}">Weight</a>
+        </th>
+        <th>
+            <a th:href="@{/luggages(type=${typeFilter}, ticketId=${ticketIdFilter}, status=${statusFilter}, weightFrom=${weightFrom}, weightTo=${weightTo}, sortField='ticket', sortDir=${sortField=='ticket' ? reverseSortDir : 'asc'})}">Ticket</a>
+        </th>
+        <th>
+            <a th:href="@{/luggages(type=${typeFilter}, ticketId=${ticketIdFilter}, status=${statusFilter}, weightFrom=${weightFrom}, weightTo=${weightTo}, sortField='status', sortDir=${sortField=='status' ? reverseSortDir : 'asc'})}">Status</a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -25,7 +66,8 @@
         <td th:text="${luggage.id}"></td>
         <td th:text="${luggage.type}"></td>
         <td th:text="${luggage.weight}"></td>
-        <td th:text="${luggage.ticket != null} ? ${luggage.ticket.passengerName} + ' (' + ${luggage.ticket.id} + ')' : 'N/A'"></td>
+        <td th:text="${luggage.ticket != null ? luggage.ticket.passengerName + ' (' + luggage.ticket.id + ')' : 'N/A'}"></td>
+        <td th:text="${luggage.status != null ? luggage.status : 'N/A'}"></td>
         <td>
             <a th:href="@{'/luggages/' + ${luggage.id} + '/edit'}">Edit</a> |
             <form th:action="@{'/luggages/' + ${luggage.id} + '/delete'}" method="post" style="display:inline">
@@ -35,7 +77,7 @@
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(luggages)}">
-        <td colspan="5">No luggages found.</td>
+        <td colspan="6">No luggages found.</td>
     </tr>
     </tbody>
 </table>

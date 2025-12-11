@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 /**
  * Controller pentru NoticeBoard - CRUD + validări (field + business).
  * Rutele și template-urile presupuse:
@@ -32,10 +34,31 @@ public class NoticeBoardController {
 
     // Lista tuturor noticeboard-urilor
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("boards", boardService.getAllNoticeBoards());
+    public String list(
+            Model model,
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String start,
+            @RequestParam(required = false) String end,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir
+    ) {
+        List<NoticeBoard> boards = boardService.getFilteredAndSorted(id, start, end, sortField, sortDir);
+
+        model.addAttribute("boards", boards);
+
+        // păstrează valorile filtrelor
+        model.addAttribute("idFilter", id);
+        model.addAttribute("start", start);
+        model.addAttribute("end", end);
+
+        // păstrează sortarea
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "noticeboard/index";
     }
+
 
     // Form pentru creare
     @GetMapping("/new")

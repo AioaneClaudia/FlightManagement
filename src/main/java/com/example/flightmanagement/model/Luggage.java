@@ -21,6 +21,10 @@ public class Luggage {
     @Min(value = 1, message = "Weight must be at least 1 kg.")
     private Integer weight;
 
+    @NotNull(message = "Status is required")
+    @Enumerated(EnumType.STRING)
+    private LuggageStatus status;
+
     @ManyToOne
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
@@ -45,4 +49,7 @@ public class Luggage {
 
     public Ticket getTicket() { return ticket; }
     public void setTicket(Ticket ticket) { this.ticket = ticket; }
+
+    public LuggageStatus getStatus() { return status; }
+    public void setStatus(LuggageStatus status) { this.status = status; }
 }

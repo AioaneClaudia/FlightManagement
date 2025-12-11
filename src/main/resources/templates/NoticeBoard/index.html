@@ -1,33 +1,61 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"/><title>NoticeBoards</title></head>
-<body>
 <h2>NoticeBoards</h2>
 
+<!-- FORMULAR FILTRARE -->
+<form method="get" action="#" style="margin-bottom:15px;">
+    <label>ID contains:
+        <input type="text" name="id" th:value="${idFilter}">
+    </label>
+    <label>From:
+        <input type="date" name="start" th:value="${start}">
+    </label>
+    <label>To:
+        <input type="date" name="end" th:value="${end}">
+    </label>
+    <button type="submit">Filter</button>
+    <a th:href="@{/noticeboards}">Reset</a>
+</form>
 
 <a href="/noticeboards/new">Add new</a>
 
-
 <table border="1">
-    <thead><tr><th>ID</th><th>Date</th><th>Actions</th></tr></thead>
+    <thead>
+    <tr>
+        <th>
+            <a th:href="@{/noticeboards(sortField='id', sortDir=${reverseSortDir},
+                 id=${idFilter}, start=${start}, end=${end})}">
+                ID
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{/noticeboards(sortField='date', sortDir=${reverseSortDir},
+                 id=${idFilter}, start=${start}, end=${end})}">
+                Date
+            </a>
+        </th>
+
+        <th>Actions</th>
+    </tr>
+    </thead>
+
     <tbody>
     <tr th:each="b : ${boards}">
         <td th:text="${b.id}">id</td>
         <td th:text="${b.date}">date</td>
+
         <td>
             <a th:href="@{'/noticeboards/' + ${b.id} + '/details'}">Details</a>
             <a th:href="@{'/noticeboards/' + ${b.id} + '/edit'}">Edit</a>
 
-
-            <form th:action="@{'/noticeboards/' + ${b.id} + '/delete'}" method="post" style="display:inline">
+            <form th:action="@{'/noticeboards/' + ${b.id} + '/delete'}"
+                  method="post" style="display:inline">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
+
     <tr th:if="${#lists.isEmpty(boards)}">
         <td colspan="3">No noticeboards found.</td>
     </tr>
     </tbody>
 </table>
-</body>
-</html>

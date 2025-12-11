@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/flights")
 public class FlightController {
@@ -29,14 +31,60 @@ public class FlightController {
         this.airplaneService = airplaneService;
     }
 
+//    @GetMapping
+//    public String getAllFlights(Model model, @ModelAttribute("message") String message) {
+//        model.addAttribute("flights", flightService.getAllFlights());
+//        if (message != null && !message.isBlank()) {
+//            model.addAttribute("message", message);
+//        }
+//        return "flight/index";
+//    }
+
     @GetMapping
-    public String getAllFlights(Model model, @ModelAttribute("message") String message) {
-        model.addAttribute("flights", flightService.getAllFlights());
+    public String list(
+            Model model,
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String noticeBoard,
+            @RequestParam(required = false) String airplane,
+            @RequestParam(required = false) String departureFrom,
+            @RequestParam(required = false) String departureTo,
+            @RequestParam(required = false) String arrivalFrom,
+            @RequestParam(required = false) String arrivalTo,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            @ModelAttribute("message") String message
+    ) {
+        List<Flight> flights = flightService.getFilteredAndSorted(
+                id, name, noticeBoard, airplane,
+                departureFrom, departureTo, arrivalFrom, arrivalTo,
+                sortField, sortDir
+        );
+
+        model.addAttribute("flights", flights);
+
+        // păstrează valorile filtrelor
+        model.addAttribute("idFilter", id);
+        model.addAttribute("nameFilter", name);
+        model.addAttribute("noticeBoardFilter", noticeBoard);
+        model.addAttribute("airplaneFilter", airplane);
+        model.addAttribute("departureFrom", departureFrom);
+        model.addAttribute("departureTo", departureTo);
+        model.addAttribute("arrivalFrom", arrivalFrom);
+        model.addAttribute("arrivalTo", arrivalTo);
+
+        // sortare
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         if (message != null && !message.isBlank()) {
             model.addAttribute("message", message);
         }
+
         return "flight/index";
     }
+
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {

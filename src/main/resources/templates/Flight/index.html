@@ -10,20 +10,73 @@
 <!-- Flash messages -->
 <div th:if="${message}" th:text="${message}" style="color:green; margin-bottom:10px;"></div>
 
+<!-- FILTRE -->
+<form method="get" style="margin-bottom:15px;">
+    <label>ID: <input type="text" name="id" th:value="${idFilter}"/></label>
+    <label>Name: <input type="text" name="name" th:value="${nameFilter}"/></label>
+    <label>NoticeBoard: <input type="text" name="noticeBoard" th:value="${noticeBoardFilter}"/></label>
+    <label>Airplane: <input type="text" name="airplane" th:value="${airplaneFilter}"/></label>
+    <br/>
+    <label>Departure from: <input type="datetime-local" name="departureFrom" th:value="${departureFrom}"/></label>
+    <label>Departure to: <input type="datetime-local" name="departureTo" th:value="${departureTo}"/></label>
+    <br/>
+    <label>Arrival from: <input type="datetime-local" name="arrivalFrom" th:value="${arrivalFrom}"/></label>
+    <label>Arrival to: <input type="datetime-local" name="arrivalTo" th:value="${arrivalTo}"/></label>
+    <br/>
+    <button type="submit">Filter</button>
+    <a th:href="@{/flights}">Reset</a>
+</form>
+
 <a href="/flights/new">Add New Flight</a>
 <br/><br/>
 
 <table border="1" cellpadding="5">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Notice Board</th>
-        <th>Airplane</th>
+        <th>
+            <a th:href="@{/flights(sortField='id', sortDir=${sortField=='id'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                ID
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/flights(sortField='name', sortDir=${sortField=='name'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                Name
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/flights(sortField='noticeBoard', sortDir=${sortField=='noticeBoard'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                Notice Board
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/flights(sortField='airplane', sortDir=${sortField=='airplane'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                Airplane
+            </a>
+        </th>
         <th>Tickets</th>
         <th>Assignments</th>
-        <th>Departure</th>
-        <th>Arrival</th>
+        <th>
+            <a th:href="@{/flights(sortField='departureTime', sortDir=${sortField=='departureTime'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                Departure
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/flights(sortField='arrivalTime', sortDir=${sortField=='arrivalTime'?reverseSortDir:'asc'},
+                        id=${idFilter}, name=${nameFilter}, noticeBoard=${noticeBoardFilter}, airplane=${airplaneFilter},
+                        departureFrom=${departureFrom}, departureTo=${departureTo}, arrivalFrom=${arrivalFrom}, arrivalTo=${arrivalTo})}">
+                Arrival
+            </a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -34,13 +87,10 @@
         <td th:text="${flight.name}"></td>
         <td th:text="${flight.noticeBoard.id}"></td>
         <td th:text="${flight.airplane.id}"></td>
-
         <td th:text="${#lists.size(flight.tickets)}"></td>
         <td th:text="${#lists.size(flight.flightAssignments)}"></td>
-
         <td th:text="${flight.departureTime}"></td>
         <td th:text="${flight.arrivalTime}"></td>
-
         <td>
             <a th:href="@{'/flights/' + ${flight.id}}">Details</a> |
             <a th:href="@{'/flights/' + ${flight.id} + '/edit'}">Edit</a> |
@@ -53,7 +103,6 @@
     <tr th:if="${#lists.isEmpty(flights)}">
         <td colspan="9">No flights found.</td>
     </tr>
-
     </tbody>
 </table>
 

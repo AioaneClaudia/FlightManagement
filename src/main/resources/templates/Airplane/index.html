@@ -5,38 +5,84 @@
     <title>Airplanes</title>
 </head>
 <body>
+
 <h2>All Airplanes</h2>
 
-<div th:if="${message}" style="color:green;margin-bottom:10px;" th:text="${message}"></div>
-
 <a th:href="@{/airplanes/new}">Add New Airplane</a>
+
+<!-- FILTER FORM -->
+<form method="get" action="#" style="margin-top:15px; margin-bottom:15px;">
+    <label>Model contains:</label>
+    <input type="text" name="model" th:value="${modelFilter}"/>
+
+    <label>Capacity Min:</label>
+    <input type="number" name="capacityMin" th:value="${capacityMinFilter}"/>
+
+    <label>Capacity Max:</label>
+    <input type="number" name="capacityMax" th:value="${capacityMaxFilter}"/>
+
+    <button type="submit">Filter</button>
+    <a th:href="@{/airplanes}">Reset</a>
+</form>
 
 <table border="1" cellpadding="6" style="margin-top:10px;">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Number</th>
-        <th>Model</th>
-        <th>Capacity</th>
+
+        <!-- SORTABLE COLUMNS -->
+
+        <th>
+            <a th:href="@{/airplanes(sortField='id', sortDir=${reverseSortDir},
+                model=${modelFilter}, capacityMin=${capacityMinFilter}, capacityMax=${capacityMaxFilter})}">
+                ID
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{/airplanes(sortField='number', sortDir=${reverseSortDir},
+                model=${modelFilter}, capacityMin=${capacityMinFilter}, capacityMax=${capacityMaxFilter})}">
+                Number
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{/airplanes(sortField='model', sortDir=${reverseSortDir},
+                model=${modelFilter}, capacityMin=${capacityMinFilter}, capacityMax=${capacityMaxFilter})}">
+                Model
+            </a>
+        </th>
+
+        <th>
+            <a th:href="@{/airplanes(sortField='capacity', sortDir=${reverseSortDir},
+                model=${modelFilter}, capacityMin=${capacityMinFilter}, capacityMax=${capacityMaxFilter})}">
+                Capacity
+            </a>
+        </th>
+
         <th>Flights</th>
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="a : ${airplanes}">
-        <td th:text="${a.id}">ID</td>
-        <td th:text="${a.number}">Number</td>
-        <td th:text="${a.model}">Model</td>
-        <td th:text="${a.capacity}">Capacity</td>
-        <td th:text="${#lists.size(a.flights)}">Flights</td>
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.number}"></td>
+        <td th:text="${a.model}"></td>
+        <td th:text="${a.capacity}"></td>
+        <td th:text="${#lists.size(a.flights)}"></td>
+
         <td>
             <a th:href="@{'/airplanes/' + ${a.id} + '/details'}">Details</a> |
             <a th:href="@{'/airplanes/' + ${a.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/airplanes/' + ${a.id} + '/delete'}" method="post" style="display:inline">
+
+            <form th:action="@{'/airplanes/' + ${a.id} + '/delete'}"
+                  method="post" style="display:inline">
                 <button type="submit" onclick="return confirm('Delete airplane?')">Delete</button>
             </form>
         </td>
     </tr>
+
     <tr th:if="${#lists.isEmpty(airplanes)}">
         <td colspan="6">No airplanes available.</td>
     </tr>

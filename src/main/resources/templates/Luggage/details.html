@@ -14,6 +14,7 @@
     <p><strong>Ticket:</strong>
         <span th:text="${luggage.ticket != null} ? ${luggage.ticket.passengerName} + ' (' + ${luggage.ticket.id} + ')' : 'N/A'"></span>
     </p>
+    <p><strong>Status:</strong> <span th:text="${luggage.status}"></span></p>
 </div>
 
 <br/>

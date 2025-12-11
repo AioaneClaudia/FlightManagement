@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/airplanes")
 public class AirplaneController {
@@ -18,10 +20,35 @@ public class AirplaneController {
         this.service = service;
     }
 
-    // List all airplanes
+    // List all airplanes with filtering + sorting
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("airplanes", service.getAllAirplanes());
+    public String list(@RequestParam(required = false) String model,
+                       @RequestParam(required = false) Integer capacityMin,
+                       @RequestParam(required = false) Integer capacityMax,
+                       @RequestParam(defaultValue = "id") String sortField,
+                       @RequestParam(defaultValue = "asc") String sortDir,
+                       Model uiModel) {
+
+        List<Airplane> airplanes = service.getFilteredAndSortedAirplanes(
+                model,
+                capacityMin,
+                capacityMax,
+                sortField,
+                sortDir
+        );
+
+        uiModel.addAttribute("airplanes", airplanes);
+
+        // Keep filters in UI
+        uiModel.addAttribute("modelFilter", model);
+        uiModel.addAttribute("capacityMinFilter", capacityMin);
+        uiModel.addAttribute("capacityMaxFilter", capacityMax);
+
+        // Sorting
+        uiModel.addAttribute("sortField", sortField);
+        uiModel.addAttribute("sortDir", sortDir);
+        uiModel.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "airplane/index";
     }
 
@@ -58,7 +85,7 @@ public class AirplaneController {
             return "airplane/form";
         }
         airplane.setId(id);
-        service.addAirplane(airplane); // save (overwrite)
+        service.addAirplane(airplane);
         return "redirect:/airplanes";
     }
 
