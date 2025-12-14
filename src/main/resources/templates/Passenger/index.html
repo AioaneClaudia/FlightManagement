@@ -29,33 +29,79 @@
     <thead>
     <tr>
         <th>
-            <a th:href="@{/passengers(sortField='id', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+            <a th:href="@{/passengers(
+            currency=${currency},
+            dateFrom=${dateFrom},
+            dateTo=${dateTo},
+            sortField='id',
+            sortDir=${sortField=='id' and sortDir=='asc' ? 'desc' : 'asc'}
+        )}">
                 ID
+                <span th:if="${sortField=='id'}"
+                      th:text="${sortDir=='asc' ? '▲' : '▼'}"></span>
             </a>
         </th>
+
         <th>
-            <a th:href="@{/passengers(sortField='name', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+            <a th:href="@{/passengers(
+            currency=${currency},
+            dateFrom=${dateFrom},
+            dateTo=${dateTo},
+            sortField='name',
+            sortDir=${sortField=='name' and sortDir=='asc' ? 'desc' : 'asc'}
+        )}">
                 Name
+                <span th:if="${sortField=='name'}"
+                      th:text="${sortDir=='asc' ? '▲' : '▼'}"></span>
             </a>
         </th>
+
         <th>
-            <a th:href="@{/passengers(sortField='currency', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+            <a th:href="@{/passengers(
+            currency=${currency},
+            dateFrom=${dateFrom},
+            dateTo=${dateTo},
+            sortField='currency',
+            sortDir=${sortField=='currency' and sortDir=='asc' ? 'desc' : 'asc'}
+        )}">
                 Currency
+                <span th:if="${sortField=='currency'}"
+                      th:text="${sortDir=='asc' ? '▲' : '▼'}"></span>
             </a>
         </th>
+
         <th>
-            <a th:href="@{/passengers(sortField='email', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
+            <a th:href="@{/passengers(
+            currency=${currency},
+            dateFrom=${dateFrom},
+            dateTo=${dateTo},
+            sortField='email',
+            sortDir=${sortField=='email' and sortDir=='asc' ? 'desc' : 'asc'}
+        )}">
                 Email
+                <span th:if="${sortField=='email'}"
+                      th:text="${sortDir=='asc' ? '▲' : '▼'}"></span>
             </a>
         </th>
+
         <th>
-            <a th:href="@{/passengers(sortField='dateOfBirth', sortDir=${sortDir=='asc'?'desc':'asc'}, name=${name}, currency=${currency})}">
-                Date Of Birth
+            <a th:href="@{/passengers(
+            currency=${currency},
+            dateFrom=${dateFrom},
+            dateTo=${dateTo},
+            sortField='dateOfBirth',
+            sortDir=${sortField=='dateOfBirth' and sortDir=='asc' ? 'desc' : 'asc'}
+        )}">
+                Date of Birth
+                <span th:if="${sortField=='dateOfBirth'}"
+                      th:text="${sortDir=='asc' ? '▲' : '▼'}"></span>
             </a>
         </th>
+
         <th>Actions</th>
     </tr>
     </thead>
+
 
     <tbody>
     <tr th:each="passenger : ${passengers}">
