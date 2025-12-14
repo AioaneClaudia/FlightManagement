@@ -95,20 +95,18 @@ public class FlightController {
     @PostMapping
     public String addFlight(@Valid @ModelAttribute("flight") Flight flight,
                             BindingResult result,
-                            Model model,
                             RedirectAttributes redirectAttributes) {
 
-        validateNoticeBoard(flight, result);
-        validateAirplane(flight, result);
+        flightService.validateAndSaveFlight(flight, result);
 
         if (result.hasErrors()) {
             return "flight/form";
         }
 
-        flightService.addFlight(flight);
         redirectAttributes.addFlashAttribute("message", "Flight saved successfully");
         return "redirect:/flights";
     }
+
 
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable String id, Model model) {
@@ -123,7 +121,6 @@ public class FlightController {
     public String updateFlight(@PathVariable String id,
                                @Valid @ModelAttribute("flight") Flight flight,
                                BindingResult result,
-                               Model model,
                                RedirectAttributes redirectAttributes) {
 
         Flight existing = flightService.getFlightById(id);
@@ -134,17 +131,16 @@ public class FlightController {
 
         flight.setId(id);
 
-        validateNoticeBoard(flight, result);
-        validateAirplane(flight, result);
+        flightService.validateAndSaveFlight(flight, result);
 
         if (result.hasErrors()) {
             return "flight/form";
         }
 
-        flightService.addFlight(flight);
         redirectAttributes.addFlashAttribute("message", "Flight updated successfully");
         return "redirect:/flights";
     }
+
 
     @PostMapping("/{id}/delete")
     public String deleteFlight(@PathVariable String id,
@@ -169,40 +165,4 @@ public class FlightController {
         return "flight/details";
     }
 
-
-    // -------------------------
-    // BUSINESS VALIDATIONS
-    // -------------------------
-
-    private void validateNoticeBoard(Flight flight, BindingResult result) {
-        String nbId = (flight.getNoticeBoard() != null ? flight.getNoticeBoard().getId() : null);
-
-        if (nbId == null || nbId.isBlank()) {
-            result.rejectValue("noticeBoard", "NotNull", "NoticeBoard ID is required");
-            return;
-        }
-
-        NoticeBoard nb = noticeBoardService.getNoticeBoardById(nbId);
-        if (nb == null) {
-            result.rejectValue("noticeBoard", "NotFound", "NoticeBoard does not exist");
-        } else {
-            flight.setNoticeBoard(nb);
-        }
-    }
-
-    private void validateAirplane(Flight flight, BindingResult result) {
-        String apId = (flight.getAirplane() != null ? flight.getAirplane().getId() : null);
-
-        if (apId == null || apId.isBlank()) {
-            result.rejectValue("airplane", "NotNull", "Airplane ID is required");
-            return;
-        }
-
-        Airplane ap = airplaneService.getAirplaneById(apId);
-        if (ap == null) {
-            result.rejectValue("airplane", "NotFound", "Airplane does not exist");
-        } else {
-            flight.setAirplane(ap);
-        }
-    }
 }
